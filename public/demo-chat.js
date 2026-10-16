@@ -12,7 +12,8 @@ var DEMO_ENDPOINT = "https://rnklanrhrmubzxxplfzc.supabase.co/functions/v1/chat"
   var d = {
     endpoint: DEMO_ENDPOINT,
     name: "Ema",
-    suggestions: "Hledám dárek pro mámu|Jak chatbota dostanu na svůj e-shop?|Co je teď v akci?",
+    greeting: "Dobrý den, jsem Ema – AI asistentka E-shop poradce. Zeptejte se mě na cokoli o chatbotovi pro e-shopy, nebo si mě rovnou vyzkoušejte jako prodavačku v ukázkovém e-shopu.",
+    suggestions: "Co všechno umíš?|Jak tě dostanu na svůj e-shop?|Hledám dárek pro mámu do 500 Kč",
     privacyUrl: "https://eshop-poradce.eu/chat-gdpr.html",
     accessibilityUrl: "https://eshop-poradce.eu/chat-pristupnost.html",
     videoUrl: "https://eshop-poradce.eu/videa/jak-funguje-chatbot.mp4",

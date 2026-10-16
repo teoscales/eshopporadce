@@ -1,0 +1,19 @@
+# Jednoduché ploché ilustrace produktů ukázkového e-shopu (SVG 600×600), ve stylu existujících obrázků.
+def bg(c1, c2):
+    return f'<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient><radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs><rect width="600" height="600" fill="url(#g)"/><ellipse cx="300" cy="520" rx="150" ry="22" fill="url(#sh)"/>'
+
+def jar(body, lid, label_extra, light):
+    return (f'<rect x="200" y="170" width="200" height="70" rx="16" fill="{lid}"/><rect x="200" y="198" width="200" height="12" fill="#000" opacity=".12"/>'
+            f'<rect x="185" y="230" width="230" height="290" rx="40" fill="{body}"/><rect x="200" y="250" width="40" height="230" rx="20" fill="{light}" opacity=".55"/>'
+            f'<rect x="225" y="320" width="150" height="110" rx="12" fill="#fbf6ea"/>{label_extra}')
+
+SVGS = {
+ "plech": bg("#eef0e2", "#dde3c9") + '<rect x="190" y="150" width="220" height="370" rx="18" fill="#3f6b3a"/><rect x="190" y="150" width="220" height="36" rx="12" fill="#2f5230"/><rect x="330" y="128" width="50" height="30" rx="6" fill="#c9a24a"/><rect x="215" y="260" width="170" height="170" rx="14" fill="#f3ead0"/><ellipse cx="300" cy="330" rx="26" ry="40" fill="#6f8f35"/><rect x="250" y="388" width="100" height="10" rx="5" fill="#c9a24a"/><rect x="205" y="200" width="18" height="290" rx="9" fill="#fff" opacity=".18"/>',
+ "olivy-zelene": bg("#eef3e4", "#dce7cc") + jar("#cdd8c2", "#5b7a2f", ''.join(f'<ellipse cx="{x}" cy="{y}" rx="16" ry="12" fill="#8aa83f"/>' for x, y in [(215,270),(380,280),(230,470),(370,480),(300,460),(260,290),(340,300)]) + '<ellipse cx="300" cy="375" rx="22" ry="17" fill="#8aa83f"/><circle cx="306" cy="372" r="6" fill="#d9a066"/>', "#ffffff"),
+ "med-orechy": bg("#f8ecd5", "#efdcb8") + jar("#d58a1f", "#6e4521", '<ellipse cx="270" cy="375" rx="20" ry="14" fill="#8a5a2b"/><ellipse cx="320" cy="370" rx="18" ry="13" fill="#a46a33"/><ellipse cx="300" cy="392" rx="16" ry="11" fill="#7a4d24"/>', "#f2c46a"),
+ "darek-maly": bg("#f6e8ee", "#ead6e0") + '<rect x="200" y="300" width="200" height="200" rx="14" fill="#c4486a"/><rect x="185" y="260" width="230" height="56" rx="12" fill="#d6597b"/><rect x="285" y="260" width="30" height="240" fill="#f2c14e"/><path d="M300 262c-30-50-90-40-70-5 10 17 45 12 70 5zM300 262c30-50 90-40 70-5-10 17-45 12-70 5z" fill="none" stroke="#f2c14e" stroke-width="14" stroke-linejoin="round"/>',
+ "caj": bg("#e8f1ea", "#d3e4d7") + '<rect x="190" y="200" width="220" height="310" rx="16" fill="#2f7a63"/><path d="M190 216q0-16 16-16h188q16 0 16 16v24H190z" fill="#246150"/><rect x="220" y="290" width="160" height="140" rx="12" fill="#f4f0e2"/><path d="M300 395c-30-10-42-40-30-70 30 6 44 32 30 70zM300 395c26-12 36-38 24-62-26 8-36 30-24 62z" fill="#5f9c58"/><rect x="205" y="230" width="16" height="250" rx="8" fill="#fff" opacity=".15"/>',
+ "rajcata": bg("#f8e6df", "#efd2c6") + jar("#c8492f", "#2f2f2a", ''.join(f'<path d="M{x-20} {y}q20-22 40 0q-20 14-40 0z" fill="#b5321c"/>' for x, y in [(262,365),(332,360),(298,398)]), "#ff8f73"),
+ "pistacie": bg("#eef2df", "#dfe6c6") + '<path d="M215 210h170l25 290q2 20-18 20H208q-20 0-18-20z" fill="#b9a46a"/><rect x="205" y="185" width="190" height="40" rx="8" fill="#9c874f"/><rect x="230" y="300" width="140" height="120" rx="12" fill="#fbf6ea"/>' + ''.join(f'<ellipse cx="{x}" cy="{y}" rx="17" ry="12" fill="#e6d7a8" stroke="#b9a46a" stroke-width="3"/><ellipse cx="{x}" cy="{y}" rx="7" ry="5" fill="#8db255"/>' for x, y in [(272,350),(325,345),(298,380)]),
+ "marmelada": bg("#f1e4ee", "#e4cfe0") + jar("#7a2f5c", "#e8d9b5", '<circle cx="300" cy="375" r="26" fill="#8e4a7a"/><path d="M300 349c0-12 10-20 22-18" stroke="#5f8f3a" stroke-width="6" fill="none" stroke-linecap="round"/>', "#c57aa8"),
+}

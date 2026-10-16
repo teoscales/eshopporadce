@@ -583,8 +583,12 @@
 
 <script>
 (() => {
-  const API = "https://qyrwygjgxyjyywzgvwzo.supabase.co/functions/v1/admin";
-  const KEY = "chat-admin:pw";
+  // Každý chatbot má vlastní Supabase projekt. ?p=<ref> otevře administraci jiného projektu
+  // (např. ukázkového chatbota na eshop-poradce.eu); bez parametru hlavní projekt.
+  const MAIN_REF = "qyrwygjgxyjyywzgvwzo";
+  const REF = (() => { try { const r = new URLSearchParams(location.search).get("p") || ""; return /^[a-z0-9]{20}$/.test(r) ? r : MAIN_REF; } catch { return MAIN_REF; } })();
+  const API = "https://" + REF + ".supabase.co/functions/v1/admin";
+  const KEY = "chat-admin:pw" + (REF === MAIN_REF ? "" : ":" + REF);
   const PAGE = 25;
   const $ = (id) => document.getElementById(id);
   const fmtInt = new Intl.NumberFormat("cs-CZ");

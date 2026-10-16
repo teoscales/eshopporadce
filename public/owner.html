@@ -35,6 +35,7 @@
   label { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 6px; }
   .btn { border: 1px solid var(--line-2); background: var(--panel-2); border-radius: 10px; padding: 8px 14px; font-weight: 600; }
   .btn:hover { border-color: var(--ink-3); }
+  a.btn { text-decoration: none; color: inherit; display: inline-flex; align-items: center; }
   .btn.primary { background: var(--lime); color: var(--lime-ink); border-color: var(--lime); }
   .btn.primary:hover { filter: brightness(1.05); }
   .btn.danger { color: var(--red); border-color: #5a2a2e; }
@@ -590,6 +591,13 @@
     catch (err) { if (err.message !== "unauthorized") $("detail").replaceChildren(el("div", { class: "errbox" }, "Nepodařilo se načíst: " + err.message)); }
   }
 
+  // Odkaz do administrace firmy (vzdálené nasazení = jiný Supabase projekt → ?p=<ref>).
+  function adminLink(c) {
+    const m = c.endpoint && /^https:\/\/([a-z0-9]{20})\.supabase\.co\//.exec(c.endpoint);
+    const href = "chat-admin.html" + (m ? "?p=" + m[1] : "");
+    return el("a", { class: "btn", href, target: "_blank", rel: "noopener" }, "Administrace ↗");
+  }
+
   function renderDetail(r) {
     const c = r.company, s = r.summary;
     $("updated").textContent = "// " + fmtDT.format(new Date()) + " · " + c.name;
@@ -598,7 +606,7 @@
         el("div", {}, el("h2", {}, c.name), el("div", { class: "muted mono", style: "font-size:12px" },
           c.shop_url ? el("a", { href: c.shop_url, target: "_blank", rel: "noopener" }, c.shop_url) : "bez webu",
           " · ", c.endpoint ? "vzdálené nasazení" : "tento server"))),
-      el("div", { class: "tools" }, status(r.summary ? { summary: s } : { error: r.error }), el("button", { class: "btn", type: "button", onclick: () => openForm(c) }, "Upravit")));
+      el("div", { class: "tools" }, status(r.summary ? { summary: s } : { error: r.error }), adminLink(c), el("button", { class: "btn", type: "button", onclick: () => openForm(c) }, "Upravit")));
     const parts = [head];
     if (!s) {
       parts.push(el("div", { class: "errbox" }, r.error), notesPanel(c));

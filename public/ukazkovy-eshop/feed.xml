@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ukázkový e-shop pro chatbota na eshop-poradce.eu (vymyšlené produkty). -->
+<SHOP>
+  <SHOPITEM id="101">
+    <NAME>Extra panenský olivový olej 500 ml</NAME>
+    <SHORT_DESCRIPTION>Ovocný olej lisovaný za studena z oliv Koroneiki.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Extra panenský olivový olej z Kréty, lisovaný za studena do 24 hodin od sklizně. Jemně ovocná chuť s lehce pikantním koncem. Hodí se na saláty, k pečivu i na vaření.</DESCRIPTION>
+    <MANUFACTURER>Olea Kréta</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/olivovy-olej-extra-panensky-500-ml/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/olej.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Olivový olej</CATEGORY><DEFAULT_CATEGORY>Olivový olej</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-101</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>249</PRICE_VAT><STANDARD_PRICE>299</STANDARD_PRICE>
+    <STOCK><AMOUNT>24</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Objem</NAME><VALUE>500 ml</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER><PARAMETER><NAME>Odrůda</NAME><VALUE>Koroneiki</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="102">
+    <NAME>Olivový olej extra panenský 1 l (plech)</NAME>
+    <SHORT_DESCRIPTION>Výhodné balení pro každodenní vaření.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Extra panenský olivový olej ve světlotěsném plechu, který chrání chuť. Výhodné balení pro domácnosti, které vaří s olivovým olejem každý den.</DESCRIPTION>
+    <MANUFACTURER>Olea Kréta</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/olivovy-olej-plech-1-l/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/plech.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Olivový olej</CATEGORY><DEFAULT_CATEGORY>Olivový olej</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-102</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>459</PRICE_VAT>
+    <STOCK><AMOUNT>11</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Objem</NAME><VALUE>1 l</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER><PARAMETER><NAME>Balení</NAME><VALUE>plech</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="103">
+    <NAME>Olivy Kalamata 350 g</NAME>
+    <SHORT_DESCRIPTION>Tmavé olivy v nálevu z červeného vinného octa.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Tradiční tmavé olivy Kalamata s peckou, naložené v nálevu s červeným vinným octem a olivovým olejem. Ideální k sýrům, do salátu nebo jen tak k vínu.</DESCRIPTION>
+    <MANUFACTURER>Peloponés Farm</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/olivy-kalamata-350-g/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/olivy.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Olivy</CATEGORY><DEFAULT_CATEGORY>Olivy</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-103</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>139</PRICE_VAT>
+    <STOCK><AMOUNT>40</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Hmotnost</NAME><VALUE>350 g</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER><PARAMETER><NAME>Pecka</NAME><VALUE>ano</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="104">
+    <NAME>Zelené olivy plněné mandlemi 250 g</NAME>
+    <SHORT_DESCRIPTION>Křupavé zelené olivy plněné celou mandlí.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Velké zelené olivy Chalkidiki bez pecky, ručně plněné pražnou mandlí. Skvělé jako jednohubka k aperitivu.</DESCRIPTION>
+    <MANUFACTURER>Peloponés Farm</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/zelene-olivy-plnene-mandlemi-250-g/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/olivy-zelene.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Olivy</CATEGORY><DEFAULT_CATEGORY>Olivy</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-104</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>119</PRICE_VAT>
+    <STOCK><AMOUNT>0</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Hmotnost</NAME><VALUE>250 g</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER><PARAMETER><NAME>Pecka</NAME><VALUE>ne</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="105">
+    <NAME>Tymiánový med 450 g</NAME>
+    <SHORT_DESCRIPTION>Aromatický med z divokého tymiánu.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Hustý světlý med z květů divokého tymiánu z ostrova Ikaria. Výrazná bylinná vůně, skvělý do jogurtu, na palačinky nebo do čaje.</DESCRIPTION>
+    <MANUFACTURER>Včelí farma Ikaria</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/tymianovy-med-450-g/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/med.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Med</CATEGORY><DEFAULT_CATEGORY>Med</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-105</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>289</PRICE_VAT>
+    <STOCK><AMOUNT>18</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Hmotnost</NAME><VALUE>450 g</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER><PARAMETER><NAME>Druh</NAME><VALUE>tymiánový</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="106">
+    <NAME>Med s vlašskými ořechy 250 g</NAME>
+    <SHORT_DESCRIPTION>Květový med s kousky vlašských ořechů.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Jemný květový med s velkými kousky vlašských ořechů. Oblíbený dárek a sladká tečka k sýrovému talíři.</DESCRIPTION>
+    <MANUFACTURER>Včelí farma Ikaria</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/med-s-vlasskymi-orechy-250-g/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/med-orechy.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Med</CATEGORY><DEFAULT_CATEGORY>Med</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-106</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>219</PRICE_VAT><STANDARD_PRICE>249</STANDARD_PRICE>
+    <STOCK><AMOUNT>9</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Hmotnost</NAME><VALUE>250 g</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="107">
+    <NAME>Dárkový balíček Středomoří</NAME>
+    <SHORT_DESCRIPTION>Olej 250 ml, tymiánový med, olivy Kalamata a bylinkový čaj.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Dárková krabice s tím nejlepším ze Středomoří: olivový olej 250 ml, tymiánový med 250 g, olivy Kalamata a horský bylinkový čaj. Balíme do krabice s mašlí, přidáme přání.</DESCRIPTION>
+    <MANUFACTURER>Ukázkový e-shop</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/darkovy-balicek-stredomori/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/darek.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Dárky</CATEGORY><DEFAULT_CATEGORY>Dárky</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-107</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>790</PRICE_VAT>
+    <STOCK><AMOUNT>6</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Obsah</NAME><VALUE>4 produkty</VALUE></PARAMETER><PARAMETER><NAME>Balení</NAME><VALUE>dárková krabice</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="108">
+    <NAME>Malý dárkový balíček</NAME>
+    <SHORT_DESCRIPTION>Med s ořechy a fíková marmeláda v dárkové krabičce.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Menší pozornost pro kolegy nebo učitele: med s vlašskými ořechy a fíková marmeláda v krabičce s mašlí.</DESCRIPTION>
+    <MANUFACTURER>Ukázkový e-shop</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/maly-darkovy-balicek/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/darek-maly.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Dárky</CATEGORY><DEFAULT_CATEGORY>Dárky</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-108</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>390</PRICE_VAT>
+    <STOCK><AMOUNT>14</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Obsah</NAME><VALUE>2 produkty</VALUE></PARAMETER><PARAMETER><NAME>Balení</NAME><VALUE>dárková krabička</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="109">
+    <NAME>Horský bylinkový čaj 50 g</NAME>
+    <SHORT_DESCRIPTION>Sypaný čaj z horských bylin, bez kofeinu.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Tradiční řecký čaj „tsai tou vounou“ ze sušené rostliny sideritis. Jemná bylinná chuť, bez kofeinu, vhodný i večer.</DESCRIPTION>
+    <MANUFACTURER>Olympos Herbs</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/horsky-bylinkovy-caj-50-g/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/caj.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Čaj</CATEGORY><DEFAULT_CATEGORY>Čaj</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-109</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>99</PRICE_VAT>
+    <STOCK><AMOUNT>32</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Hmotnost</NAME><VALUE>50 g</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER><PARAMETER><NAME>Kofein</NAME><VALUE>ne</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="110">
+    <NAME>Sušená rajčata v oleji 280 g</NAME>
+    <SHORT_DESCRIPTION>Na slunci sušená rajčata s oreganem.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Rajčata sušená na slunci, naložená v olivovém oleji s oreganem a česnekem. Do těstovin, na pizzu nebo k pečivu.</DESCRIPTION>
+    <MANUFACTURER>Peloponés Farm</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/susena-rajcata-v-oleji-280-g/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/rajcata.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Delikatesy</CATEGORY><DEFAULT_CATEGORY>Delikatesy</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-110</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>129</PRICE_VAT>
+    <STOCK><AMOUNT>21</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Hmotnost</NAME><VALUE>280 g</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER><PARAMETER><NAME>Vegan</NAME><VALUE>ano</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="111">
+    <NAME>Pražené pistácie solené 200 g</NAME>
+    <SHORT_DESCRIPTION>Pistácie z ostrova Aegina, pražené a lehce solené.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Proslulé pistácie z ostrova Aegina, pražené ve skořápce a lehce osolené mořskou solí. Výrazná, máslová chuť.</DESCRIPTION>
+    <MANUFACTURER>Aegina Nuts</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/prazene-pistacie-solene-200-g/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/pistacie.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Ořechy</CATEGORY><DEFAULT_CATEGORY>Ořechy</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-111</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>179</PRICE_VAT>
+    <STOCK><AMOUNT>27</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Hmotnost</NAME><VALUE>200 g</VALUE></PARAMETER><PARAMETER><NAME>Země původu</NAME><VALUE>Řecko</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+  <SHOPITEM id="112">
+    <NAME>Fíková marmeláda 250 g</NAME>
+    <SHORT_DESCRIPTION>Marmeláda z fíků se 70 % ovoce, bez konzervantů.</SHORT_DESCRIPTION>
+    <DESCRIPTION>Hustá marmeláda z řeckých fíků se 70 % ovoce, slazená třtinovým cukrem, bez konzervantů. Výborná k sýrům i na snídani.</DESCRIPTION>
+    <MANUFACTURER>Olympos Herbs</MANUFACTURER>
+    <ORIG_URL>https://eshop-poradce.eu/ukazkovy-eshop/fikova-marmelada-250-g/</ORIG_URL>
+    <IMAGES><IMAGE>https://eshop-poradce.eu/ukazkovy-eshop/img/marmelada.jpg</IMAGE></IMAGES>
+    <CATEGORIES><CATEGORY>Sladké</CATEGORY><DEFAULT_CATEGORY>Sladké</DEFAULT_CATEGORY></CATEGORIES>
+    <CODE>DEMO-112</CODE>
+    <CURRENCY>CZK</CURRENCY>
+    <PRICE_VAT>109</PRICE_VAT>
+    <STOCK><AMOUNT>15</AMOUNT></STOCK>
+    <AVAILABILITY_IN_STOCK>Skladem</AVAILABILITY_IN_STOCK>
+    <AVAILABILITY_OUT_OF_STOCK>Momentálně nedostupné</AVAILABILITY_OUT_OF_STOCK>
+    <VISIBILITY>visible</VISIBILITY>
+    <PARAMETERS><PARAMETER><NAME>Hmotnost</NAME><VALUE>250 g</VALUE></PARAMETER><PARAMETER><NAME>Podíl ovoce</NAME><VALUE>70 %</VALUE></PARAMETER><PARAMETER><NAME>Konzervanty</NAME><VALUE>ne</VALUE></PARAMETER></PARAMETERS>
+  </SHOPITEM>
+</SHOP>

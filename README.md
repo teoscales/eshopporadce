@@ -12,7 +12,15 @@ public/
   owner.html             panel provozovatele (token)
   chat-test.html         testovací stránka chatu
   videa/                 videa (mp4 + webm + náhled)
+  ukazky/                screenshoty chatu pro úvodní stránku
+  demo-chat.js           živý chatbot na webu (adresa ukázkového Supabase projektu)
+  ukazkovy-eshop/        vymyšlený e-shop pro ukázku: stránky produktů + feed.xml
+tools/
+  products.py            produkty ukázkového e-shopu
+  build_demo.py          vygeneruje ukazkovy-eshop/ (python tools/build_demo.py)
 ```
+
+Administrace jiného chatbota (jiný Supabase projekt): `chat-admin.html?p=<ref projektu>`.
 
 Backend (Supabase Edge Functions) je v repozitáři `shoptet-ai-asistent`.
 Nový `shop-assistant.js` se vytváří tam (`npm run build`) a kopíruje sem do `public/`.

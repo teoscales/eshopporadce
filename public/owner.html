@@ -77,6 +77,17 @@
   .stat.alert .v { color: var(--amber); }
 
   h2 { font-size: 15px; margin: 0 0 12px; letter-spacing: .02em; }
+  .keycosts { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); overflow: hidden; }
+  .keyrow { display: grid; grid-template-columns: minmax(140px, 1.1fr) minmax(0, 2fr) auto; gap: 14px; align-items: center; padding: 14px 18px; border-top: 1px solid var(--line); }
+  .keyrow:first-child { border-top: 0; }
+  .keyrow .who b { display: block; font-weight: 700; }
+  .keyrow .who span { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+  .keyrow .cos { display: flex; flex-wrap: wrap; gap: 6px; }
+  .keyrow .cos span { font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); }
+  .keyrow .cos .shared { border-color: #6d7a2c; color: #c8f25a; }
+  .keyrow .amt { font-family: var(--mono); font-size: 18px; font-weight: 700; text-align: right; }
+  .keyrow.total { background: var(--panel-2); }
+  @media (max-width: 640px) { .keyrow { grid-template-columns: 1fr auto; } .keyrow .cos { grid-column: 1 / -1; grid-row: 2; } }
   .section-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 12px; }
   .section-head h2 { margin: 0; }
 
@@ -359,6 +370,8 @@
     <div class="stats" id="stats"></div>
     <div class="section-head"><h2>Firmy</h2><button class="btn" type="button" id="addCo">+ Přidat firmu</button></div>
     <div class="cards" id="cards"></div>
+    <div class="section-head" style="margin-top:28px"><h2>Náklady podle API klíčů</h2><span class="muted mono" id="keyCostsNote" style="font-size:12px"></span></div>
+    <div class="keycosts" id="keyCosts"></div>
   </div>
 
   <!-- Limity zdarma -->
@@ -577,6 +590,27 @@
     });
     cards.push(el("button", { type: "button", class: "card add", onclick: () => openForm(null) }, "+ Přidat firmu"));
     $("cards").replaceChildren(...cards);
+    renderKeyCosts(d);
+  }
+
+  // Stejný klíč ve více firmách = jeden řádek se součtem (otisk klíče, klíč samotný se nikdy neposílá).
+  function renderKeyCosts(d) {
+    const rows = d.key_costs || [];
+    const unreachable = d.companies.filter((r) => !r.summary).length;
+    $("keyCostsNote").textContent = `za ${d.days} dní` + (unreachable ? ` · bez ${unreachable} nedostupné firmy` : "");
+    if (!rows.length) { $("keyCosts").replaceChildren(el("div", { class: "empty", style: "padding:18px" }, "Zatím žádné náklady.")); return; }
+    const total = rows.reduce((s, k) => s + k.cost_usd, 0);
+    $("keyCosts").replaceChildren(
+      ...rows.map((k) => el("div", { class: "keyrow" },
+        el("div", { class: "who" }, el("b", {}, k.provider), el("span", {}, k.masked || "—")),
+        el("div", { class: "cos" }, ...k.companies.map((n) => el("span", { class: k.companies.length > 1 ? "shared" : "" }, n)),
+          k.companies.length > 1 ? el("span", { class: "shared" }, `sdílený · ${k.companies.length} firmy`) : null),
+        el("div", { class: "amt" }, usd(k.cost_usd)))),
+      el("div", { class: "keyrow total" },
+        el("div", { class: "who" }, el("b", {}, "Celkem"), el("span", {}, "všechny klíče")),
+        el("div", {}),
+        el("div", { class: "amt" }, usd(total))),
+    );
   }
 
   // --- detail -----------------------------------------------------------------

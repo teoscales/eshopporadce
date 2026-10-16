@@ -194,6 +194,30 @@
   .faq details[open] summary::after { transform: rotate(45deg); }
   .faq details p { margin: 0 0 18px; color: var(--ink-2); }
 
+  /* Ceník */
+  .plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+  .plan { position: relative; display: flex; flex-direction: column; padding: 26px 22px 22px; border-radius: 22px; background: var(--card);
+    border: 1px solid rgba(255,255,255,.9); box-shadow: 0 1px 2px rgba(20,49,58,.04), 0 12px 32px rgba(20,49,58,.07); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease; }
+  .plan:hover { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(20,49,58,.04), 0 22px 46px rgba(20,49,58,.13); }
+  .plan.hl { background: radial-gradient(circle at 20% 0%, #2fc1b5, #0c8a83 65%, #0a6f6a); color: #fff; border-color: transparent; box-shadow: 0 22px 50px rgba(13,144,137,.32); }
+  .plan.hl h3, .plan.hl .price b { color: #fff; }
+  .plan .badge { position: absolute; top: -12px; left: 22px; padding: 4px 12px; border-radius: 999px; background: #f3e3b6; color: #6b4e0e; font: 800 12px var(--body); letter-spacing: .03em; }
+  .plan h3 { font-size: 22px; margin: 0; }
+  .plan .pdesc { margin: 6px 0 18px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); min-height: 3em; }
+  .plan.hl .pdesc, .plan.hl .price, .plan.hl .price span, .plan.hl .conv { color: rgba(255,255,255,.9); }
+  .plan .price { font-family: var(--head); font-size: 17px; color: var(--ink-2); }
+  .plan .price b { font-size: 40px; letter-spacing: -.02em; color: var(--ink); margin-right: 4px; }
+  .plan .price span { display: block; font-size: 14px; font-family: var(--body); margin-top: 2px; }
+  .plan .conv { margin: 16px 0 22px; padding: 10px 12px; border-radius: 12px; background: var(--teal-soft); color: var(--teal-2); font-weight: 800; font-size: 15px; }
+  .plan.hl .conv { background: rgba(255,255,255,.16); }
+  .plan .btn { margin-top: auto; width: 100%; }
+  .plan.hl .btn { background: #fff; color: var(--teal-2); box-shadow: none; }
+  .incl { margin: 22px auto 0; max-width: 980px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 18px; font-size: 15px; color: var(--ink-2); }
+  .incl b { color: var(--ink); }
+  .incl ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; }
+  .incl li::before { content: "✓"; color: var(--teal); font-weight: 800; margin-right: 6px; }
+  .fine { text-align: center; color: var(--ink-3); font-size: 14px; margin: 18px auto 0; max-width: 70ch; }
   .final { text-align: center; padding: 48px 28px; border-radius: 28px; color: #fff; background: radial-gradient(circle at 20% 10%, #2fc1b5, #0c8a83 60%, #0a6f6a);
     box-shadow: 0 24px 60px rgba(13,144,137,.3); }
   .final h2 { color: #fff; font-size: clamp(26px, 4vw, 42px); margin: 0 0 10px; }
@@ -254,6 +278,7 @@
 
   /* Tablet */
   @media (max-width: 1080px) {
+    .plans { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
     .demo .t1 { left: -40px; }
     .demo .t2 { right: -30px; }
   }
@@ -307,6 +332,8 @@
     .grid3 { gap: 12px; }
     .faq summary { font-size: 16.5px; }
     .final { padding: 36px 20px; border-radius: 22px; }
+    .plans { grid-template-columns: 1fr; }
+    .plan .pdesc { min-height: 0; }
     .final p { font-size: 16.5px; }
     footer .wrap { flex-direction: column; align-items: flex-start; }
   }
@@ -334,7 +361,7 @@
       <a href="#jak-funguje">Spuštění</a>
       <a href="#pro-firmy">Pro firmy</a>
       <a href="#otazky">Otázky</a>
-      <a class="btn primary" href="#kontakt">Chci poradce</a>
+      <a class="btn primary" href="#cenik">Ceník</a>
     </nav>
   </div>
 </header>
@@ -347,7 +374,7 @@
         <h1>Prodavač, který zná <span class="accent">celý váš sortiment</span>.</h1>
         <p class="lead">Zákazníci se zeptají vlastními slovy a během pár vteřin dostanou doporučení z vašeho katalogu, s cenou, dostupností a odkazem na produkt.</p>
         <div class="cta">
-          <a class="btn primary" href="#kontakt">Chci ho na svůj e-shop</a>
+          <a class="btn primary" href="#cenik">Chci ho na svůj e-shop</a>
           <a class="btn ghost" href="#vyzkouset">Vyzkoušet chat</a>
         </div>
         <ul class="ticks">
@@ -627,16 +654,58 @@
     </div>
   </section>
 
-  <section class="sec" id="kontakt">
+  <section class="sec" id="cenik">
     <div class="wrap">
-      <div class="final">
-        <h2>Chcete poradce i na svůj e-shop?</h2>
-        <p>Napište nám adresu svého e-shopu. Ozveme se s ukázkou na vašem vlastním sortimentu.</p>
-        <a class="btn" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%20%E2%80%93%20z%C3%A1jem">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          nexonagencyeu@gmail.com
-        </a>
+      <div class="sec-head">
+        <span class="kicker">Ceník</span>
+        <h2>Vyberte si tarif</h2>
+        <p>Cena za jeden e-shop měsíčně. Všechny tarify umí totéž, liší se jen počtem konverzací.</p>
       </div>
+      <div class="plans">
+        <article class="plan">
+          
+          <h3>Start</h3>
+          <p class="pdesc">Na vyzkoušení a malé e-shopy.</p>
+          <div class="price"><b>499</b> Kč<span>/ měsíc</span></div>
+          <p class="conv">65 konverzací měsíčně</p>
+          <a class="btn ghost" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Start&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Start.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Start</a>
+        </article>
+        <article class="plan hl">
+          <span class="badge">Doporučujeme</span>
+          <h3>Standard</h3>
+          <p class="pdesc">Pro e-shop s pravidelnou návštěvností.</p>
+          <div class="price"><b>799</b> Kč<span>/ měsíc</span></div>
+          <p class="conv">300 konverzací měsíčně</p>
+          <a class="btn primary" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Standard&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Standard.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Standard</a>
+        </article>
+        <article class="plan">
+          
+          <h3>Profi</h3>
+          <p class="pdesc">Pro větší sortiment a víc zákazníků.</p>
+          <div class="price"><b>999</b> Kč<span>/ měsíc</span></div>
+          <p class="conv">800 konverzací měsíčně</p>
+          <a class="btn ghost" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Profi&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Profi.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Profi</a>
+        </article>
+        <article class="plan">
+          
+          <h3>Neomezený</h3>
+          <p class="pdesc">Bez počítání, pro nejrušnější e-shopy.</p>
+          <div class="price"><b>1 299</b> Kč<span>/ měsíc</span></div>
+          <p class="conv">Neomezeně konverzací</p>
+          <a class="btn ghost" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Neomezen%C3%BD&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Neomezen%C3%BD.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Neomezený</a>
+        </article>
+      </div>
+      <div class="incl">
+        <b>V každém tarifu:</b>
+        <ul>
+          <li>Napojení katalogu z webu a XML feedu</li>
+          <li>Aktualizace cen a skladu každou hodinu</li>
+          <li>Administrace se statistikami a historií</li>
+          <li>Vložení do Shoptetu jedním řádkem</li>
+          <li>Ochrana dat podle GDPR</li>
+        </ul>
+      </div>
+      <p class="fine">Konverzace je jeden rozhovor zákazníka s chatem, může mít víc zpráv. Neomezený tarif platí v rámci běžného užívání jednoho e-shopu. Nevíte, který vybrat? Napište na <a href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20dotaz">nexonagencyeu@gmail.com</a>.</p>
     </div>
   </section>
 </main>
@@ -659,7 +728,7 @@
     var root = document.documentElement;
     var groups = [
       [".sec-head", ""], [".try", "zoom"], [".gallery .shot", ""], [".grid3 .feat", ""], [".anatomy .pcard", "left"],
-      [".marks li", "right"], [".video-box", "zoom"], [".steps li", ""], [".split .card", ""], [".faq details", ""], [".final", "zoom"],
+      [".marks li", "right"], [".video-box", "zoom"], [".steps li", ""], [".split .card", ""], [".faq details", ""], [".final", "zoom"], [".plans .plan", ""], [".incl", ""],
     ];
     groups.forEach(function (g) {
       document.querySelectorAll(g[0]).forEach(function (el) {

@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E-shop poradce – AI nákupní asistent pro e-shopy</title>
+<meta name="description" content="AI nákupní asistent pro e-shopy na Shoptetu. Odpovídá zákazníkům podle vašeho katalogu – ceny, dostupnost a odkazy na produkty. Vložíte jeden řádek kódu.">
+<meta name="theme-color" content="#f4f1e9">
+<link rel="canonical" href="https://eshop-poradce.eu/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="E-shop poradce – AI nákupní asistent pro e-shopy">
+<meta property="og:description" content="Odpovídá zákazníkům podle vašeho katalogu. Ceny, dostupnost a odkazy na produkty – na webu i v mobilu.">
+<meta property="og:image" content="https://eshop-poradce.eu/videa/jak-funguje-chatbot.jpg">
+<meta property="og:url" content="https://eshop-poradce.eu/">
+<meta property="og:locale" content="cs_CZ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1e9; --ink: #14313a; --ink-2: #4a6168; --ink-3: #7a8b8f; --teal: #13a39b; --teal-2: #0c8a83; --teal-soft: #e3f3f0;
+    --card: rgba(255,255,255,.86); --line: #e7e1d3; --ok: #1f9a5e; --sun: #f3e3b6;
+    --head: "Outfit", "Segoe UI", system-ui, sans-serif; --body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; font: 17px/1.65 var(--body); color: var(--ink); background: var(--bg); overflow-x: hidden; }
+  a { color: var(--teal-2); text-underline-offset: 3px; }
+  a:hover { color: var(--teal); }
+  :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+  img, video { max-width: 100%; }
+  .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 10px; z-index: 20; }
+  .skip:focus { left: 8px; }
+
+  .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .bg span { position: absolute; border-radius: 50%; filter: blur(80px); }
+  .bg .b1 { width: 600px; height: 600px; right: -160px; top: -180px; background: #c9e5dc; opacity: .9; animation: f1 34s ease-in-out infinite alternate; }
+  .bg .b2 { width: 520px; height: 520px; left: 50%; top: 40%; margin-left: -260px; background: var(--sun); opacity: .5; animation: f2 42s ease-in-out infinite alternate; }
+  .bg .b3 { width: 500px; height: 500px; left: -200px; bottom: -180px; background: #d4e3ef; opacity: .9; animation: f3 38s ease-in-out infinite alternate; }
+  @keyframes f1 { to { transform: translate(-90px, 70px) scale(1.08); } }
+  @keyframes f2 { to { transform: translate(80px, -60px) scale(.92); } }
+  @keyframes f3 { to { transform: translate(110px, -50px) scale(1.06); } }
+  @media (prefers-reduced-motion: reduce) { .bg span { animation: none; } html { scroll-behavior: auto; } }
+
+  h1, h2, h3 { font-family: var(--head); letter-spacing: -.02em; line-height: 1.12; color: var(--ink); }
+  .accent { color: var(--teal); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* Navigace */
+  header.top { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); background: rgba(244,241,233,.72); border-bottom: 1px solid rgba(231,225,211,.7); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 66px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font: 700 20px var(--head); letter-spacing: -.02em; }
+  .brand .logo { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; color: #fff;
+    background: radial-gradient(circle at 30% 25%, #2fc1b5, #0d9089 70%); box-shadow: 0 6px 14px rgba(13,144,137,.28); }
+  .brand .logo svg { width: 19px; height: 19px; }
+  .brand small { color: var(--ink-3); font-weight: 600; }
+  nav.links { display: flex; align-items: center; gap: 22px; font-weight: 700; font-size: 15px; }
+  nav.links a { color: var(--ink-2); text-decoration: none; }
+  nav.links a:hover { color: var(--teal-2); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font: 700 16px var(--body);
+    text-decoration: none; border: 0; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+  .btn.primary { background: var(--teal); color: #fff; box-shadow: 0 10px 24px rgba(19,163,155,.32); }
+  .btn.primary:hover { background: var(--teal-2); color: #fff; transform: translateY(-1px); }
+  .btn.ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+  .btn.ghost:hover { border-color: var(--teal); color: var(--teal-2); }
+  .btn svg { width: 18px; height: 18px; }
+  nav.links .btn { padding: 9px 16px; font-size: 14px; }
+
+  /* Úvod */
+  .hero { padding: 72px 0 40px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--line);
+    font-size: 14px; font-weight: 800; color: var(--teal-2); }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(31,154,94,.15); }
+  .hero h1 { font-size: clamp(40px, 5.6vw, 66px); font-weight: 700; margin: 18px 0 0; }
+  .hero .lead { font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); margin: 20px 0 30px; max-width: 34ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .ticks { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 26px 0 0; padding: 0; list-style: none; color: var(--ink-2); font-weight: 700; font-size: 15px; }
+  .ticks li::before { content: "✓"; color: var(--teal); margin-right: 7px; font-weight: 800; }
+
+  /* Ukázka chatu */
+  .demo { position: relative; }
+  .phone { position: relative; max-width: 380px; margin: 0 auto; border-radius: 30px; background: #fff; overflow: hidden;
+    box-shadow: 0 2px 4px rgba(20,49,58,.05), 0 30px 70px rgba(20,49,58,.16); border: 1px solid rgba(255,255,255,.9); }
+  .phone .bar { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: linear-gradient(135deg, #16a89f, #0c8a83); color: #fff; }
+  .phone .av { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.2); display: grid; place-items: center; }
+  .phone .av svg { width: 20px; height: 20px; }
+  .phone .bar b { font: 700 16px var(--head); display: block; }
+  .phone .bar small { font-size: 12.5px; opacity: .85; }
+  .chat { padding: 18px 16px 20px; display: grid; gap: 10px; background: #f8f7f3; min-height: 360px; align-content: start; }
+  .msg { max-width: 84%; padding: 10px 14px; border-radius: 18px; font-size: 15px; line-height: 1.45; opacity: 0; transform: translateY(8px); animation: in .5s ease forwards; }
+  .msg.u { justify-self: end; background: var(--teal); color: #fff; border-bottom-right-radius: 6px; }
+  .msg.b { justify-self: start; background: #fff; color: var(--ink); border-bottom-left-radius: 6px; box-shadow: 0 2px 8px rgba(20,49,58,.06); }
+  .msg:nth-child(1) { animation-delay: .3s; } .msg:nth-child(2) { animation-delay: 1.1s; } .prod { animation-delay: 1.7s !important; } .msg:nth-child(4) { animation-delay: 2.4s; }
+  .prod { display: flex; gap: 12px; align-items: center; justify-self: start; width: 84%; padding: 10px; border-radius: 16px; background: #fff; box-shadow: 0 2px 8px rgba(20,49,58,.06);
+    opacity: 0; transform: translateY(8px); animation: in .5s ease forwards; }
+  .prod .img { flex: none; width: 54px; height: 54px; border-radius: 12px; background: linear-gradient(140deg, #f3e3b6, #c9e5dc); display: grid; place-items: center; color: var(--teal-2); }
+  .prod .img svg { width: 26px; height: 26px; }
+  .prod b { display: block; font: 700 14.5px/1.25 var(--head); }
+  .prod span { font-size: 13px; color: var(--ink-2); }
+  .prod .st { color: var(--ok); font-weight: 800; }
+  @keyframes in { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .msg, .prod { animation: none; opacity: 1; transform: none; } }
+  .demo .tag { position: absolute; left: -6px; bottom: 34px; padding: 10px 14px; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(20,49,58,.12);
+    font-size: 13.5px; font-weight: 700; display: flex; gap: 10px; align-items: center; }
+  .demo .tag i { width: 30px; height: 30px; border-radius: 9px; background: var(--teal-soft); color: var(--teal-2); display: grid; place-items: center; font-style: normal; }
+  .demo .tag i svg { width: 17px; height: 17px; }
+  .demo .note { text-align: center; color: var(--ink-3); font-size: 13px; margin-top: 12px; }
+
+  /* Sekce */
+  section.sec { padding: 64px 0; scroll-margin-top: 70px; }
+  .sec-head { text-align: center; max-width: 680px; margin: 0 auto 36px; }
+  .sec-head .kicker { font: 700 13px var(--head); letter-spacing: .1em; text-transform: uppercase; color: var(--teal-2); }
+  .sec-head h2 { font-size: clamp(30px, 4vw, 44px); margin: 10px 0 12px; font-weight: 700; }
+  .sec-head p { color: var(--ink-2); margin: 0; font-size: 18px; }
+  .card { background: var(--card); border: 1px solid rgba(255,255,255,.9); border-radius: 22px; padding: 26px;
+    box-shadow: 0 1px 2px rgba(20,49,58,.04), 0 12px 32px rgba(20,49,58,.07); backdrop-filter: blur(10px); }
+
+  .video-box { max-width: 900px; margin: 0 auto; }
+  .player { border-radius: 24px; overflow: hidden; background: #0e2b31; aspect-ratio: 16 / 9; box-shadow: 0 22px 50px rgba(20,49,58,.18); }
+  .player video { display: block; width: 100%; height: 100%; }
+
+  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .feat .ic { width: 48px; height: 48px; border-radius: 14px; background: var(--teal-soft); color: var(--teal-2); display: grid; place-items: center; margin-bottom: 14px; }
+  .feat .ic svg { width: 24px; height: 24px; }
+  .feat h3 { font-size: 20px; margin: 0 0 6px; }
+  .feat p { margin: 0; color: var(--ink-2); font-size: 15.5px; line-height: 1.55; }
+
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+  .steps li { counter-increment: s; position: relative; }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--teal); color: #fff;
+    font: 700 18px var(--head); margin-bottom: 14px; box-shadow: 0 8px 18px rgba(19,163,155,.3); }
+  .steps h3 { font-size: 20px; margin: 0 0 6px; }
+  .steps p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+  .code { margin-top: 12px; font: 600 12.5px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; background: #14313a; color: #c9efe9; padding: 10px 12px; border-radius: 12px; overflow-x: auto; white-space: nowrap; }
+  .code .t { color: #8fd8cf; } .code .a { color: #f3e3b6; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+  .split h3 { font-size: 24px; margin: 0 0 10px; }
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+  .list li { position: relative; padding-left: 32px; color: var(--ink-2); }
+  .list li b { color: var(--ink); }
+  .list li::before { content: ""; position: absolute; left: 0; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--teal-soft)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230c8a83' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 14px no-repeat; }
+  .list.no li::before { background: #fdeaea url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c0392b' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M7 7l10 10M17 7L7 17'/%3E%3C/svg%3E") center / 12px no-repeat; }
+  .card .more { display: inline-block; margin-top: 16px; font-weight: 800; }
+
+  .faq { max-width: 820px; margin: 0 auto; display: grid; gap: 10px; }
+  .faq details { background: var(--card); border: 1px solid rgba(255,255,255,.9); border-radius: 18px; padding: 0 22px; box-shadow: 0 8px 22px rgba(20,49,58,.06); }
+  .faq summary { cursor: pointer; list-style: none; padding: 18px 30px 18px 0; position: relative; font: 700 18px/1.3 var(--head); }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: 0; top: 14px; font: 600 26px var(--head); color: var(--teal); transition: transform .2s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { margin: 0 0 18px; color: var(--ink-2); }
+
+  .final { text-align: center; padding: 48px 28px; border-radius: 28px; color: #fff; background: radial-gradient(circle at 20% 10%, #2fc1b5, #0c8a83 60%, #0a6f6a);
+    box-shadow: 0 24px 60px rgba(13,144,137,.3); }
+  .final h2 { color: #fff; font-size: clamp(28px, 4vw, 42px); margin: 0 0 10px; }
+  .final p { margin: 0 auto 26px; max-width: 52ch; opacity: .92; font-size: 18px; }
+  .final .btn { background: #fff; color: var(--teal-2); }
+  .final .btn:hover { color: var(--ink); transform: translateY(-1px); }
+
+  footer { padding: 40px 0 48px; color: var(--ink-3); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px; }
+  footer nav a { padding: 7px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); text-decoration: none; font-weight: 700; color: var(--ink-2); }
+  footer nav a:hover { color: var(--teal-2); border-color: var(--teal); }
+
+  @media (max-width: 900px) {
+    .hero { padding: 40px 0 24px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
+    .hero .lead { max-width: none; }
+    .grid3, .steps, .split { grid-template-columns: 1fr; }
+    nav.links a:not(.btn) { display: none; }
+    .demo .tag { left: 0; }
+  }
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 16px; }
+    .brand small { display: none; }
+    section.sec { padding: 48px 0; }
+    .card { padding: 20px; border-radius: 18px; }
+    .cta .btn { flex: 1 1 100%; }
+    .demo .tag { display: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#obsah">Přeskočit na obsah</a>
+<div class="bg" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="E-shop poradce – úvod">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></span>
+      E-shop poradce <small>.eu</small>
+    </a>
+    <nav class="links" aria-label="Hlavní">
+      <a href="#jak-funguje">Jak funguje</a>
+      <a href="#co-umi">Co umí</a>
+      <a href="#pro-firmy">Pro firmy</a>
+      <a href="#otazky">Otázky</a>
+      <a class="btn primary" href="#kontakt">Chci poradce</a>
+    </nav>
+  </div>
+</header>
+
+<main id="obsah">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow"><span class="dot" aria-hidden="true"></span>AI nákupní asistent pro e-shopy na Shoptetu</span>
+        <h1>Prodavač, který zná <span class="accent">celý váš sortiment</span>.</h1>
+        <p class="lead">Zákazníci se zeptají vlastními slovy a během pár vteřin dostanou doporučení z vašeho katalogu – s cenou, dostupností a odkazem na produkt.</p>
+        <div class="cta">
+          <a class="btn primary" href="#kontakt">Chci ho na svůj e-shop</a>
+          <a class="btn ghost" href="#video"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Podívat se na video</a>
+        </div>
+        <ul class="ticks">
+          <li>Jeden řádek kódu</li>
+          <li>Funguje i v mobilu</li>
+          <li>V souladu s GDPR</li>
+        </ul>
+      </div>
+
+      <div class="demo" aria-label="Ukázka konverzace">
+        <div class="phone" aria-hidden="true">
+          <div class="bar">
+            <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span>
+            <div><b>Nákupní asistent</b><small>Odpovídá podle katalogu obchodu</small></div>
+          </div>
+          <div class="chat">
+            <div class="msg u">Hledám dárek pro tátu do 300 Kč, má rád dobré jídlo.</div>
+            <div class="msg b">Co třeba olivový olej z Kréty? Je skladem a vejde se do rozpočtu:</div>
+            <div class="prod">
+              <span class="img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4l2 3v12a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9l2-3z"/><path d="M8 13h8"/></svg></span>
+              <div><b>Olivový olej extra panenský 500 ml</b><span>249 Kč · <span class="st">Skladem</span></span></div>
+            </div>
+            <div class="msg b">Chcete k němu tipy na další dárky ve stejné cenové hladině?</div>
+          </div>
+        </div>
+        <div class="tag" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg></i>Ceny a sklad se aktualizují samy</div>
+        <p class="note">Ilustrační ukázka konverzace</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="video">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Za 20 sekund</span>
+        <h2>Jak to vypadá v praxi</h2>
+        <p>Krátké video: zákazník se zeptá, asistent najde vhodné produkty a pošle odkaz rovnou do košíku.</p>
+      </div>
+      <div class="video-box">
+        <div class="player">
+          <video controls playsinline preload="none" poster="/videa/jak-funguje-chatbot.jpg" aria-label="Video: jak funguje AI nákupní asistent">
+            <source src="/videa/jak-funguje-chatbot.webm" type="video/webm">
+            <source src="/videa/jak-funguje-chatbot.mp4" type="video/mp4">
+            Váš prohlížeč video nepřehraje. <a href="/videa/jak-funguje-chatbot.mp4">Stáhnout video</a>.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="co-umi">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Co umí</span>
+        <h2>Odpovídá jako zkušený prodavač</h2>
+        <p>Nevymýšlí si. Doporučuje jen to, co ve vašem e-shopu opravdu je.</p>
+      </div>
+      <div class="grid3">
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+          <h3>Hledá podle významu</h3>
+          <p>„Něco na grilování“ nebo „dárek pro babičku“ – najde vhodné produkty, i když zákazník nezná přesný název.</p>
+        </article>
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><path d="M7.5 7.5h.01"/></svg></div>
+          <h3>Aktuální ceny a sklad</h3>
+          <p>Katalog se každou hodinu sám načte z webu a z XML feedu. Slevy a vyprodané zboží pozná.</p>
+        </article>
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></div>
+          <h3>Vede rovnou k nákupu</h3>
+          <p>Každé doporučení má odkaz na produkt. Zákazník neodchází hledat jinam.</p>
+        </article>
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+          <h3>Na mobilu i počítači</h3>
+          <p>Malé tlačítko v rohu stránky. Neruší, nezakrývá košík a nezpomaluje web.</p>
+        </article>
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v1M9 11h6M12 11v6M10 17h4"/></svg></div>
+          <h3>Přístupný pro všechny</h3>
+          <p>Ovládání klávesnicí, podpora čteček obrazovky, dobrý kontrast a funguje i při zvětšení písma.</p>
+        </article>
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+          <h3>Bezpečný a podle GDPR</h3>
+          <p>Neptá se na osobní údaje, nemění objednávky. Zákazník si může data sám jedním klikem smazat.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="jak-funguje">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Spuštění</span>
+        <h2>Tři kroky a je hotovo</h2>
+        <p>Nemusíte nic programovat ani měnit šablonu e-shopu.</p>
+      </div>
+      <ol class="steps">
+        <li class="card">
+          <h3>Napojíme váš katalog</h3>
+          <p>Stačí adresa e-shopu a případně XML feed (Shoptet, Heureka, Mergado). Produkty, ceny a popisy se načtou samy.</p>
+        </li>
+        <li class="card">
+          <h3>Vložíte jeden řádek kódu</h3>
+          <p>V administraci Shoptetu do sekce pro vlastní kód. Zabere to pár minut.</p>
+          <div class="code" aria-label="Ukázka kódu"><span class="t">&lt;script</span> <span class="a">src</span>="https://eshop-poradce.eu/shop-assistant.js" … <span class="t">&gt;&lt;/script&gt;</span></div>
+        </li>
+        <li class="card">
+          <h3>Zákazníci se ptají</h3>
+          <p>Asistent odpovídá nonstop. Vy v přehledu vidíte, na co se lidé ptají a co jim chybí.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="pro-firmy">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Pro majitele e-shopů</span>
+        <h2>Máte přehled a kontrolu</h2>
+      </div>
+      <div class="split">
+        <div class="card">
+          <h3>Co dostanete</h3>
+          <ul class="list">
+            <li><b>Vlastní administraci</b> se statistikami – kolik lidí chat použilo a kolikrát asistent pomohl.</li>
+            <li><b>Historii konverzací</b> – uvidíte, na co se zákazníci ptají a co v nabídce hledají.</li>
+            <li><b>Kalendář</b> pro akce, slevy a poznámky k obchodu.</li>
+            <li><b>Automatické aktualizace</b> katalogu – nic neudržujete ručně.</li>
+          </ul>
+          <a class="more" href="/chat-admin.html">Přihlášení do administrace →</a>
+        </div>
+        <div class="card">
+          <h3>Co asistent nikdy nedělá</h3>
+          <ul class="list no">
+            <li>Nevytváří ani nemění objednávky a neřeší platby.</li>
+            <li>Nežádá jména, adresy, telefony ani čísla karet.</li>
+            <li>Nevymýšlí si produkty, ceny ani slevy.</li>
+            <li>Reklamace a dotazy k objednávkám předá na kontakt obchodu.</li>
+          </ul>
+          <a class="more" href="/chat-gdpr.html">Jak chráníme data →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="otazky">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Časté otázky</span>
+        <h2>Na co se ptáte</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Funguje to jen se Shoptetem?</summary>
+          <p>Je připravený pro Shoptet, kde se vkládá nejjednodušeji. Napojit jde i jiný e-shop, pokud má veřejný katalog nebo XML feed – stačí se ozvat.</p>
+        </details>
+        <details>
+          <summary>Odkud asistent bere informace?</summary>
+          <p>Z vašeho webu a XML feedu. Ceny a dostupnost bere z webu, protože ty jsou vždy aktuální, a popisy a parametry doplní z feedu. Katalog se obnovuje každou hodinu.</p>
+        </details>
+        <details>
+          <summary>Co když asistent odpoví špatně?</summary>
+          <p>V administraci vidíte konverzace i hodnocení od zákazníků, takže chyby rychle najdeme a asistenta upravíme – bez zásahu do kódu na e-shopu.</p>
+        </details>
+        <details>
+          <summary>Zpomalí to můj e-shop?</summary>
+          <p>Ne. Skript má kolem 27 kB, načítá se až po zobrazení stránky a chat se otevře teprve po kliknutí.</p>
+        </details>
+        <details>
+          <summary>Jak je to s GDPR?</summary>
+          <p>Asistent nesbírá osobní údaje. Konverzace se automaticky mažou po 30 dnech a zákazník je může smazat sám tlačítkem v chatu. Vše je popsané na stránce <a href="/chat-gdpr.html">Moje data a GDPR</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="kontakt">
+    <div class="wrap">
+      <div class="final">
+        <h2>Chcete poradce i na svůj e-shop?</h2>
+        <p>Napište nám adresu svého e-shopu. Ozveme se s ukázkou na vašem vlastním sortimentu.</p>
+        <a class="btn" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%20%E2%80%93%20z%C3%A1jem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          nexonagencyeu@gmail.com
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="y">2026</span> E-shop poradce · provozuje Theodoros Tselidis</span>
+    <nav aria-label="Patička">
+      <a href="/chat-gdpr.html">GDPR a data</a>
+      <a href="/chat-pristupnost.html">Přístupnost</a>
+      <a href="/chat-admin.html">Administrace</a>
+    </nav>
+  </div>
+</footer>
+<script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /chat-admin.html
+Disallow: /owner.html
+Disallow: /chat-test.html
+
+Sitemap: https://eshop-poradce.eu/sitemap.xml

@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>E-shop poradce – AI nákupní asistent pro e-shopy</title>
 <meta name="description" content="AI nákupní asistent pro e-shopy na Shoptetu. Odpovídá zákazníkům podle vašeho katalogu – ceny, dostupnost a odkazy na produkty. Vložíte jeden řádek kódu.">
 <meta name="theme-color" content="#f4f1e9">
@@ -10,7 +10,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="E-shop poradce – AI nákupní asistent pro e-shopy">
 <meta property="og:description" content="Odpovídá zákazníkům podle vašeho katalogu. Ceny, dostupnost a odkazy na produkty – na webu i v mobilu.">
-<meta property="og:image" content="https://eshop-poradce.eu/videa/jak-funguje-chatbot.jpg">
+<meta property="og:image" content="https://eshop-poradce.eu/ukazky/pocitac.jpg">
 <meta property="og:url" content="https://eshop-poradce.eu/">
 <meta property="og:locale" content="cs_CZ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,8 +28,8 @@
   a { color: var(--teal-2); text-underline-offset: 3px; }
   a:hover { color: var(--teal); }
   :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
-  img, video { max-width: 100%; }
-  .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 10px; z-index: 20; }
+  img, video { max-width: 100%; display: block; }
+  .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 10px; z-index: 30; }
   .skip:focus { left: 8px; }
 
   .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
@@ -47,87 +47,118 @@
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
   /* Navigace */
-  header.top { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); background: rgba(244,241,233,.72); border-bottom: 1px solid rgba(231,225,211,.7); }
+  header.top { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(244,241,233,.8); border-bottom: 1px solid rgba(231,225,211,.7); }
   header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 66px; }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font: 700 20px var(--head); letter-spacing: -.02em; }
-  .brand .logo { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; color: #fff;
+  .brand .logo { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; color: #fff; flex: none;
     background: radial-gradient(circle at 30% 25%, #2fc1b5, #0d9089 70%); box-shadow: 0 6px 14px rgba(13,144,137,.28); }
   .brand .logo svg { width: 19px; height: 19px; }
   .brand small { color: var(--ink-3); font-weight: 600; }
   nav.links { display: flex; align-items: center; gap: 22px; font-weight: 700; font-size: 15px; }
   nav.links a { color: var(--ink-2); text-decoration: none; }
   nav.links a:hover { color: var(--teal-2); }
+  .menu-btn { display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; place-items: center; }
+  .menu-btn svg { width: 22px; height: 22px; }
+  .menu-btn .x { display: none; }
+  header.open .menu-btn .x { display: block; }
+  header.open .menu-btn .bars { display: none; }
+
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font: 700 16px var(--body);
-    text-decoration: none; border: 0; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+    text-decoration: none; border: 0; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; min-height: 48px; }
   .btn.primary { background: var(--teal); color: #fff; box-shadow: 0 10px 24px rgba(19,163,155,.32); }
   .btn.primary:hover { background: var(--teal-2); color: #fff; transform: translateY(-1px); }
   .btn.ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
   .btn.ghost:hover { border-color: var(--teal); color: var(--teal-2); }
   .btn svg { width: 18px; height: 18px; }
-  nav.links .btn { padding: 9px 16px; font-size: 14px; }
+  nav.links .btn { padding: 9px 16px; font-size: 14px; min-height: 0; }
 
   /* Úvod */
-  .hero { padding: 72px 0 40px; }
-  .hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+  .hero { padding: 64px 0 32px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--line);
     font-size: 14px; font-weight: 800; color: var(--teal-2); }
-  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(31,154,94,.15); }
-  .hero h1 { font-size: clamp(40px, 5.6vw, 66px); font-weight: 700; margin: 18px 0 0; }
-  .hero .lead { font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); margin: 20px 0 30px; max-width: 34ch; }
+  .eyebrow .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(31,154,94,.15); }
+  .hero h1 { font-size: clamp(36px, 5.6vw, 66px); font-weight: 700; margin: 18px 0 0; }
+  .hero .lead { font-size: clamp(17px, 2vw, 21px); color: var(--ink-2); margin: 20px 0 30px; max-width: 34ch; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px; }
   .ticks { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 26px 0 0; padding: 0; list-style: none; color: var(--ink-2); font-weight: 700; font-size: 15px; }
   .ticks li::before { content: "✓"; color: var(--teal); margin-right: 7px; font-weight: 800; }
 
-  /* Ukázka chatu */
-  .demo { position: relative; }
-  .phone { position: relative; max-width: 380px; margin: 0 auto; border-radius: 30px; background: #fff; overflow: hidden;
-    box-shadow: 0 2px 4px rgba(20,49,58,.05), 0 30px 70px rgba(20,49,58,.16); border: 1px solid rgba(255,255,255,.9); }
-  .phone .bar { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: linear-gradient(135deg, #16a89f, #0c8a83); color: #fff; }
-  .phone .av { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.2); display: grid; place-items: center; }
-  .phone .av svg { width: 20px; height: 20px; }
-  .phone .bar b { font: 700 16px var(--head); display: block; }
-  .phone .bar small { font-size: 12.5px; opacity: .85; }
-  .chat { padding: 18px 16px 20px; display: grid; gap: 10px; background: #f8f7f3; min-height: 360px; align-content: start; }
-  .msg { max-width: 84%; padding: 10px 14px; border-radius: 18px; font-size: 15px; line-height: 1.45; opacity: 0; transform: translateY(8px); animation: in .5s ease forwards; }
-  .msg.u { justify-self: end; background: var(--teal); color: #fff; border-bottom-right-radius: 6px; }
-  .msg.b { justify-self: start; background: #fff; color: var(--ink); border-bottom-left-radius: 6px; box-shadow: 0 2px 8px rgba(20,49,58,.06); }
-  .msg:nth-child(1) { animation-delay: .3s; } .msg:nth-child(2) { animation-delay: 1.1s; } .prod { animation-delay: 1.7s !important; } .msg:nth-child(4) { animation-delay: 2.4s; }
-  .prod { display: flex; gap: 12px; align-items: center; justify-self: start; width: 84%; padding: 10px; border-radius: 16px; background: #fff; box-shadow: 0 2px 8px rgba(20,49,58,.06);
-    opacity: 0; transform: translateY(8px); animation: in .5s ease forwards; }
-  .prod .img { flex: none; width: 54px; height: 54px; border-radius: 12px; background: linear-gradient(140deg, #f3e3b6, #c9e5dc); display: grid; place-items: center; color: var(--teal-2); }
-  .prod .img svg { width: 26px; height: 26px; }
-  .prod b { display: block; font: 700 14.5px/1.25 var(--head); }
-  .prod span { font-size: 13px; color: var(--ink-2); }
-  .prod .st { color: var(--ok); font-weight: 800; }
-  @keyframes in { to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) { .msg, .prod { animation: none; opacity: 1; transform: none; } }
-  .demo .tag { position: absolute; left: -6px; bottom: 34px; padding: 10px 14px; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(20,49,58,.12);
-    font-size: 13.5px; font-weight: 700; display: flex; gap: 10px; align-items: center; }
-  .demo .tag i { width: 30px; height: 30px; border-radius: 9px; background: var(--teal-soft); color: var(--teal-2); display: grid; place-items: center; font-style: normal; }
+  /* Telefon se skutečným chatem */
+  .demo { position: relative; justify-self: center; width: 100%; max-width: 340px; }
+  .phone { position: relative; border-radius: 42px; padding: 10px; background: #14313a; box-shadow: 0 2px 4px rgba(20,49,58,.08), 0 34px 70px rgba(20,49,58,.25); }
+  .phone img { width: 100%; height: auto; border-radius: 33px; background: #fff; aspect-ratio: 390 / 844; object-fit: cover; }
+  .demo .tag { position: absolute; padding: 10px 14px; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(20,49,58,.14);
+    font-size: 13.5px; font-weight: 700; display: flex; gap: 10px; align-items: center; white-space: nowrap; }
+  .demo .tag i { width: 30px; height: 30px; border-radius: 9px; background: var(--teal-soft); color: var(--teal-2); display: grid; place-items: center; font-style: normal; flex: none; }
   .demo .tag i svg { width: 17px; height: 17px; }
-  .demo .note { text-align: center; color: var(--ink-3); font-size: 13px; margin-top: 12px; }
+  .demo .t1 { left: -70px; top: 30%; }
+  .demo .t2 { right: -56px; bottom: 16%; }
+  .demo .note { text-align: center; color: var(--ink-3); font-size: 13px; margin: 14px 0 0; }
 
   /* Sekce */
   section.sec { padding: 64px 0; scroll-margin-top: 70px; }
-  .sec-head { text-align: center; max-width: 680px; margin: 0 auto 36px; }
+  .sec-head { text-align: center; max-width: 700px; margin: 0 auto 36px; }
   .sec-head .kicker { font: 700 13px var(--head); letter-spacing: .1em; text-transform: uppercase; color: var(--teal-2); }
-  .sec-head h2 { font-size: clamp(30px, 4vw, 44px); margin: 10px 0 12px; font-weight: 700; }
+  .sec-head h2 { font-size: clamp(28px, 4vw, 44px); margin: 10px 0 12px; font-weight: 700; }
   .sec-head p { color: var(--ink-2); margin: 0; font-size: 18px; }
   .card { background: var(--card); border: 1px solid rgba(255,255,255,.9); border-radius: 22px; padding: 26px;
-    box-shadow: 0 1px 2px rgba(20,49,58,.04), 0 12px 32px rgba(20,49,58,.07); backdrop-filter: blur(10px); }
+    box-shadow: 0 1px 2px rgba(20,49,58,.04), 0 12px 32px rgba(20,49,58,.07); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+
+  /* Galerie – jak chat vypadá */
+  .gallery { list-style: none; margin: 0 auto; padding: 4px 0 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px 32px; max-width: 960px; }
+  .shot .frame { max-width: 250px; margin: 0 auto; }
+  .shot figcaption { max-width: 280px; margin-left: auto; margin-right: auto; text-align: center; }
+  .shot figcaption b { justify-content: center; }
+  .shot figure { margin: 0; }
+  .shot .frame { border-radius: 26px; padding: 6px; background: #14313a; box-shadow: 0 18px 38px rgba(20,49,58,.18); }
+  .shot img { width: 100%; height: auto; border-radius: 21px; aspect-ratio: 390 / 844; object-fit: cover; background: #fff; }
+  .shot figcaption { margin-top: 14px; }
+  .shot figcaption b { display: flex; align-items: center; gap: 8px; font: 700 16px/1.25 var(--head); }
+  .shot figcaption b span { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--teal); color: #fff; font-size: 13px; }
+  .shot figcaption p { margin: 6px 0 0; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+  .swipe-hint { display: none; text-align: center; color: var(--ink-3); font-size: 14px; margin: 4px 0 0; }
+
+  .desk { margin-top: 44px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 28px; align-items: center; }
+  .browser { border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 22px 50px rgba(20,49,58,.16); border: 1px solid var(--line); }
+  .browser .chrome { display: flex; gap: 6px; padding: 11px 14px; background: #efebe1; border-bottom: 1px solid var(--line); }
+  .browser .chrome i { width: 11px; height: 11px; border-radius: 50%; background: #d9d1c0; }
+  .browser img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+  .desk h3 { font-size: 26px; margin: 0 0 10px; }
+  .desk p { color: var(--ink-2); margin: 0 0 14px; }
 
   .video-box { max-width: 900px; margin: 0 auto; }
   .player { border-radius: 24px; overflow: hidden; background: #0e2b31; aspect-ratio: 16 / 9; box-shadow: 0 22px 50px rgba(20,49,58,.18); }
-  .player video { display: block; width: 100%; height: 100%; }
+  .player video { width: 100%; height: 100%; }
 
   .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
   .feat .ic { width: 48px; height: 48px; border-radius: 14px; background: var(--teal-soft); color: var(--teal-2); display: grid; place-items: center; margin-bottom: 14px; }
   .feat .ic svg { width: 24px; height: 24px; }
   .feat h3 { font-size: 20px; margin: 0 0 6px; }
   .feat p { margin: 0; color: var(--ink-2); font-size: 15.5px; line-height: 1.55; }
+  .feat .ex { display: inline-block; margin-top: 10px; padding: 4px 11px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: 13.5px; font-weight: 700; color: var(--ink-2); }
+
+  /* Anatomie karty produktu */
+  .anatomy { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center; max-width: 900px; margin: 0 auto; }
+  .pcard { background: #fff; border-radius: 20px; border: 1px solid #dfe8e6; overflow: hidden; box-shadow: 0 18px 40px rgba(20,49,58,.12); }
+  .pcard .pimg { aspect-ratio: 1; background: linear-gradient(160deg, #f6ecd2, #ede2c4); display: grid; place-items: center; }
+  .pcard .pimg svg { width: 46%; height: auto; }
+  .pcard .pb { padding: 16px 18px 18px; font-size: 15.5px; }
+  .pcard .pn { font-weight: 600; line-height: 1.3; }
+  .pcard .pp { margin-top: 8px; font: 800 22px var(--body); }
+  .pcard .pp s { font: 500 15px var(--body); color: var(--ink-3); margin-left: 6px; }
+  .pcard .ps { margin-top: 6px; color: var(--ok); font-weight: 700; display: flex; align-items: center; gap: 7px; }
+  .pcard .ps::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--ok); }
+  .pcard .pa { font-size: 13px; color: var(--ink-3); margin-top: 4px; }
+  .pcard .pbtn { margin-top: 12px; display: block; text-align: center; padding: 11px; border-radius: 12px; background: #0e9a92; color: #fff; font-weight: 700; }
+  .marks { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: m; }
+  .marks li { counter-increment: m; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+  .marks li::before { content: counter(m); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--teal-soft); color: var(--teal-2); font: 700 15px var(--head); }
+  .marks b { display: block; font: 700 17px/1.3 var(--head); }
+  .marks span { color: var(--ink-2); font-size: 15.5px; }
 
   .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
-  .steps li { counter-increment: s; position: relative; }
+  .steps li { counter-increment: s; position: relative; min-width: 0; }
   .steps li::before { content: counter(s); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--teal); color: #fff;
     font: 700 18px var(--head); margin-bottom: 14px; box-shadow: 0 8px 18px rgba(19,163,155,.3); }
   .steps h3 { font-size: 20px; margin: 0 0 6px; }
@@ -155,9 +186,9 @@
 
   .final { text-align: center; padding: 48px 28px; border-radius: 28px; color: #fff; background: radial-gradient(circle at 20% 10%, #2fc1b5, #0c8a83 60%, #0a6f6a);
     box-shadow: 0 24px 60px rgba(13,144,137,.3); }
-  .final h2 { color: #fff; font-size: clamp(28px, 4vw, 42px); margin: 0 0 10px; }
+  .final h2 { color: #fff; font-size: clamp(26px, 4vw, 42px); margin: 0 0 10px; }
   .final p { margin: 0 auto 26px; max-width: 52ch; opacity: .92; font-size: 18px; }
-  .final .btn { background: #fff; color: var(--teal-2); }
+  .final .btn { background: #fff; color: var(--teal-2); max-width: 100%; word-break: break-all; }
   .final .btn:hover { color: var(--ink); transform: translateY(-1px); }
 
   footer { padding: 40px 0 48px; color: var(--ink-3); font-size: 14px; }
@@ -166,22 +197,62 @@
   footer nav a { padding: 7px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); text-decoration: none; font-weight: 700; color: var(--ink-2); }
   footer nav a:hover { color: var(--teal-2); border-color: var(--teal); }
 
+  /* Tablet */
+  @media (max-width: 1080px) {
+    .demo .t1 { left: -40px; }
+    .demo .t2 { right: -30px; }
+  }
   @media (max-width: 900px) {
-    .hero { padding: 40px 0 24px; }
-    .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 36px 0 16px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 44px; }
     .hero .lead { max-width: none; }
     .grid3, .steps, .split { grid-template-columns: 1fr; }
-    nav.links a:not(.btn) { display: none; }
-    .demo .tag { left: 0; }
+    .desk, .anatomy { grid-template-columns: 1fr; }
+    .anatomy { max-width: 420px; }
+    .anatomy .pcard { max-width: 300px; margin: 0 auto; width: 100%; }
+
+    /* Mobilní menu */
+    .menu-btn { display: grid; }
+    nav.links { position: absolute; left: 0; right: 0; top: 66px; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 16px 18px;
+      background: #f4f1e9; border-bottom: 1px solid var(--line); box-shadow: 0 18px 30px rgba(20,49,58,.1); display: none; }
+    header.open nav.links { display: flex; }
+    nav.links a:not(.btn) { padding: 14px 6px; border-bottom: 1px solid var(--line); font-size: 17px; }
+    nav.links .btn { margin-top: 14px; padding: 14px; font-size: 16px; min-height: 48px; }
   }
-  @media (max-width: 520px) {
+  /* Mobil */
+  @media (max-width: 640px) {
     body { font-size: 16px; }
     .wrap { padding: 0 16px; }
+    header.top .wrap { height: 60px; }
+    nav.links { top: 60px; }
+    .brand { font-size: 18px; }
     .brand small { display: none; }
-    section.sec { padding: 48px 0; }
+    section.sec { padding: 44px 0; }
+    .sec-head { margin-bottom: 26px; }
+    .sec-head p { font-size: 16.5px; }
     .card { padding: 20px; border-radius: 18px; }
     .cta .btn { flex: 1 1 100%; }
+    .eyebrow { font-size: 13px; }
+    .demo { max-width: 270px; }
     .demo .tag { display: none; }
+    /* galerie jako vodorovný posuvník */
+    .gallery { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -16px; padding: 4px 16px 18px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .gallery::-webkit-scrollbar { display: none; }
+    .gallery .shot { flex: 0 0 70%; scroll-snap-align: center; }
+    .shot .frame { max-width: none; }
+    .swipe-hint { display: block; }
+    .desk { margin-top: 32px; }
+    .faq details { padding: 0 16px; }
+    .feat { display: grid; grid-template-columns: 44px 1fr; column-gap: 14px; padding: 18px; }
+    .feat .ic { width: 44px; height: 44px; margin: 0; grid-row: span 3; }
+    .feat h3 { font-size: 18px; margin-top: 2px; }
+    .feat p { font-size: 15px; }
+    .feat .ex { justify-self: start; }
+    .grid3 { gap: 12px; }
+    .faq summary { font-size: 16.5px; }
+    .final { padding: 36px 20px; border-radius: 22px; }
+    .final p { font-size: 16.5px; }
+    footer .wrap { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
@@ -189,15 +260,20 @@
 <a class="skip" href="#obsah">Přeskočit na obsah</a>
 <div class="bg" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
 
-<header class="top">
+<header class="top" id="top">
   <div class="wrap">
     <a class="brand" href="/" aria-label="E-shop poradce – úvod">
       <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></span>
       E-shop poradce <small>.eu</small>
     </a>
-    <nav class="links" aria-label="Hlavní">
-      <a href="#jak-funguje">Jak funguje</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Otevřít menu">
+      <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav class="links" id="menu" aria-label="Hlavní">
+      <a href="#jak-vypada">Jak vypadá</a>
       <a href="#co-umi">Co umí</a>
+      <a href="#jak-funguje">Spuštění</a>
       <a href="#pro-firmy">Pro firmy</a>
       <a href="#otazky">Otázky</a>
       <a class="btn primary" href="#kontakt">Chci poradce</a>
@@ -214,7 +290,7 @@
         <p class="lead">Zákazníci se zeptají vlastními slovy a během pár vteřin dostanou doporučení z vašeho katalogu – s cenou, dostupností a odkazem na produkt.</p>
         <div class="cta">
           <a class="btn primary" href="#kontakt">Chci ho na svůj e-shop</a>
-          <a class="btn ghost" href="#video"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Podívat se na video</a>
+          <a class="btn ghost" href="#jak-vypada">Ukázat, jak vypadá</a>
         </div>
         <ul class="ticks">
           <li>Jeden řádek kódu</li>
@@ -223,42 +299,65 @@
         </ul>
       </div>
 
-      <div class="demo" aria-label="Ukázka konverzace">
-        <div class="phone" aria-hidden="true">
-          <div class="bar">
-            <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span>
-            <div><b>Nákupní asistent</b><small>Odpovídá podle katalogu obchodu</small></div>
-          </div>
-          <div class="chat">
-            <div class="msg u">Hledám dárek pro tátu do 300 Kč, má rád dobré jídlo.</div>
-            <div class="msg b">Co třeba olivový olej z Kréty? Je skladem a vejde se do rozpočtu:</div>
-            <div class="prod">
-              <span class="img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4l2 3v12a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9l2-3z"/><path d="M8 13h8"/></svg></span>
-              <div><b>Olivový olej extra panenský 500 ml</b><span>249 Kč · <span class="st">Skladem</span></span></div>
-            </div>
-            <div class="msg b">Chcete k němu tipy na další dárky ve stejné cenové hladině?</div>
-          </div>
+      <div class="demo">
+        <div class="phone">
+          <img src="/ukazky/3-doporuceni.jpg" width="780" height="1688" alt="Chat v mobilu: zákazník hledá olivový olej do 300 Kč a asistent doporučí dva produkty s cenou, slevou a stavem skladem.">
         </div>
-        <div class="tag" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg></i>Ceny a sklad se aktualizují samy</div>
-        <p class="note">Ilustrační ukázka konverzace</p>
+        <div class="tag t1" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg></i>Ceny a sklad aktuálně</div>
+        <div class="tag t2" aria-hidden="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.6 11h11L21 8H7"/></svg></i>Odkaz rovnou na produkt</div>
+        <p class="note">Skutečný vzhled chatu · ukázkový e-shop</p>
       </div>
     </div>
   </section>
 
-  <section class="sec" id="video">
+  <section class="sec" id="jak-vypada">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker">Za 20 sekund</span>
-        <h2>Jak to vypadá v praxi</h2>
-        <p>Krátké video: zákazník se zeptá, asistent najde vhodné produkty a pošle odkaz rovnou do košíku.</p>
+        <span class="kicker">Jak vypadá</span>
+        <h2>Takhle ho uvidí vaši zákazníci</h2>
+        <p>Skutečné obrazovky chatu na mobilu. Na počítači se otevře jako okno v rohu stránky.</p>
       </div>
-      <div class="video-box">
-        <div class="player">
-          <video controls playsinline preload="none" poster="/videa/jak-funguje-chatbot.jpg" aria-label="Video: jak funguje AI nákupní asistent">
-            <source src="/videa/jak-funguje-chatbot.webm" type="video/webm">
-            <source src="/videa/jak-funguje-chatbot.mp4" type="video/mp4">
-            Váš prohlížeč video nepřehraje. <a href="/videa/jak-funguje-chatbot.mp4">Stáhnout video</a>.
-          </video>
+      <ul class="gallery" aria-label="Ukázky chatu">
+        <li class="shot"><figure>
+          <div class="frame"><img src="/ukazky/1-tlacitko-na-webu.jpg" width="780" height="1688" loading="lazy" alt="Stránka e-shopu s malým tlačítkem Chat v pravém dolním rohu."></div>
+          <figcaption><b><span>1</span>Tlačítko na webu</b><p>Malé tlačítko v rohu. Nezakrývá košík ani obsah stránky.</p></figcaption>
+        </figure></li>
+        <li class="shot"><figure>
+          <div class="frame"><img src="/ukazky/2-uvitani.jpg" width="780" height="1688" loading="lazy" alt="Otevřený chat s uvítáním, krátkým videem o chatbotovi a tlačítky s rychlými dotazy."></div>
+          <figcaption><b><span>2</span>Uvítání a rychlé dotazy</b><p>Nabídne časté otázky na jedno klepnutí a krátké video, jak chat funguje.</p></figcaption>
+        </figure></li>
+        <li class="shot"><figure>
+          <div class="frame"><img src="/ukazky/3-doporuceni.jpg" width="780" height="1688" loading="lazy" alt="Asistent doporučuje olivový olej a olivy, karty produktů s cenou, slevou a stavem skladem."></div>
+          <figcaption><b><span>3</span>Doporučí produkty</b><p>Karty s fotkou, cenou, slevou a skladem. Tlačítkem jde zákazník rovnou na produkt.</p></figcaption>
+        </figure></li>
+        <li class="shot"><figure>
+          <div class="frame"><img src="/ukazky/4-tip-na-darek.jpg" width="780" height="1688" loading="lazy" alt="Zákazník chce tip na dárek pro mámu, asistent nabízí dárkový balíček a med a ptá se na rozpočet."></div>
+          <figcaption><b><span>4</span>Poradí s dárkem</b><p>Když neví, co zákazník chce, doptá se – třeba na rozpočet.</p></figcaption>
+        </figure></li>
+        <li class="shot"><figure>
+          <div class="frame"><img src="/ukazky/5-overeni-skladu.jpg" width="780" height="1688" loading="lazy" alt="Zákazník se ptá, zda je med skladem, asistent to ověří na webu a uvede čas ověření."></div>
+          <figcaption><b><span>5</span>Ověří sklad živě</b><p>Na dotaz „je to skladem?“ se podívá přímo na web obchodu a řekne, k jakému času údaj platí.</p></figcaption>
+        </figure></li>
+        <li class="shot"><figure>
+          <div class="frame"><img src="/ukazky/6-predani-obchodu.jpg" width="780" height="1688" loading="lazy" alt="Zákazník chce reklamovat zásilku, asistent ho odkáže na e-mail obchodu tlačítkem Napsat."></div>
+          <figcaption><b><span>6</span>Předá věc obchodu</b><p>Reklamace a objednávky neřeší sám – pošle zákazníka na váš e-mail.</p></figcaption>
+        </figure></li>
+      </ul>
+      <p class="swipe-hint">← Posuňte prstem pro další ukázky →</p>
+
+      <div class="desk">
+        <div class="browser">
+          <div class="chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img src="/ukazky/pocitac.jpg" width="2160" height="1350" loading="lazy" alt="Chat otevřený na počítači v pravém dolním rohu ukázkového e-shopu s doporučenými produkty.">
+        </div>
+        <div>
+          <h3>Na počítači</h3>
+          <p>Chat se otevře jako okno v pravém dolním rohu. Zákazník si dál prohlíží e-shop a konverzace mu zůstane i při přechodu na jinou stránku.</p>
+          <ul class="list">
+            <li>Barvy a jméno asistenta podle vašeho obchodu</li>
+            <li>Konverzace zůstane při procházení webu</li>
+            <li>Tlačítko „Nová konverzace“ a „Smazat moje data“</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -275,33 +374,104 @@
         <article class="card feat">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
           <h3>Hledá podle významu</h3>
-          <p>„Něco na grilování“ nebo „dárek pro babičku“ – najde vhodné produkty, i když zákazník nezná přesný název.</p>
+          <p>Najde vhodné produkty, i když zákazník nezná přesný název.</p>
+          <span class="ex">„něco na grilování“</span>
+        </article>
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9a3 3 0 1 1 4 2.8c-.6.3-1 .9-1 1.6V14"/><path d="M12 18h.01"/><circle cx="12" cy="12" r="9.5"/></svg></div>
+          <h3>Doptá se a pomůže vybrat</h3>
+          <p>Když je dotaz nejasný, položí jednu upřesňující otázku a mezitím ukáže pár tipů.</p>
+          <span class="ex">„Máte představu o rozpočtu?“</span>
+        </article>
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v18M16 3v18"/><path d="M3 8h5M3 14h5M16 10h5M16 16h5"/></svg></div>
+          <h3>Porovná produkty</h3>
+          <p>Vysvětlí, čím se liší – chuť, velikost balení, původ nebo cena.</p>
+          <span class="ex">„Jaký je rozdíl mezi těmi dvěma?“</span>
         </article>
         <article class="card feat">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><path d="M7.5 7.5h.01"/></svg></div>
-          <h3>Aktuální ceny a sklad</h3>
-          <p>Katalog se každou hodinu sám načte z webu a z XML feedu. Slevy a vyprodané zboží pozná.</p>
+          <h3>Aktuální ceny a slevy</h3>
+          <p>Katalog se každou hodinu sám načte z webu a z XML feedu. Pozná akce i vyprodané zboží.</p>
+          <span class="ex">„Co je teď v akci?“</span>
         </article>
         <article class="card feat">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></div>
-          <h3>Vede rovnou k nákupu</h3>
-          <p>Každé doporučení má odkaz na produkt. Zákazník neodchází hledat jinam.</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></div>
+          <h3>Ověří sklad na webu</h3>
+          <p>Na dotaz na dostupnost se podívá přímo na stránku produktu a řekne, k jakému času údaj platí.</p>
+          <span class="ex">„Je to skladem?“</span>
         </article>
         <article class="card feat">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
-          <h3>Na mobilu i počítači</h3>
-          <p>Malé tlačítko v rohu stránky. Neruší, nezakrývá košík a nezpomaluje web.</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h12"/></svg></div>
+          <h3>Najde kategorii</h3>
+          <p>Když zákazník hledá celý druh zboží, pošle mu odkaz na správnou kategorii e-shopu.</p>
+          <span class="ex">„Kde máte medy?“</span>
         </article>
         <article class="card feat">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v1M9 11h6M12 11v6M10 17h4"/></svg></div>
-          <h3>Přístupný pro všechny</h3>
-          <p>Ovládání klávesnicí, podpora čteček obrazovky, dobrý kontrast a funguje i při zvětšení písma.</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="13" height="10" rx="1"/><path d="M14 10h4l3 3v4h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>
+          <h3>Doprava a platby</h3>
+          <p>Odpoví podle ověřených informací, které nastavíte. Co neví, nehádá a pošle na váš kontakt.</p>
+          <span class="ex">„Kolik stojí doprava?“</span>
+        </article>
+        <article class="card feat">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+          <h3>Česky i slovensky</h3>
+          <p>Když zákazník píše slovensky, odpoví mu slovensky. Stručně, přátelsky, bez reklamních frází.</p>
+          <span class="ex">„Máte niečo bez cukru?“</span>
         </article>
         <article class="card feat">
           <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
           <h3>Bezpečný a podle GDPR</h3>
-          <p>Neptá se na osobní údaje, nemění objednávky. Zákazník si může data sám jedním klikem smazat.</p>
+          <p>Neptá se na osobní údaje a nemění objednávky. Zákazník si může data jedním klikem smazat.</p>
+          <span class="ex">„Smazat moje data“</span>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="karta">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Karta produktu</span>
+        <h2>Všechno důležité na jednom místě</h2>
+        <p>Cenu a sklad nepíše do textu – bere je přímo z dat, takže se nespletou.</p>
+      </div>
+      <div class="anatomy">
+        <div class="pcard" aria-hidden="true">
+          <div class="pimg"><svg viewBox="0 0 64 100"><rect x="24" y="2" width="16" height="10" rx="2" fill="#2b2f24"/><path d="M22 12h20v10c6 4 10 8 10 16v54a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V38c0-8 4-12 10-16z" fill="#5c7a2e"/><rect x="18" y="46" width="28" height="26" rx="3" fill="#fbf7ea"/><ellipse cx="32" cy="57" rx="5" ry="7" fill="#7c9a3c"/><rect x="22" y="66" width="20" height="2.5" rx="1" fill="#c9a24a"/></svg></div>
+          <div class="pb">
+            <div class="pn">Extra panenský olivový olej 500 ml</div>
+            <div class="pp">249 Kč <s>299 Kč</s></div>
+            <div class="ps">Skladem</div>
+            <div class="pa">stav k 14:14, ověřeno na webu</div>
+            <div class="pbtn">Zobrazit produkt</div>
+          </div>
+        </div>
+        <ol class="marks">
+          <li><div><b>Fotka a název</b><span>Přímo z vašeho e-shopu, zákazník hned pozná, o co jde.</span></div></li>
+          <li><div><b>Cena i původní cena</b><span>U zboží v akci je vidět, kolik zákazník ušetří.</span></div></li>
+          <li><div><b>Dostupnost s časem</b><span>„Skladem“ nebo „Vyprodáno“ a kdy byl údaj naposledy ověřen.</span></div></li>
+          <li><div><b>Tlačítko na produkt</b><span>Jedním klepnutím na stránku produktu, odkud zákazník vloží zboží do košíku.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="video">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Za 20 sekund</span>
+        <h2>Celé v pohybu</h2>
+        <p>Krátké video: zákazník se zeptá, asistent najde vhodné produkty a pošle odkaz rovnou na produkt.</p>
+      </div>
+      <div class="video-box">
+        <div class="player">
+          <video controls playsinline preload="none" poster="/videa/jak-funguje-chatbot.jpg" aria-label="Video: jak funguje AI nákupní asistent">
+            <source src="/videa/jak-funguje-chatbot.webm" type="video/webm">
+            <source src="/videa/jak-funguje-chatbot.mp4" type="video/mp4">
+            Váš prohlížeč video nepřehraje. <a href="/videa/jak-funguje-chatbot.mp4">Stáhnout video</a>.
+          </video>
+        </div>
       </div>
     </div>
   </section>
@@ -343,6 +513,7 @@
           <ul class="list">
             <li><b>Vlastní administraci</b> se statistikami – kolik lidí chat použilo a kolikrát asistent pomohl.</li>
             <li><b>Historii konverzací</b> – uvidíte, na co se zákazníci ptají a co v nabídce hledají.</li>
+            <li><b>Označování odpovědí</b> – špatnou odpověď označíte a my asistenta upravíme.</li>
             <li><b>Kalendář</b> pro akce, slevy a poznámky k obchodu.</li>
             <li><b>Automatické aktualizace</b> katalogu – nic neudržujete ručně.</li>
           </ul>
@@ -354,6 +525,7 @@
             <li>Nevytváří ani nemění objednávky a neřeší platby.</li>
             <li>Nežádá jména, adresy, telefony ani čísla karet.</li>
             <li>Nevymýšlí si produkty, ceny ani slevy.</li>
+            <li>Nedává zdravotní, právní ani finanční rady.</li>
             <li>Reklamace a dotazy k objednávkám předá na kontakt obchodu.</li>
           </ul>
           <a class="more" href="/chat-gdpr.html">Jak chráníme data →</a>
@@ -378,8 +550,12 @@
           <p>Z vašeho webu a XML feedu. Ceny a dostupnost bere z webu, protože ty jsou vždy aktuální, a popisy a parametry doplní z feedu. Katalog se obnovuje každou hodinu.</p>
         </details>
         <details>
+          <summary>Můžu změnit jméno a barvy asistenta?</summary>
+          <p>Ano. Jméno, barvy, uvítací zprávu i rychlé dotazy nastavíme podle vašeho obchodu – kód v Shoptetu se přitom nemění.</p>
+        </details>
+        <details>
           <summary>Co když asistent odpoví špatně?</summary>
-          <p>V administraci vidíte konverzace i hodnocení od zákazníků, takže chyby rychle najdeme a asistenta upravíme – bez zásahu do kódu na e-shopu.</p>
+          <p>V administraci vidíte konverzace a špatnou odpověď můžete označit. Chyby rychle najdeme a asistenta upravíme – bez zásahu do kódu na e-shopu.</p>
         </details>
         <details>
           <summary>Zpomalí to můj e-shop?</summary>
@@ -417,6 +593,15 @@
     </nav>
   </div>
 </footer>
-<script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+  (function () {
+    var header = document.getElementById("top"), btn = header.querySelector(".menu-btn"), menu = document.getElementById("menu");
+    function set(open) { header.classList.toggle("open", open); btn.setAttribute("aria-expanded", String(open)); btn.setAttribute("aria-label", open ? "Zavřít menu" : "Otevřít menu"); }
+    btn.addEventListener("click", function () { set(!header.classList.contains("open")); });
+    menu.addEventListener("click", function (e) { if (e.target.closest("a")) set(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && header.classList.contains("open")) { set(false); btn.focus(); } });
+  })();
+</script>
 </body>
 </html>

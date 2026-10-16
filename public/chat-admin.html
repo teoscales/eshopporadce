@@ -587,10 +587,19 @@
 (() => {
   // Každý chatbot má vlastní Supabase projekt. ?p=<ref> otevře administraci jiného projektu
   // (např. ukázkového chatbota na eshop-poradce.eu); bez parametru hlavní projekt.
-  const MAIN_REF = "qyrwygjgxyjyywzgvwzo";
-  const REF = (() => { try { const r = new URLSearchParams(location.search).get("p") || ""; return /^[a-z0-9]{20}$/.test(r) ? r : MAIN_REF; } catch { return MAIN_REF; } })();
-  const API = "https://" + REF + ".supabase.co/functions/v1/admin";
-  const KEY = "chat-admin:pw" + (REF === MAIN_REF ? "" : ":" + REF);
+  // Každá firma má vlastní Supabase projekt. Majitel se přihlásí jen e-mailem a heslem na téhle jedné
+  // adrese – stránka zkusí všechny projekty a pustí ho do toho, kde účet sedí. Novou firmu přidej sem.
+  const PROJECTS = [
+    "qyrwygjgxyjyywzgvwzo", // Řecko nás baví
+    "rnklanrhrmubzxxplfzc", // E-shop poradce (ukázka)
+  ];
+  const apiFor = (ref) => "https://" + ref + ".supabase.co/functions/v1/admin";
+  // ?p=<ref> přihlásí rovnou do konkrétního projektu (odkaz z panelu provozovatele).
+  const FORCED = (() => { try { const r = new URLSearchParams(location.search).get("p") || ""; return /^[a-z0-9]{20}$/.test(r) ? r : ""; } catch { return ""; } })();
+  const KEY = "chat-admin:pw";
+  let REF = FORCED;
+  try { REF = FORCED || sessionStorage.getItem(KEY + ":ref") || ""; } catch {}
+  let API = REF ? apiFor(REF) : "";
   const PAGE = 25;
   const $ = (id) => document.getElementById(id);
   const fmtInt = new Intl.NumberFormat("cs-CZ");
@@ -600,7 +609,10 @@
   const fmtDay = new Intl.DateTimeFormat("cs-CZ", { day: "numeric", month: "numeric" });
 
   let password = "", email = "";
-  try { password = sessionStorage.getItem(KEY) || ""; email = sessionStorage.getItem(KEY + ":email") || ""; } catch {}
+  try {
+    // přihlášení patří ke konkrétnímu projektu – jinak by heslo jedné firmy šlo do druhé
+    if (REF && sessionStorage.getItem(KEY + ":ref") === REF) { password = sessionStorage.getItem(KEY) || ""; email = sessionStorage.getItem(KEY + ":email") || ""; }
+  } catch {}
   const state = { view: "home", days: 30, filter: "all", q: "", offset: 0, total: 0, current: null, settings: null, shop: "", chatsLoaded: false };
 
   function el(tag, attrs = {}, ...kids) {
@@ -634,18 +646,44 @@
     password = $("pw").value;
     email = $("em").value.trim();
     $("loginErr").textContent = "";
+    const btn = e.submitter || $("loginForm").querySelector("button[type=submit]");
+    if (btn) btn.disabled = true;
     try {
-      await api({ action: "overview", days: 1 });
-      try { sessionStorage.setItem(KEY, password); sessionStorage.setItem(KEY + ":email", email); } catch {}
+      const ref = await findProject();
+      REF = ref; API = apiFor(ref);
+      try { sessionStorage.setItem(KEY, password); sessionStorage.setItem(KEY + ":email", email); sessionStorage.setItem(KEY + ":ref", ref); } catch {}
       $("pw").value = "";
       showApp();
     } catch (err) {
-      if (err.message !== "unauthorized") $("loginErr").textContent = "Nepodařilo se přihlásit: " + err.message;
-    }
+      password = "";
+      $("loginErr").textContent = err.message;
+    } finally { if (btn) btn.disabled = false; }
   });
+  // Zkusí přihlášení ve všech projektech najednou; vyhraje ten, kde e-mail a heslo sedí.
+  async function findProject() {
+    const refs = FORCED ? [FORCED] : PROJECTS;
+    const tries = refs.map(async (ref) => {
+      const res = await fetch(apiFor(ref), {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + password, ...(email ? { "X-Admin-Email": email } : {}) },
+        body: JSON.stringify({ action: "overview", days: 1 }),
+      });
+      if (res.ok) return ref;
+      throw Object.assign(new Error("HTTP " + res.status), { status: res.status });
+    });
+    try { return await Promise.any(tries); }
+    catch (agg) {
+      const errs = (agg && agg.errors) || [];
+      if (errs.some((x) => x.status === 401)) throw new Error("Špatný e-mail nebo heslo.");
+      if (errs.some((x) => x.status === 429)) throw new Error("Příliš mnoho pokusů, zkuste to za 15 minut.");
+      throw new Error("Nepodařilo se spojit se serverem. Zkuste to znovu.");
+    }
+  }
+
   function logout(msg) {
     password = ""; email = "";
-    try { sessionStorage.removeItem(KEY); sessionStorage.removeItem(KEY + ":email"); } catch {}
+    try { sessionStorage.removeItem(KEY); sessionStorage.removeItem(KEY + ":email"); sessionStorage.removeItem(KEY + ":ref"); } catch {}
+    if (!FORCED) { REF = ""; API = ""; }
     $("app").classList.add("hidden");
     closeDrawer(); closeEvent();
     $("login").classList.remove("hidden");
@@ -1319,7 +1357,7 @@
   });
 
   tick();
-  if (password) showApp(); else $("pw").focus();
+  if (password && API) showApp(); else ($("em").value ? $("pw") : $("em")).focus();
 })();
 </script>
 </body>

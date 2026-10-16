@@ -57,7 +57,7 @@ def page(title, desc, body, extra_head=""):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>{STYLE}</style>{extra_head}</head><body>
-<div class="note">Tohle je <b>ukázkový e-shop</b> pro vyzkoušení chatbota – nic se tu neprodává. <a href="/">Zpět na E-shop poradce</a></div>
+<div class="note">Tohle je <b>ukázkový e-shop</b> pro vyzkoušení chatbota. Nic se tu neprodává. <a href="/">Zpět na E-shop poradce</a></div>
 <header><div class="in"><a class="logo" href="/ukazkovy-eshop/">Ukázkový <span>e-shop</span></a><nav aria-label="Kategorie">{nav}</nav></div></header>
 <main>{body}</main>
 <footer>Ukázkový e-shop · produkty jsou vymyšlené · <a href="/chat-gdpr.html">Moje data a GDPR</a></footer>
@@ -77,9 +77,9 @@ def build():
     for c in CATS:
         items = "".join(card(p) for p in PRODUCTS if p["cat"] == c)
         sections += f'<h2 id="{c.lower().replace(" ", "-")}">{html.escape(c)}</h2><div class="grid">{items}</div>'
-    body = ('<h1>Chutě Středomoří</h1><p class="sub">Olivový olej, med, olivy a dárky. Zkuste se zeptat chatbota vpravo dole – třeba „hledám dárek pro mámu do 500 Kč“.</p>'
+    body = ('<h1>Chutě Středomoří</h1><p class="sub">Olivový olej, med, olivy a dárky. Zkuste se zeptat chatbota vpravo dole, třeba „hledám dárek pro mámu do 500 Kč“.</p>'
             + sections)
-    open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(page("Ukázkový e-shop – Chutě Středomoří", "Ukázkový e-shop pro vyzkoušení AI nákupního asistenta.", body))
+    open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(page("Ukázkový e-shop | Chutě Středomoří", "Ukázkový e-shop pro vyzkoušení AI nákupního asistenta.", body))
 
     for p in PRODUCTS:
         avail = "https://schema.org/InStock" if p["stock"] > 0 else "https://schema.org/OutOfStock"
@@ -92,11 +92,11 @@ def build():
                 f'<div class="detail"><img src="/ukazkovy-eshop/img/{p["img"]}.jpg" alt="{html.escape(p["name"])}" width="600" height="600">'
                 f'<div><h1>{html.escape(p["name"])}</h1><p class="sub" style="margin:0">{html.escape(p["short"])}</p>'
                 f'<div class="price">{kc(p["price"])}{std}</div><div class="st{"" if p["stock"] > 0 else " no"}">{stock_text(p)}</div>'
-                f'<button class="buy" type="button" disabled>Ukázka – nelze koupit</button>'
+                f'<button class="buy" type="button" disabled>Ukázka, nelze koupit</button>'
                 f'<p>{html.escape(p["desc"])}</p><table>{rows}<tr><td>Výrobce</td><td>{html.escape(p["maker"])}</td></tr></table></div></div>')
         d = os.path.join(ROOT, p["slug"]); os.makedirs(d, exist_ok=True)
         head = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script><link rel="canonical" href="{url(p)}">'
-        open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(page(f"{p['name']} – Ukázkový e-shop", p["short"], body, head))
+        open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(page(f"{p['name']} | Ukázkový e-shop", p["short"], body, head))
 
     items = []
     for p in PRODUCTS:

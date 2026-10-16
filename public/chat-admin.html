@@ -506,7 +506,7 @@
             </div>
             <div>
               <label for="sGreeting">Uvítací zpráva</label>
-              <textarea class="field" id="sGreeting" maxlength="300" placeholder="Dobrý den, jsem Ema, AI asistent. Pomůžu vám vybrat z nabídky e-shopu – napište, co hledáte."></textarea>
+              <textarea class="field" id="sGreeting" maxlength="300" placeholder="Dobrý den, jsem Ema, AI asistent. Pomůžu vám vybrat z nabídky e-shopu. Napište, co hledáte."></textarea>
             </div>
             <div>
               <label>Návrhy otázek pod uvítáním (max. 5)</label>
@@ -588,7 +588,7 @@
   // Každý chatbot má vlastní Supabase projekt. ?p=<ref> otevře administraci jiného projektu
   // (např. ukázkového chatbota na eshop-poradce.eu); bez parametru hlavní projekt.
   // Každá firma má vlastní Supabase projekt. Majitel se přihlásí jen e-mailem a heslem na téhle jedné
-  // adrese – stránka zkusí všechny projekty a pustí ho do toho, kde účet sedí. Novou firmu přidej sem.
+  // adrese, stránka zkusí všechny projekty a pustí ho do toho, kde účet sedí. Novou firmu přidej sem.
   const PROJECTS = [
     "qyrwygjgxyjyywzgvwzo", // Řecko nás baví
     "rnklanrhrmubzxxplfzc", // E-shop poradce (ukázka)
@@ -610,7 +610,7 @@
 
   let password = "", email = "";
   try {
-    // přihlášení patří ke konkrétnímu projektu – jinak by heslo jedné firmy šlo do druhé
+    // přihlášení patří ke konkrétnímu projektu, jinak by heslo jedné firmy šlo do druhé
     if (REF && sessionStorage.getItem(KEY + ":ref") === REF) { password = sessionStorage.getItem(KEY) || ""; email = sessionStorage.getItem(KEY + ":email") || ""; }
   } catch {}
   const state = { view: "home", days: 30, filter: "all", q: "", offset: 0, total: 0, current: null, settings: null, shop: "", chatsLoaded: false };
@@ -784,7 +784,7 @@
 
   // --- události ---------------------------------------------------------------
   const COLORS = { lime: "c-lime", cyan: "c-cyan", amber: "c-amber", violet: "c-violet", red: "c-red" };
-  const timeLabel = (e) => e.start_time ? (e.end_time ? `${e.start_time}–${e.end_time}` : e.start_time) : "celý den";
+  const timeLabel = (e) => e.start_time ? (e.end_time ? `${e.start_time}-${e.end_time}` : e.start_time) : "celý den";
   async function fetchEvents(from, to) { return (await api({ action: "events_list", from, to })).events; }
   function evRow(e, opts = {}) {
     const now = nowHM(), today = isoDay(new Date());
@@ -1036,7 +1036,7 @@
           plural(c.turns, "dotaz", "dotazy", "dotazů"), c.products ? " · " + plural(c.products, "produkt", "produkty", "produktů") : ""),
       )));
       const from = r.total ? state.offset + 1 : 0, to = Math.min(state.offset + PAGE, r.total);
-      $("pinfo").textContent = `${from}–${to} z ${fmtInt.format(r.total)}`;
+      $("pinfo").textContent = `${from}-${to} z ${fmtInt.format(r.total)}`;
       $("prev").disabled = state.offset === 0;
       $("next").disabled = to >= r.total;
     } catch (err) {
@@ -1058,7 +1058,7 @@
       const c = await api({ action: "conversation", session_id: id });
       $("dDelete").classList.toggle("hidden", !!c.erased_at);
       if (c.erased_at) {
-        $("dSub").textContent = `${fmtDT.format(new Date(c.created_at))} – ${fmtDT.format(new Date(c.updated_at))}`;
+        $("dSub").textContent = `${fmtDT.format(new Date(c.created_at))} až ${fmtDT.format(new Date(c.updated_at))}`;
         $("transcript").replaceChildren(el("div", { class: "erasedbox" },
           el("b", {}, erasedText(c.erased_by)),
           el("span", {}, `Smazáno ${fmtDT.format(new Date(c.erased_at))}. Text konverzace už neexistuje, ve statistice zůstal jen počet.`),
@@ -1067,7 +1067,7 @@
       }
       const names = new Map(c.products.map((p) => [p.id, p]));
       const turns = c.messages.filter((m) => m.role === "user").length;
-      $("dSub").textContent = `${fmtDT.format(new Date(c.created_at))} – ${fmtDT.format(new Date(c.updated_at))} · ${plural(turns, "dotaz", "dotazy", "dotazů")}`;
+      $("dSub").textContent = `${fmtDT.format(new Date(c.created_at))} až ${fmtDT.format(new Date(c.updated_at))} · ${plural(turns, "dotaz", "dotazy", "dotazů")}`;
       $("transcript").replaceChildren(...c.messages.map((m, i) => el("div", { class: "msg " + m.role + (m.feedback && m.feedback.verdict === "bad" ? " flag-bad" : "") },
         el("div", { class: "b" }, m.text),
         m.product_ids && m.product_ids.length ? el("div", { class: "chips" }, m.product_ids.map((pid) => {
@@ -1309,10 +1309,10 @@
     pv.style.setProperty("--pv-accent", $("sAccent").value);
     const sugg = v.suggestions.filter((x) => x.trim());
     pv.replaceChildren(...[
-      v.enabled ? null : el("div", { class: "off" }, "Chat je vypnutý – na webu se nezobrazí."),
+      v.enabled ? null : el("div", { class: "off" }, "Chat je vypnutý, na webu se nezobrazí."),
       el("div", { class: "hd" }, avatarNode(name, current && current.avatar_url), el("div", {}, el("b", {}, name), el("span", {}, "Online"))),
       el("div", { class: "bd" },
-        el("div", { class: "bub" }, v.greeting.trim() || `Dobrý den, jsem ${name}, AI asistent. Pomůžu vám vybrat z nabídky e-shopu – napište, co hledáte.`),
+        el("div", { class: "bub" }, v.greeting.trim() || `Dobrý den, jsem ${name}, AI asistent. Pomůžu vám vybrat z nabídky e-shopu. Napište, co hledáte.`),
         el("div", { class: "ch" }, (sugg.length ? sugg : ["Hledám dárek", "Co máte bez cukru?", "Co je teď v akci?"]).map((x) => el("span", {}, x)))),
     ].filter(Boolean));
   }

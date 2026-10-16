@@ -1,4 +1,4 @@
-# Katalog ukázkového e-shopu (vymyšlené produkty – jen pro ukázku chatbota na eshop-poradce.eu).
+# Katalog ukázkového e-shopu (vymyšlené produkty, jen pro ukázku chatbota na eshop-poradce.eu).
 PRODUCTS = [
  dict(id="101", slug="olivovy-olej-extra-panensky-500-ml", name="Extra panenský olivový olej 500 ml", img="olej", price=249, std=299, stock=24, cat="Olivový olej", maker="Olea Kréta",
       short="Ovocný olej lisovaný za studena z oliv Koroneiki.", desc="Extra panenský olivový olej z Kréty, lisovaný za studena do 24 hodin od sklizně. Jemně ovocná chuť s lehce pikantním koncem. Hodí se na saláty, k pečivu i na vaření.", params={"Objem": "500 ml", "Země původu": "Řecko", "Odrůda": "Koroneiki"}),

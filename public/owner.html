@@ -321,7 +321,7 @@
       </div>
       <div class="clock" aria-live="off">
         <div class="t" id="clock">--:--</div>
-        <div class="d" id="today">—</div>
+        <div class="d" id="today">-</div>
         <div class="w" id="week"></div>
       </div>
     </section>
@@ -346,7 +346,7 @@
   <!-- Kalendář -->
   <div id="vCal" class="hidden">
     <div class="calhead">
-      <h2 id="calTitle">—</h2>
+      <h2 id="calTitle">-</h2>
       <div class="tools">
         <button class="btn" type="button" id="calPrev" aria-label="Předchozí měsíc">←</button>
         <button class="btn" type="button" id="calToday">Dnes</button>
@@ -357,7 +357,7 @@
     <div class="calwrap">
       <div class="cal" id="cal" role="grid" aria-label="Měsíční kalendář"></div>
       <aside class="glass daypanel">
-        <h3 id="dayTitle">—</h3>
+        <h3 id="dayTitle">-</h3>
         <div class="muted mono" style="font-size:12px;margin-bottom:10px" id="daySub"></div>
         <div id="dayList"></div>
         <button class="btn" type="button" id="dayAdd" style="margin-top:12px;width:100%">+ Přidat na tento den</button>
@@ -411,7 +411,7 @@
     <div><label for="eTitle">Název</label><input class="field" id="eTitle" maxlength="120" required placeholder="Call s klientem, deadline, dovolená…"></div>
     <div class="row2">
       <div><label for="eDate">Datum</label><input class="field mono" id="eDate" type="date" required></div>
-      <div><label for="eCo">Firma (nepovinné)</label><select class="field" id="eCo"><option value="">—</option></select></div>
+      <div><label for="eCo">Firma (nepovinné)</label><select class="field" id="eCo"><option value="">-</option></select></div>
     </div>
     <label class="check"><input type="checkbox" id="eAllDay"> Celý den</label>
     <div class="row2" id="eTimes">
@@ -583,7 +583,7 @@
         spark(s.daily),
         meter(s.budget.month_cost_usd, s.budget.monthly_usd),
         el("div", { class: "foot" },
-          el("span", { class: "mono" }, `${s.model || "—"} · ${s.name ? "„" + s.name + "“" : "Ema"}`),
+          el("span", { class: "mono" }, `${s.model || "-"} · ${s.name ? "„" + s.name + "“" : "Ema"}`),
           s.feedback.open_bad ? el("span", { class: "badge-bad" }, `${s.feedback.open_bad} špatně`) : el("span", { class: "mono" }, "✓ bez chyb")),
       );
       return card;
@@ -602,7 +602,7 @@
     const total = rows.reduce((s, k) => s + k.cost_usd, 0);
     $("keyCosts").replaceChildren(
       ...rows.map((k) => el("div", { class: "keyrow" },
-        el("div", { class: "who" }, el("b", {}, k.provider), el("span", {}, k.masked || "—")),
+        el("div", { class: "who" }, el("b", {}, k.provider), el("span", {}, k.masked || "-")),
         el("div", { class: "cos" }, ...k.companies.map((n) => el("span", { class: k.companies.length > 1 ? "shared" : "" }, n)),
           k.companies.length > 1 ? el("span", { class: "shared" }, `sdílený · ${k.companies.length} firmy`) : null),
         el("div", { class: "amt" }, usd(k.cost_usd)))),
@@ -653,9 +653,9 @@
       stat(`Náklady ${s.period_days} dní`, usd(t.cost_usd), `${usd(t.cost_per_chat_usd)} / konverzace`),
       stat("Tento měsíc", usd(s.budget.month_cost_usd), pct === null ? "bez rozpočtu" : `${pct} % z ${usd(s.budget.monthly_usd)}`, pct !== null && pct >= 80),
       stat("Konverzace", fmtInt.format(t.chats), `${fmtInt.format(t.turns)} dotazů`),
-      stat("Na podporu", fmtInt.format(t.contacts), t.chats ? Math.round((t.contacts / t.chats) * 100) + " % konverzací" : "—"),
+      stat("Na podporu", fmtInt.format(t.contacts), t.chats ? Math.round((t.contacts / t.chats) * 100) + " % konverzací" : "-"),
       stat("Chyby AI", fmtInt.format(t.errors), `${fmtInt.format(t.fallbacks)}× záložní hledání`, t.errors > 0),
-      stat("Poslední volání", ago(t.last_call), s.model || "—"),
+      stat("Poslední volání", ago(t.last_call), s.model || "-"),
     ));
 
     // Graf nákladů + klíče
@@ -783,7 +783,7 @@
       facts.push(`${x.usage_rows}× ve statistice`);
       if (x.feedback_rows) facts.push(`${x.feedback_rows}× označená odpověď`);
       const from = x.created_at || x.first_usage, to = x.updated_at || x.last_usage;
-      if (from) facts.push(`${fmtDT.format(new Date(from))}${to && to !== from ? " – " + fmtDT.format(new Date(to)) : ""}`);
+      if (from) facts.push(`${fmtDT.format(new Date(from))}${to && to !== from ? " až " + fmtDT.format(new Date(to)) : ""}`);
       return facts;
     };
     const row = (x) => {
@@ -882,7 +882,7 @@
 
   // --- Limity zdarma (Supabase Free, Vercel Hobby) -------------------------------------------
   const fmtBytes = (b) => {
-    if (b === null || b === undefined) return "—";
+    if (b === null || b === undefined) return "-";
     const u = ["B", "kB", "MB", "GB", "TB"]; let i = 0, v = Number(b);
     while (v >= 1024 && i < u.length - 1) { v /= 1024; i++; }
     return (v >= 100 || i === 0 ? Math.round(v) : v.toFixed(v >= 10 ? 1 : 2)).toString().replace(".", ",") + " " + u[i];
@@ -932,7 +932,7 @@
       const idleDays = sb.last_activity ? (Date.now() - new Date(sb.last_activity).getTime()) / 864e5 : null;
       sbRows.push(el("div", { class: "lrow" }, el("div", { class: "top2" }, el("span", { class: "name" }, "Uspání projektu"),
         el("span", { class: "val" }, idleDays === null ? "zatím žádná aktivita" : "poslední chat " + ago(sb.last_activity))),
-        el("div", { class: "note" }, idleDays !== null && idleDays >= 5 ? "⚠ Free projekt se uspí po 7 dnech bez aktivity – stačí otevřít chat nebo administraci." : "Free projekt se uspí po 7 dnech bez aktivity. Synchronizace katalogu běží denně, takže by k tomu nemělo dojít.")));
+        el("div", { class: "note" }, idleDays !== null && idleDays >= 5 ? "⚠ Free projekt se uspí po 7 dnech bez aktivity, stačí otevřít chat nebo administraci." : "Free projekt se uspí po 7 dnech bez aktivity. Synchronizace katalogu běží denně, takže by k tomu nemělo dojít.")));
       if (sb.by_function.length || sb.tables.length) {
         sbRows.push(el("div", { class: "lrow" }, el("div", { class: "kv", style: "grid-template-columns:1fr 1fr;gap:18px" },
           el("div", {}, el("div", { class: "k" }, "VOLÁNÍ PODLE FUNKCE"), el("table", { class: "smalltbl" }, el("tbody", {}, sb.by_function.map((f) => el("tr", {}, el("td", {}, f.fn), el("td", { class: "num" }, fmtInt.format(f.calls))))))),
@@ -949,7 +949,7 @@
         "Na tarifu Hobby Vercel využití přes API neposkytuje, proto tu jsou jen limity. Aktuální čísla najdeš ve Vercelu (odkaz „Využití ve Vercelu“ níže). Po přechodu na Vercel Pro stačí do .env přidat VERCEL_TOKEN a VERCEL_TEAM_ID a čísla se ukážou tady."));
       vcRows.push(...d.limits.vercel.map((l) => limRow(l.label, el("span", {}, "limit ", el("b", {}, fmtQty(l.limit, l.unit === "count" ? "" : l.unit === "hours" ? "h" : "GB"))), null)));
     } else if (!vc.ok && vc.unsupported) {
-      vcRows.push(el("div", { class: "hint2" }, vc.error, " Token tu teď není potřeba – můžeš ho ve Vercelu smazat a řádky VERCEL_TOKEN a VERCEL_TEAM_ID z .env odebrat."));
+      vcRows.push(el("div", { class: "hint2" }, vc.error, " Token tu teď není potřeba, můžeš ho ve Vercelu smazat a řádky VERCEL_TOKEN a VERCEL_TEAM_ID z .env odebrat."));
       vcRows.push(...d.limits.vercel.map((l) => limRow(l.label, el("span", {}, "limit ", el("b", {}, fmtQty(l.limit, l.unit === "count" ? "" : l.unit === "hours" ? "h" : "GB"))), null)));
     } else if (!vc.ok) {
       vcRows.push(el("div", { class: "errbox" }, vc.error));
@@ -968,7 +968,7 @@
     $("navLim").textContent = "!"; $("navLim").classList.toggle("hidden", max < 80);
     $("limits").replaceChildren(
       el("div", { class: "warnbox" }, el("b", {}, "Vercel Hobby je jen pro nekomerční použití. "),
-        "Chat pro e-shop je komerční služba – než ho spustíš naostro, přesuň widget a videa jinam (např. do úložiště Supabase) nebo přejdi na Vercel Pro, jinak hrozí pozastavení webu."),
+        "Chat pro e-shop je komerční služba, než ho spustíš naostro, přesuň widget a videa jinam (např. do úložiště Supabase) nebo přejdi na Vercel Pro, jinak hrozí pozastavení webu."),
       el("div", { class: "lim-grid" },
         el("section", { class: "panel" }, el("div", { class: "lim-head" }, el("span", { class: "logo2 sb", "aria-hidden": "true" }, "S"), el("h2", {}, "Supabase"), el("span", { class: "pill tag" }, "Free")), ...sbRows),
         el("section", { class: "panel" }, el("div", { class: "lim-head" }, el("span", { class: "logo2 vc", "aria-hidden": "true" }, "▲"), el("h2", {}, "Vercel"), el("span", { class: "pill tag" }, "Hobby")), ...vcRows)));
@@ -1011,7 +1011,7 @@
 
   // --- události ---------------------------------------------------------------
   const COLORS = { lime: "c-lime", cyan: "c-cyan", amber: "c-amber", violet: "c-violet", red: "c-red" };
-  const timeLabel = (e) => e.start_time ? (e.end_time ? `${e.start_time}–${e.end_time}` : e.start_time) : "celý den";
+  const timeLabel = (e) => e.start_time ? (e.end_time ? `${e.start_time}-${e.end_time}` : e.start_time) : "celý den";
   async function fetchEvents(from, to) { return (await api({ action: "events_list", from, to })).events; }
   function companyName(id) {
     const row = state.data && state.data.companies.find((r) => r.company.id === id);
@@ -1031,7 +1031,7 @@
 
   // --- Domů -----------------------------------------------------------------------
   async function loadHome() {
-    if (!limitsData) loadLimits(); // na pozadí – kvůli upozornění u záložky Limity
+    if (!limitsData) loadLimits(); // na pozadí, kvůli upozornění u záložky Limity
     tick();
     const today = isoDay(new Date());
     try {
@@ -1143,7 +1143,7 @@
     $("eNotes").value = ev ? ev.notes : "";
     document.querySelectorAll("input[name=eColor]").forEach((r) => { r.checked = r.value === (ev ? ev.color : "lime"); });
     const sel = $("eCo");
-    sel.replaceChildren(el("option", { value: "" }, "—"), ...((state.data && state.data.companies) || []).map((r) => el("option", { value: r.company.id }, r.company.name)));
+    sel.replaceChildren(el("option", { value: "" }, "-"), ...((state.data && state.data.companies) || []).map((r) => el("option", { value: r.company.id }, r.company.name)));
     sel.value = ev && ev.company_id ? ev.company_id : "";
     $("eTimes").classList.toggle("hidden", $("eAllDay").checked);
     $("eDel").classList.toggle("hidden", !ev); $("eDel").textContent = "Smazat"; $("eErr").textContent = "";

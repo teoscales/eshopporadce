@@ -252,7 +252,7 @@
   .final .btn { background: #fff; color: var(--teal-2); max-width: 100%; word-break: break-all; }
   .final .btn:hover { color: var(--ink); transform: translateY(-1px); }
 
-  footer { padding: 40px 0 48px; color: var(--ink-3); font-size: 14px; }
+  footer { padding: 40px 0 110px; color: var(--ink-3); font-size: 14px; }
   footer .wrap { display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; }
   footer .wrap > span a { color: inherit; }
   .todo { background: #fff3c4; color: #6b5300; border-radius: 4px; padding: 0 4px; }
@@ -785,6 +785,7 @@
       <a href="/obchodni-podminky.html" target="_blank" rel="noopener">Obchodní podmínky</a>
       <a href="/chat-gdpr.html" target="_blank" rel="noopener">Ochrana osobních údajů</a>
       <a href="/chat-pristupnost.html" target="_blank" rel="noopener">Přístupnost</a>
+      <a href="#" data-cookie-settings>Nastavení cookies</a>
       <a href="/chat-admin.html">Administrace</a>
     </nav>
   </div>
@@ -824,6 +825,7 @@
         if (!res.ok || !j.ok) { err.textContent = j.message || "Objednávku se nepodařilo odeslat."; if (res.status >= 500 || res.status === 429) err.insertAdjacentHTML("beforeend", ' <a href="' + mail + '">Napsat e-mail</a>'); return; }
         document.getElementById("oDoneText").textContent = "Objednávku jsme přijali" + (j.id ? " (číslo " + j.id + ")" : "") + "." + (j.emailed ? " Potvrzení jsme vám poslali na " + data.email.trim() + "." : "") + " Ozveme se do 24 hodin v pracovní dny.";
         form.querySelector(".step-form").hidden = true; form.querySelector(".step-done").hidden = false; form.reset();
+        if (window.epTrack) window.epTrack("Lead"); // jen se souhlasem s cookies, bez osobních údajů
       } catch (_) {
         err.innerHTML = 'Spojení se nepodařilo. <a href="' + mail + '">Napište nám e-mail</a>.';
       } finally { btn.disabled = false; btn.textContent = "Odeslat objednávku"; }
@@ -874,5 +876,6 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && header.classList.contains("open")) { set(false); btn.focus(); } });
   })();
 </script>
+<script src="/consent.js" defer></script>
 </body>
 </html>

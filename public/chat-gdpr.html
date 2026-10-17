@@ -3,12 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Moje data a GDPR | AI nákupní asistent</title>
-<meta name="description" content="Jak AI nákupní asistent zachází s vašimi údaji: co ukládáme, jak dlouho, jak data smazat a jaká máte práva.">
+<title>Ochrana osobních údajů | E-shop poradce</title>
+<meta name="description" content="Jak E-shop poradce zachází s osobními údaji z objednávkového formuláře a z ukázkového chatu: co ukládáme, jak dlouho a jaká máte práva.">
 <meta name="theme-color" content="#f4f1e9">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="/fonts/fonts.css" rel="stylesheet">
 <style>
   :root {
     --bg: #f4f1e9; --ink: #14313a; --ink-2: #4a6168; --ink-3: #7a8b8f; --teal: #13a39b; --teal-2: #0c8a83; --teal-soft: #e3f3f0;
@@ -65,6 +63,9 @@
   .sec-title h2 { font-size: clamp(24px, 3.6vw, 32px); margin: 0; font-weight: 700; }
   .card p:first-child, .card ul:first-child { margin-top: 0; }
   .card p:last-child, .card ul:last-child { margin-bottom: 0; }
+  .card h3 { font-size: 18px; margin: 22px 0 8px; }
+  .card h3:first-child { margin-top: 0; }
+  .todo { background: #fff3c4; border-radius: 4px; padding: 0 4px; }
   .notice { display: flex; gap: 16px; align-items: flex-start; border-left: 5px solid var(--teal); }
   .notice .ic { flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--teal-soft); color: var(--teal-2); display: grid; place-items: center; }
   .notice .ic svg { width: 22px; height: 22px; }
@@ -157,11 +158,12 @@
 <main id="obsah">
   <header class="hero">
     <div class="badge" aria-hidden="true"><div class="core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.4-7.5 9.5-4.3-1.1-7.5-4.9-7.5-9.5V6z"/><path d="M8.6 12.2l2.4 2.4 4.4-4.6"/></svg></div></div>
-    <h1>Moje data a <span class="accent">GDPR</span></h1>
-    <p class="sub">Jak chat zachází s vašimi údaji</p>
-    <p class="meta">Informace o zpracování osobních údajů v AI nákupním asistentovi · účinné od 11. 10. 2026</p>
+    <h1>Ochrana <span class="accent">osobních údajů</span></h1>
+    <p class="sub">Web, objednávky a ukázkový chat E-shop poradce</p>
+    <p class="meta">Informace o zpracování osobních údajů na eshop-poradce.eu · účinné od 17. 10. 2026</p>
     <ul class="toc" aria-label="Obsah stránky">
       <li><a href="#prehled">Přehled</a></li>
+      <li><a href="#spravce">Kdo jsme</a></li>
       <li><a href="#udaje">Jaké údaje</a></li>
       <li><a href="#doba">Jak dlouho</a></li>
       <li><a href="#smazani">Smazání dat</a></li>
@@ -171,7 +173,7 @@
 
   <div class="card notice" role="note">
     <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg></span>
-    <p><strong>Neoficiální služba.</strong> AI nákupního asistenta provozuje <strong>Theodoros Tselidis</strong>. Nejde o službu provozovanou obchodem <strong>Řecko nás baví</strong> (shop.reckonasbavi.cz) a asistent nemluví jeho jménem. Údaje o produktech (názvy, ceny, dostupnost, popisy) přebírá z veřejného webu obchodu se souhlasem jeho provozovatele.</p>
+    <p><strong>Týká se tohoto webu.</strong> Tato stránka popisuje, jak zpracováváme údaje z objednávkového formuláře a z ukázkového chatu na eshop-poradce.eu. Pokud píšete do chatu E-shop poradce na webu některého z našich zákazníků, správcem údajů je daný e-shop a my pro něj údaje zpracováváme. Informace najdete na jeho stránce o ochraně údajů.</p>
   </div>
 
   <section class="video" aria-labelledby="videoH">
@@ -192,28 +194,35 @@
       <li class="fact"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9 4 4 0 0 1-5-5 4 4 0 0 1-4-4z"/><path d="M8.5 13.5h.01M12 16.5h.01M15.5 13h.01M9 9.5h.01"/></svg></span><div><b>Žádné cookies</b><span>ani analytické a reklamní nástroje</span></div><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></li>
       <li class="fact"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4 4.3-6 8-6s6.8 2 8 6"/><path d="M3 3l18 18"/></svg></span><div><b>Bez jména</b><span>konverzace nejsou spojené s vaším jménem</span></div><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></li>
       <li class="fact"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg></span><div><b>IP jen jako hash</b><span>jednosměrně zašifrovaná, uložená 2 dny</span></div><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></li>
-      <li class="fact"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/></svg></span><div><b>Přístup jen s heslem</b><span>konverzace čte jen provozovatel a obchod</span></div><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></li>
+      <li class="fact"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/></svg></span><div><b>Přístup jen s heslem</b><span>údaje vidí jen provozovatel</span></div><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></li>
       <li class="fact"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.4 0-2.5.8-2.5 2s1.1 1.6 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6.5V8M12 16v1.5"/><path d="M5.5 5.5l13 13"/></svg></span><div><b>Údaje neprodáváme</b><span>ani je nepoužíváme k reklamě či profilování</span></div><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></li>
       <li class="fact"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></span><div><b>Smazání jedním klikem</b><span>tlačítkem „Smazat moje data“ v chatu</span></div><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></li>
     </ul>
   </section>
 
-  <section aria-labelledby="s1">
+  <section id="spravce" aria-labelledby="s1">
     <div class="sec-title"><span class="num" aria-hidden="true">1</span><h2 id="s1">Kdo je správce údajů</h2></div>
     <div class="card">
-      <div class="who"><span class="name">Theodoros Tselidis</span><span>provozovatel AI nákupního asistenta</span></div>
+      <div class="who"><span class="name">E-HOK s.r.o.</span><span>provozovatel služby E-shop poradce · IČO: <span class="todo">doplníme</span> · sídlo: <span class="todo">doplníme</span></span></div>
       <div class="contact">
         <a href="tel:+420725332542"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><span><small>Telefon</small>+420 725 332 542</span></a>
-        <a href="mailto:teo.tselidis@icloud.com"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg></span><span><small>E-mail</small>teo.tselidis@icloud.com</span></a>
-        <a href="mailto:nexonagencyeu@gmail.com" style="grid-column:1/-1"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.4-7.5 9.5-4.3-1.1-7.5-4.9-7.5-9.5V6z"/></svg></span><span><small>E-mail pro žádosti o výmaz dat a dotazy k ochraně údajů</small>nexonagencyeu@gmail.com</span></a>
+        <a href="mailto:nexonagencyeu@gmail.com"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.4-7.5 9.5-4.3-1.1-7.5-4.9-7.5-9.5V6z"/></svg></span><span><small>E-mail pro dotazy k ochraně údajů</small>nexonagencyeu@gmail.com</span></a>
       </div>
-      <p style="margin-top:18px">Obchod Řecko nás baví není správcem údajů, které napíšete do chatu. Pokud ale nakoupíte v e-shopu, zpracovává vaše údaje obchod podle svých vlastních zásad a obchodních podmínek.</p>
+      <p style="margin-top:18px">Pověřence pro ochranu osobních údajů jsme jmenovat nemuseli. Se vším se obracejte na uvedený e-mail.</p>
     </div>
   </section>
 
   <section id="udaje" aria-labelledby="s2">
     <div class="sec-title"><span class="num" aria-hidden="true">2</span><h2 id="s2">Jaké údaje zpracováváme</h2></div>
     <div class="card">
+      <h3>Objednávkový formulář</h3>
+      <ul class="list">
+        <li><strong>Jméno a příjmení, e-mail, adresu e-shopu</strong> a zvolený tarif, abychom mohli objednávku vyřídit a ozvat se vám.</li>
+        <li><strong>Telefon a poznámku</strong>, jen pokud je sami vyplníte.</li>
+        <li><strong>Čas odeslání a potvrzení obchodních podmínek</strong>, abychom doložili, co a kdy jste objednali.</li>
+        <li><strong>IP adresu jen jako hash</strong> (jednosměrně zašifrovanou) na ochranu proti hromadnému odesílání formuláře.</li>
+      </ul>
+      <h3>Ukázkový chat</h3>
       <ul class="list">
         <li><strong>Text vašich zpráv a odpovědi asistenta</strong>, abychom mohli odpovědět a navázat na předchozí otázky.</li>
         <li><strong>Náhodný identifikátor konverzace</strong>, který neobsahuje vaše jméno ani jiné údaje. V prohlížeči se ukládá jen v úložišti relace (sessionStorage) a smaže se po zavření okna nebo záložky.</li>
@@ -221,16 +230,21 @@
         <li><strong>IP adresu</strong>, ale jen v jednosměrně zašifrované podobě (hash) a jen jako ochranu proti zneužití (omezení počtu zpráv). Z hashe IP adresu nezjistíme.</li>
         <li><strong>Technické záznamy o využití</strong> (čas, počet zpracovaných znaků, náklady, doba odezvy) bez obsahu zpráv.</li>
       </ul>
-      <p style="margin-top:18px"><strong>Prosíme, nepište do chatu osobní údaje</strong> (jméno, adresu, telefon, číslo objednávky, zdravotní údaje). Asistent o ně nežádá, nepotřebuje je a objednávky neumí zobrazit ani vyřídit.</p>
+      <p style="margin-top:18px"><strong>Prosíme, nepište do chatu osobní údaje</strong> (jméno, adresu, telefon, zdravotní údaje). Asistent o ně nežádá a nepotřebuje je. Pro objednávku použijte formulář.</p>
+      <h3>Návštěva webu</h3>
+      <ul class="list">
+        <li><strong>Běžné technické údaje</strong> (IP adresa, typ prohlížeče, čas a adresa stránky), které při každé návštěvě krátkodobě zaznamená hosting webu kvůli provozu a bezpečnosti.</li>
+      </ul>
     </div>
   </section>
 
   <section aria-labelledby="s3">
     <div class="sec-title"><span class="num" aria-hidden="true">3</span><h2 id="s3">Proč a na jakém základě</h2></div>
     <div class="card">
-      <p>Údaje zpracováváme, abychom vám mohli odpovědět na dotaz k nabídce, zajistili bezpečný provoz a zabránili zneužití služby. Právním základem je náš oprávněný zájem (čl. 6 odst. 1 písm. f) GDPR) poskytovat službu, o kterou sami požádáte napsáním zprávy, a chránit ji před zneužitím. Vůči tomuto zpracování můžete kdykoli vznést námitku.</p>
-      <p>Konverzace může provozovatel číst v neveřejné, heslem chráněné administraci, aby kontroloval kvalitu odpovědí, řešil chyby a zlepšoval asistenta. Vidí také souhrnné statistiky (počet konverzací za den, kolikrát asistent doporučil kontakt na obchod). Jednotlivé odpovědi asistenta může provozovatel nebo obchod označit jako chybné; takto označená odpověď se i s dotazem uchová nejvýš 90 dní, aby šlo chybu opravit. Přístup k administraci má jen provozovatel a obchod, který chat používá.</p>
-      <p>Údaje neprodáváme, nepoužíváme k reklamě ani k profilování a neděláme na jejich základě automatizovaná rozhodnutí s právními nebo podobně závažnými účinky.</p>
+      <p><strong>Objednávka:</strong> údaje z formuláře potřebujeme k jednání o smlouvě a k jejímu plnění (čl. 6 odst. 1 písm. b) GDPR). Pošleme vám potvrzení e-mailem a ozveme se kvůli spuštění služby. Pokud smlouvu uzavřeme, údaje na fakturách uchováváme, protože nám to ukládají účetní a daňové předpisy (čl. 6 odst. 1 písm. c) GDPR). Bez vyplnění povinných polí objednávku vyřídit nemůžeme.</p>
+      <p><strong>Ukázkový chat:</strong> údaje zpracováváme, abychom vám mohli odpovědět, zajistili bezpečný provoz a zabránili zneužití. Právním základem je náš oprávněný zájem (čl. 6 odst. 1 písm. f) GDPR) poskytovat službu, o kterou sami požádáte napsáním zprávy, a chránit ji před zneužitím. Vůči tomuto zpracování můžete kdykoli vznést námitku. Konverzace může provozovatel číst v neveřejné, heslem chráněné administraci, aby kontroloval kvalitu odpovědí a zlepšoval asistenta.</p>
+      <p><strong>Provoz webu:</strong> technické záznamy slouží k zabezpečení webu (oprávněný zájem, čl. 6 odst. 1 písm. f) GDPR).</p>
+      <p>Údaje neprodáváme, nepoužíváme k reklamě ani k profilování a neděláme na jejich základě automatizovaná rozhodnutí s právními nebo podobně závažnými účinky. Obchodní sdělení (newsletter) vám bez vašeho souhlasu neposíláme.</p>
     </div>
   </section>
 
@@ -240,7 +254,9 @@
       <table class="tbl">
         <thead><tr><th scope="col">Údaj</th><th scope="col">Doba uložení</th></tr></thead>
         <tbody>
-          <tr><td>Konverzace (text zpráv)</td><td><span class="pill">30 dní</span> od poslední zprávy, poté se automaticky smaže</td></tr>
+          <tr><td>Objednávka z formuláře (pokud smlouvu neuzavřeme)</td><td><span class="pill">2 roky</span> od odeslání, poté se automaticky smaže</td></tr>
+          <tr><td>Údaje zákazníků na smlouvě a fakturách</td><td><span class="pill">po dobu smlouvy</span> a poté po dobu, kterou ukládají účetní a daňové předpisy (zpravidla 10 let)</td></tr>
+          <tr><td>Konverzace z ukázkového chatu (text zpráv)</td><td><span class="pill">30 dní</span> od poslední zprávy, poté se automaticky smaže</td></tr>
           <tr><td>Odpovědi označené v administraci jako chybné nebo dobré (kopie dotazu a odpovědi)</td><td><span class="pill">90 dní</span> slouží ke zlepšování asistenta</td></tr>
           <tr><td>Hash IP adresy a počitadla proti zneužití</td><td><span class="pill">2 dny</span></td></tr>
           <tr><td>Technické záznamy o využití (bez obsahu zpráv)</td><td><span class="pill">13 měsíců</span> vyúčtování, kontrola nákladů a souhrnné statistiky</td></tr>
@@ -274,8 +290,10 @@
         <thead><tr><th scope="col">Poskytovatel</th><th scope="col">K čemu</th><th scope="col">Jaké údaje</th></tr></thead>
         <tbody>
           <tr><td>Anthropic, PBC (USA)</td><td>jazykový model Claude, který píše odpovědi</td><td>text konverzace a údaje o produktech</td></tr>
-          <tr><td>Supabase, Inc. (USA)</td><td>databáze a serverová funkce chatu</td><td>konverzace, hash IP, technické záznamy</td></tr>
+          <tr><td>Supabase, Inc. (USA)</td><td>databáze a serverové funkce chatu a formuláře</td><td>objednávky, konverzace, hash IP, technické záznamy</td></tr>
           <tr><td>Vercel, Inc. (USA)</td><td>hosting těchto stránek</td><td>běžné technické údaje o návštěvě stránky</td></tr>
+          <tr><td>Resend, Inc. (USA)</td><td>odesílání e-mailů k objednávce</td><td>jméno, e-mail a údaje z objednávky</td></tr>
+          <tr><td>Google Ireland Ltd. (Gmail)</td><td>naše e-mailová schránka</td><td>e-maily s objednávkami a vaše zprávy</td></tr>
           <tr><td>OpenAI, L.L.C. (USA), jen je-li funkce zapnutá</td><td>vyhledávání produktů podle významu dotazu</td><td>jen text vaší aktuální otázky</td></tr>
         </tbody>
       </table>
@@ -285,7 +303,7 @@
 
   <section aria-labelledby="s6">
     <div class="sec-title"><span class="num" aria-hidden="true">6</span><h2 id="s6">Cookies a měření</h2></div>
-    <div class="card"><p>Chat nepoužívá cookies, analytické ani reklamní nástroje. Do úložiště relace v prohlížeči (sessionStorage) ukládá jen to, co je nutné pro fungování chatu: identifikátor konverzace a zobrazené zprávy.</p></div>
+    <div class="card"><p>Web ani chat nepoužívají cookies, analytické ani reklamní nástroje. Písma načítáme přímo z našeho webu, ne od Googlu ani jiných třetích stran. Do úložiště relace v prohlížeči (sessionStorage) se ukládá jen to, co je nutné pro fungování chatu: identifikátor konverzace a zobrazené zprávy. Souhlas s cookies proto nepotřebujeme.</p></div>
   </section>
 
   <section id="prava" aria-labelledby="s7">
@@ -294,7 +312,7 @@
       <li>Přístup</li><li>Oprava</li><li>Výmaz</li><li>Omezení zpracování</li><li>Přenositelnost</li><li>Námitka</li>
     </ul>
     <div class="card">
-      <p>Máte právo na přístup ke svým údajům, jejich opravu, výmaz, omezení zpracování a přenositelnost a právo vznést námitku proti zpracování. Nejrychleji smažete text konverzace tlačítkem „Smazat moje data“ přímo v chatu (viz <a href="#smazani">Co se stane, když smažete svá data</a>). Úplný výmaz včetně statistiky a ostatní žádosti pište na <a href="mailto:nexonagencyeu@gmail.com">nexonagencyeu@gmail.com</a>. Protože konverzace nejsou spojené s vaším jménem, uveďte prosím kód z chatu, nebo přibližný čas a obsah konverzace, abychom ji mohli dohledat. Odpovíme nejpozději do jednoho měsíce.</p>
+      <p>Máte právo na přístup ke svým údajům, jejich opravu, výmaz, omezení zpracování a přenositelnost a právo vznést námitku proti zpracování. Nejrychleji smažete text konverzace tlačítkem „Smazat moje data“ přímo v chatu (viz <a href="#smazani">Co se stane, když smažete svá data</a>). Úplný výmaz včetně statistiky, žádosti k objednávkám a ostatní žádosti pište na <a href="mailto:nexonagencyeu@gmail.com">nexonagencyeu@gmail.com</a>, u objednávek nejlépe z e-mailu, který jste uvedli ve formuláři. Protože konverzace nejsou spojené s vaším jménem, uveďte prosím kód z chatu, nebo přibližný čas a obsah konverzace, abychom ji mohli dohledat. Odpovíme nejpozději do jednoho měsíce.</p>
       <p>Pokud se domníváte, že zpracování porušuje předpisy, můžete podat stížnost u Úřadu pro ochranu osobních údajů (Pplk. Sochora 27, 170 00 Praha 7, <a href="https://uoou.gov.cz" rel="noopener">uoou.gov.cz</a>).</p>
     </div>
   </section>
@@ -303,10 +321,10 @@
     <div class="sec-title"><span class="num" aria-hidden="true">8</span><h2 id="s8">Upozornění k odpovědím asistenta</h2></div>
     <div class="card">
       <ul class="list info">
-        <li>Komunikujete s <strong>umělou inteligencí</strong>, ne s člověkem. Odpovědi vytváří automaticky jazykový model a mohou obsahovat chyby.</li>
-        <li>Odpovědi mají jen informativní charakter. Závazné jsou ceny, dostupnost, složení a další údaje uvedené na stránce produktu a obchodní podmínky obchodu Řecko nás baví.</li>
-        <li>Asistent nepřijímá ani nemění objednávky a neposkytuje zdravotní, právní ani finanční rady. Údaje o alergenech a složení vždy ověřte na obalu výrobku.</li>
-        <li>Kupní smlouvu uzavíráte výhradně s obchodem, ve kterém nakoupíte. Objednávky, platby, dopravu, reklamace a vrácení zboží řeší obchod (<a href="mailto:info@reckonasbavi.cz">info@reckonasbavi.cz</a>).</li>
+        <li>V chatu komunikujete s <strong>umělou inteligencí</strong>, ne s člověkem. Odpovědi vytváří automaticky jazykový model a mohou obsahovat chyby.</li>
+        <li>Odpovědi mají jen informativní charakter. Závazné jsou <a href="/#cenik">ceník</a> a <a href="/obchodni-podminky.html">obchodní podmínky</a> na tomto webu.</li>
+        <li><strong>Ukázkový e-shop je smyšlený.</strong> Slouží jen k vyzkoušení chatu, jeho zboží nelze koupit a nejde o nabídku k uzavření smlouvy.</li>
+        <li>Asistent nepřijímá objednávky a neposkytuje právní ani finanční rady.</li>
       </ul>
     </div>
   </section>
@@ -317,8 +335,8 @@
   </section>
 
   <footer>
-    <nav aria-label="Další stránky"><a href="chat-pristupnost.html">Prohlášení o přístupnosti</a><a href="#obsah">Nahoru ↑</a></nav>
-    AI nákupní asistent · provozuje Theodoros Tselidis
+    <nav aria-label="Další stránky"><a href="/">E-shop poradce</a><a href="/obchodni-podminky.html">Obchodní podmínky</a><a href="/chat-pristupnost.html">Prohlášení o přístupnosti</a><a href="#obsah">Nahoru ↑</a></nav>
+    E-shop poradce · provozuje E-HOK s.r.o.
   </footer>
 </main>
 </body>

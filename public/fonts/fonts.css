@@ -1,0 +1,257 @@
+/* Písma hostovaná přímo na eshop-poradce.eu (licence SIL OFL), žádné spojení s Google. */
+/* domine-latin-ext-500-normal */
+@font-face {
+  font-family: 'Domine';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(/fonts/domine-latin-ext-500-normal.woff2) format('woff2');
+}
+/* domine-latin-500-normal */
+@font-face {
+  font-family: 'Domine';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(/fonts/domine-latin-500-normal.woff2) format('woff2');
+}
+/* domine-latin-ext-600-normal */
+@font-face {
+  font-family: 'Domine';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/domine-latin-ext-600-normal.woff2) format('woff2');
+}
+/* domine-latin-600-normal */
+@font-face {
+  font-family: 'Domine';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/domine-latin-600-normal.woff2) format('woff2');
+}
+/* domine-latin-ext-700-normal */
+@font-face {
+  font-family: 'Domine';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/domine-latin-ext-700-normal.woff2) format('woff2');
+}
+/* domine-latin-700-normal */
+@font-face {
+  font-family: 'Domine';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/domine-latin-700-normal.woff2) format('woff2');
+}
+/* nunito-sans-latin-ext-400-normal */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(/fonts/nunito-sans-latin-ext-400-normal.woff2) format('woff2');
+}
+/* nunito-sans-latin-400-normal */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(/fonts/nunito-sans-latin-400-normal.woff2) format('woff2');
+}
+/* nunito-sans-latin-ext-600-normal */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/nunito-sans-latin-ext-600-normal.woff2) format('woff2');
+}
+/* nunito-sans-latin-600-normal */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/nunito-sans-latin-600-normal.woff2) format('woff2');
+}
+/* nunito-sans-latin-ext-700-normal */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/nunito-sans-latin-ext-700-normal.woff2) format('woff2');
+}
+/* nunito-sans-latin-700-normal */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/nunito-sans-latin-700-normal.woff2) format('woff2');
+}
+/* nunito-sans-latin-ext-800-normal */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 800;
+  src: url(/fonts/nunito-sans-latin-ext-800-normal.woff2) format('woff2');
+}
+/* nunito-sans-latin-800-normal */
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 800;
+  src: url(/fonts/nunito-sans-latin-800-normal.woff2) format('woff2');
+}
+/* outfit-latin-ext-500-normal */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(/fonts/outfit-latin-ext-500-normal.woff2) format('woff2');
+}
+/* outfit-latin-500-normal */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(/fonts/outfit-latin-500-normal.woff2) format('woff2');
+}
+/* outfit-latin-ext-600-normal */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/outfit-latin-ext-600-normal.woff2) format('woff2');
+}
+/* outfit-latin-600-normal */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/outfit-latin-600-normal.woff2) format('woff2');
+}
+/* outfit-latin-ext-700-normal */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/outfit-latin-ext-700-normal.woff2) format('woff2');
+}
+/* outfit-latin-700-normal */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/outfit-latin-700-normal.woff2) format('woff2');
+}
+/* space-grotesk-latin-ext-400-normal */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(/fonts/space-grotesk-latin-ext-400-normal.woff2) format('woff2');
+}
+/* space-grotesk-latin-400-normal */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(/fonts/space-grotesk-latin-400-normal.woff2) format('woff2');
+}
+/* space-grotesk-latin-ext-500-normal */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(/fonts/space-grotesk-latin-ext-500-normal.woff2) format('woff2');
+}
+/* space-grotesk-latin-500-normal */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(/fonts/space-grotesk-latin-500-normal.woff2) format('woff2');
+}
+/* space-grotesk-latin-ext-600-normal */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/space-grotesk-latin-ext-600-normal.woff2) format('woff2');
+}
+/* space-grotesk-latin-600-normal */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/space-grotesk-latin-600-normal.woff2) format('woff2');
+}
+/* space-grotesk-latin-ext-700-normal */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/space-grotesk-latin-ext-700-normal.woff2) format('woff2');
+}
+/* space-grotesk-latin-700-normal */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/space-grotesk-latin-700-normal.woff2) format('woff2');
+}
+/* jetbrains-mono-latin-ext-400-normal */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(/fonts/jetbrains-mono-latin-ext-400-normal.woff2) format('woff2');
+}
+/* jetbrains-mono-latin-400-normal */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2');
+}
+/* jetbrains-mono-latin-ext-600-normal */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/jetbrains-mono-latin-ext-600-normal.woff2) format('woff2');
+}
+/* jetbrains-mono-latin-600-normal */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/jetbrains-mono-latin-600-normal.woff2) format('woff2');
+}

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obchodní podmínky | E-shop poradce</title>
+<meta name="description" content="Obchodní podmínky služby E-shop poradce (AI chat asistent pro e-shopy) včetně zpracovatelské doložky podle GDPR. Služba je určena podnikatelům.">
+<meta name="theme-color" content="#f4f1e9">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1e9; --ink: #14313a; --ink-2: #4a6168; --ink-3: #7a8b8f; --teal: #13a39b; --teal-2: #0c8a83; --teal-soft: #e3f3f0;
+    --card: rgba(255,255,255,.86); --line: #e7e1d3; --ok: #1f9a5e; --amber: #c98a12;
+    --head: "Outfit", "Segoe UI", system-ui, sans-serif; --body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; font: 17px/1.65 var(--body); color: var(--ink); background: var(--bg); }
+  a { color: var(--teal-2); text-underline-offset: 3px; }
+  a:hover { color: var(--teal); }
+  :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+  strong { color: var(--ink); }
+  .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 10px; z-index: 10; }
+  .skip:focus { left: 8px; }
+
+  /* Pozadí jako ve videu: krémová s rozmazanými barevnými skvrnami */
+  .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .bg span { position: absolute; border-radius: 50%; filter: blur(80px); }
+  .bg .b1 { width: 560px; height: 560px; right: -140px; top: -160px; background: #c9e5dc; opacity: .9; animation: f1 34s ease-in-out infinite alternate; }
+  .bg .b2 { width: 520px; height: 520px; left: 50%; top: 32%; margin-left: -260px; background: #f3e3b6; opacity: .55; animation: f2 42s ease-in-out infinite alternate; }
+  .bg .b3 { width: 480px; height: 480px; left: -180px; bottom: -160px; background: #d4e3ef; opacity: .9; animation: f3 38s ease-in-out infinite alternate; }
+  @keyframes f1 { to { transform: translate(-90px, 70px) scale(1.08); } }
+  @keyframes f2 { to { transform: translate(80px, -60px) scale(.92); } }
+  @keyframes f3 { to { transform: translate(110px, -50px) scale(1.06); } }
+
+  main { max-width: 860px; margin: 0 auto; padding: 56px 20px 72px; }
+  h1, h2, h3 { font-family: var(--head); letter-spacing: -.02em; line-height: 1.15; color: var(--ink); }
+  .accent { color: var(--teal); }
+
+  /* Úvod */
+  .hero { text-align: center; padding: 8px 0 28px; }
+  .badge { position: relative; width: 104px; height: 104px; margin: 0 auto 26px; display: grid; place-items: center; }
+  .badge::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(19,163,155,.22); animation: ring 3.2s ease-out infinite; }
+  .badge .core { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; color: #fff;
+    background: radial-gradient(circle at 30% 25%, #2fc1b5, #0d9089 70%); box-shadow: 0 14px 30px rgba(13,144,137,.32), inset 0 2px 0 rgba(255,255,255,.25); }
+  .badge svg { width: 38px; height: 38px; }
+  @keyframes ring { 0% { transform: scale(.9); opacity: 1; } 100% { transform: scale(1.25); opacity: 0; } }
+  .hero h1 { font-size: clamp(38px, 7vw, 64px); font-weight: 700; margin: 0; }
+  .hero .sub { font-size: clamp(17px, 2.4vw, 21px); color: var(--ink-2); margin: 14px 0 6px; }
+  .hero .meta { font-size: 14px; color: var(--ink-3); margin: 0; }
+  .toc { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 26px auto 0; padding: 0; list-style: none; }
+  .toc a { display: inline-block; padding: 7px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--line);
+    color: var(--ink-2); text-decoration: none; font-size: 14px; font-weight: 700; backdrop-filter: blur(6px); }
+  .toc a:hover { border-color: var(--teal); color: var(--teal-2); }
+
+  /* Karty a sekce */
+  .card { background: var(--card); border: 1px solid rgba(255,255,255,.9); border-radius: 22px; padding: 26px 28px;
+    box-shadow: 0 1px 2px rgba(20,49,58,.04), 0 12px 32px rgba(20,49,58,.07); backdrop-filter: blur(10px); }
+  section { margin-top: 22px; scroll-margin-top: 20px; }
+  .sec-title { display: flex; gap: 14px; align-items: center; margin: 44px 4px 14px; }
+  .sec-title .num { flex: none; width: 38px; height: 38px; border-radius: 12px; background: var(--teal-soft); color: var(--teal-2);
+    display: grid; place-items: center; font: 700 16px var(--head); }
+  .sec-title h2 { font-size: clamp(24px, 3.6vw, 32px); margin: 0; font-weight: 700; }
+  .card p:first-child, .card ul:first-child { margin-top: 0; }
+  .card p:last-child, .card ul:last-child { margin-bottom: 0; }
+  .card h3 { font-size: 18px; margin: 22px 0 8px; }
+  .card h3:first-child { margin-top: 0; }
+  .list.num { list-style: decimal; padding-left: 22px; }
+  .list.num li { padding-left: 4px; }
+  .list.num li::before { display: none; }
+  .list.num li::marker { color: var(--teal-2); font-weight: 800; }
+  .todo { background: #fff3c4; border-radius: 4px; padding: 0 4px; }
+  .notice { display: flex; gap: 16px; align-items: flex-start; border-left: 5px solid var(--teal); }
+  .notice .ic { flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--teal-soft); color: var(--teal-2); display: grid; place-items: center; }
+  .notice .ic svg { width: 22px; height: 22px; }
+  .notice p { margin: 0; }
+
+  /* Video */
+  .video .player { border-radius: 22px; overflow: hidden; background: #0e2b31; aspect-ratio: 16 / 9; box-shadow: 0 18px 44px rgba(20,49,58,.16); }
+  .video video { display: block; width: 100%; height: 100%; }
+  .video .vnote { color: var(--ink-3); font-size: 14px; margin: 12px 6px 0; }
+
+  /* Přehled v kartách (jako ve videu) */
+  .facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .fact { position: relative; display: flex; gap: 14px; align-items: flex-start; padding: 18px; border-radius: 18px; background: #fff;
+    box-shadow: 0 1px 2px rgba(20,49,58,.05), 0 8px 22px rgba(20,49,58,.06); }
+  .fact .ic { flex: none; width: 44px; height: 44px; border-radius: 13px; background: #eef5f3; color: var(--teal-2); display: grid; place-items: center; }
+  .fact .ic svg { width: 22px; height: 22px; }
+  .fact b { display: block; font: 700 17px/1.25 var(--head); color: var(--ink); }
+  .fact span { display: block; font-size: 14px; line-height: 1.4; color: var(--ink-2); margin-top: 3px; }
+  .fact .ok { position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; border-radius: 50%; background: var(--ok); color: #fff;
+    display: grid; place-items: center; box-shadow: 0 2px 6px rgba(31,154,94,.35); }
+  .fact .ok svg { width: 14px; height: 14px; }
+  .fact.warn .ok { background: var(--amber); box-shadow: 0 2px 6px rgba(201,138,18,.35); }
+
+  /* Seznamy a tabulky */
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .list li { position: relative; padding-left: 34px; }
+  .list li::before { content: ""; position: absolute; left: 0; top: 4px; width: 22px; height: 22px; border-radius: 50%; background: var(--teal-soft)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230c8a83' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 14px no-repeat; }
+  .list.info li::before { background: #fbf1dc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b07a0e' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M12 7v6M12 17h.01'/%3E%3C/svg%3E") center / 14px no-repeat; }
+  .tbl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 15.5px; }
+  .tbl th { text-align: left; font: 700 13px var(--head); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); padding: 0 14px 10px; }
+  .tbl td { padding: 13px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+  .tbl td:first-child { font-weight: 700; }
+  .tbl .pill { display: inline-block; white-space: nowrap; padding: 2px 10px; border-radius: 999px; background: var(--teal-soft); color: var(--teal-2); font-weight: 800; font-size: 14px; margin-right: 4px; }
+  .who { display: grid; gap: 4px; }
+  .who .name { font: 700 22px var(--head); }
+  code { background: var(--teal-soft); color: var(--teal-2); padding: 1px 7px; border-radius: 7px; font-size: .92em; }
+
+  /* Kroky */
+  .steps { list-style: none; padding: 0; margin: 0 0 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; counter-reset: s; }
+  .steps li { counter-increment: s; background: #fff; border-radius: 18px; padding: 16px 16px 18px; box-shadow: 0 1px 2px rgba(20,49,58,.05), 0 8px 22px rgba(20,49,58,.06); font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--teal); color: #fff; font: 700 15px var(--head); margin-bottom: 10px; }
+  .steps b { display: block; color: var(--ink); font: 700 17px/1.25 var(--head); margin-bottom: 4px; }
+  .rights { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; padding: 0; list-style: none; }
+  .rights li { padding: 8px 15px; border-radius: 999px; background: #fff; box-shadow: 0 4px 14px rgba(20,49,58,.07); font: 700 15px var(--head); color: var(--ink); }
+  .rights li::before { content: "✓"; color: var(--teal); margin-right: 7px; }
+  .status { display: flex; gap: 18px; align-items: center; }
+  .status .ring { flex: none; width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; font: 700 15px var(--head); color: var(--teal-2);
+    background: conic-gradient(var(--teal) 0 75%, #e6efed 75% 100%); position: relative; }
+  .status .ring::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: #fff; }
+  .status .ring span { position: relative; z-index: 1; font-size: 13px; text-align: center; line-height: 1.1; }
+  .status h3 { margin: 0 0 4px; font-size: 22px; }
+  .status p { margin: 0; color: var(--ink-2); }
+  .contact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+  .contact a { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 16px; background: #fff; text-decoration: none; color: var(--ink);
+    box-shadow: 0 6px 18px rgba(20,49,58,.07); font-weight: 700; word-break: break-word; }
+  .contact a:hover { color: var(--teal-2); }
+  .contact .ic { flex: none; width: 38px; height: 38px; border-radius: 11px; background: var(--teal-soft); color: var(--teal-2); display: grid; place-items: center; }
+  .contact .ic svg { width: 20px; height: 20px; }
+  .contact small { display: block; font-weight: 600; color: var(--ink-3); font-size: 12px; }
+
+  footer { margin-top: 48px; text-align: center; color: var(--ink-3); font-size: 14px; }
+  footer nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  footer nav a { padding: 8px 16px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); text-decoration: none; font-weight: 700; color: var(--ink-2); }
+
+  @media (max-width: 760px) {
+    body { font-size: 16px; }
+    main { padding: 36px 16px 56px; }
+    .facts, .steps { grid-template-columns: 1fr; }
+    .contact { grid-template-columns: 1fr; }
+    .card { padding: 20px; border-radius: 18px; }
+    .tbl thead { display: none; }
+    .tbl, .tbl tbody, .tbl tr, .tbl td { display: block; width: 100%; }
+    .tbl tr { padding: 12px 0; border-top: 1px solid var(--line); }
+    .tbl td { border: 0; padding: 2px 0; }
+    .tbl tr:first-child { border-top: 0; padding-top: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .bg span, .badge::before { animation: none; }
+  }
+  .steps.steps4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 900px) { .steps.steps4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 760px) { .steps.steps4 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#obsah">Přeskočit na obsah</a>
+<div class="bg" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+<main id="obsah">
+  <header class="hero">
+    <div class="badge" aria-hidden="true"><div class="core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></div></div>
+    <h1>Obchodní <span class="accent">podmínky</span></h1>
+    <p class="sub">Služba E-shop poradce pro podnikatele</p>
+    <p class="meta">Verze 2026-10-17 · účinné od 17. 10. 2026</p>
+    <ul class="toc" aria-label="Obsah stránky">
+      <li><a href="#smlouva">Uzavření smlouvy</a></li>
+      <li><a href="#cena">Cena a platby</a></li>
+      <li><a href="#ukonceni">Ukončení</a></li>
+      <li><a href="#odpovednost">Odpovědnost</a></li>
+      <li><a href="#gdpr">Zpracování údajů</a></li>
+    </ul>
+  </header>
+
+  <div class="card notice" role="note">
+    <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></svg></span>
+    <p><strong>Jen pro podnikatele.</strong> Službu poskytujeme výhradně podnikatelům pro jejich e-shop. Spotřebitelům ji nenabízíme a ustanovení o spotřebitelských smlouvách se proto nepoužijí.</p>
+  </div>
+
+  <section id="uvod" aria-labelledby="huvod">
+    <div class="sec-title"><span class="num" aria-hidden="true">1</span><h2 id="huvod">Kdo jsme a pro koho služba je</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li><strong>Poskytovatelem</strong> služby E-shop poradce je společnost <strong>E-HOK s.r.o.</strong>, IČO: <span class="todo">doplníme</span>, se sídlem <span class="todo">doplníme</span>, zapsaná v obchodním rejstříku (<span class="todo">doplníme</span>). Kontakt: <a href="mailto:nexonagencyeu@gmail.com">nexonagencyeu@gmail.com</a>, <a href="tel:+420725332542">+420 725 332 542</a>.</li>
+        <li><strong>Zákazníkem</strong> je podnikatel, který službu objedná pro svůj e-shop v rámci své podnikatelské činnosti. Odesláním objednávky zákazník potvrzuje, že objednává jako podnikatel.</li>
+        <li>Tyto podmínky upravují práva a povinnosti poskytovatele a zákazníka při poskytování služby. Vztahy, které neupravují, se řídí zákonem č. 89/2012 Sb., občanský zákoník.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="sluzba" aria-labelledby="hsluzba">
+    <div class="sec-title"><span class="num" aria-hidden="true">2</span><h2 id="hsluzba">Co služba obsahuje</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>E-shop poradce je chatovací asistent s umělou inteligencí, který na webu zákazníka odpovídá návštěvníkům na dotazy k nabídce a doporučuje produkty z katalogu zákazníka.</li>
+        <li>Součástí služby je napojení katalogu (z webu nebo XML feedu), pravidelná aktualizace cen a dostupnosti, administrace se statistikami a historií konverzací a kód pro vložení chatu do e-shopu.</li>
+        <li>Asistent nepřijímá, nemění ani nevyřizuje objednávky, platby a reklamace e-shopu a nežádá od návštěvníků osobní údaje.</li>
+        <li>Chat se návštěvníkům vždy představuje jako umělá inteligence, aby bylo zřejmé, že nekomunikují s člověkem.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="smlouva" aria-labelledby="hsmlouva">
+    <div class="sec-title"><span class="num" aria-hidden="true">3</span><h2 id="hsmlouva">Uzavření smlouvy</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>Zákazník odesílá objednávku formulářem na webu eshop-poradce.eu nebo e-mailem. Objednávka je návrhem na uzavření smlouvy.</li>
+        <li>Automatický e-mail po odeslání formuláře jen potvrzuje, že objednávka dorazila. <strong>Smlouva vzniká</strong>, až poskytovatel objednávku přijme, zpravidla e-mailem se spuštěním služby nebo s přístupy do administrace.</li>
+        <li>Poskytovatel může objednávku odmítnout, například pokud e-shop nabízí zboží, se kterým služba nemůže pracovat, nebo pokud jsou údaje v objednávce zjevně nesprávné.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="cena" aria-labelledby="hcena">
+    <div class="sec-title"><span class="num" aria-hidden="true">4</span><h2 id="hcena">Cena a platby</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>Cena se řídí tarifem podle <a href="/#cenik" target="_blank" rel="noopener">ceníku</a> platného v den objednávky. <strong>Ceny jsou uvedeny bez DPH</strong>, DPH poskytovatel připočte podle platných předpisů.</li>
+        <li>Služba se platí měsíčně předem na základě faktury se splatností 14 dní. První období začíná dnem spuštění služby.</li>
+        <li>Při prodlení s platbou delším než 7 dní po upozornění e-mailem může poskytovatel službu pozastavit, dokud nebude dlužná částka uhrazena.</li>
+        <li>Změnu ceníku poskytovatel oznámí zákazníkovi e-mailem nejméně 30 dní předem. Pokud zákazník se změnou nesouhlasí, může smlouvu vypovědět ke dni účinnosti změny.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="limity" aria-labelledby="hlimity">
+    <div class="sec-title"><span class="num" aria-hidden="true">5</span><h2 id="hlimity">Konverzace a limity tarifů</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>Konverzace je jeden rozhovor návštěvníka s chatem bez ohledu na počet zpráv.</li>
+        <li>Po vyčerpání měsíčního limitu tarifu může poskytovatel chat do konce období omezit nebo zákazníkovi nabídne přechod na vyšší tarif. Nevyčerpané konverzace se do dalšího měsíce nepřevádějí.</li>
+        <li>Neomezený tarif platí pro běžné užívání jednoho e-shopu. Automatizované nebo zjevně zneužívající dotazy se do běžného užívání nepočítají.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="ukonceni" aria-labelledby="hukonceni">
+    <div class="sec-title"><span class="num" aria-hidden="true">6</span><h2 id="hukonceni">Trvání a ukončení smlouvy</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>Smlouva se uzavírá na dobu neurčitou.</li>
+        <li>Zákazník může smlouvu kdykoli vypovědět e-mailem. Smlouva skončí posledním dnem již zaplaceného období. Za zbytek období se peníze nevracejí.</li>
+        <li>Poskytovatel může smlouvu vypovědět s výpovědní dobou 30 dní. Při podstatném porušení smlouvy (například zneužití služby nebo prodlení s platbou delší než 30 dní) může poskytovatel od smlouvy odstoupit s okamžitou účinností.</li>
+        <li>Po skončení smlouvy poskytovatel chat vypne a údaje zákazníka smaže podle článku 10.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="zakaznik" aria-labelledby="hzakaznik">
+    <div class="sec-title"><span class="num" aria-hidden="true">7</span><h2 id="hzakaznik">Povinnosti zákazníka</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>Zákazník odpovídá za to, že má právo používat obsah svého katalogu a webu, který služba zpracovává.</li>
+        <li>Zákazník na svém webu informuje návštěvníky o zpracování údajů v chatu. Poskytovatel mu k tomu na požádání zdarma připraví vzorový text.</li>
+        <li>Zákazník nesmí službu používat v rozporu s právními předpisy, šířit jejím prostřednictvím nezákonný obsah ani se pokoušet narušit její bezpečnost.</li>
+        <li>Přístupové údaje do administrace zákazník chrání před zneužitím a jejich únik bez zbytečného odkladu oznámí poskytovateli.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="odpovednost" aria-labelledby="hodpovednost">
+    <div class="sec-title"><span class="num" aria-hidden="true">8</span><h2 id="hodpovednost">Odpovědi AI, dostupnost a odpovědnost</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>Odpovědi vytváří automaticky jazykový model a <strong>mohou obsahovat chyby</strong>. Závazné jsou vždy údaje na webu a v obchodních podmínkách zákazníka. Poskytovatel průběžně zlepšuje kvalitu odpovědí, ale nezaručuje jejich úplnou přesnost.</li>
+        <li>Poskytovatel usiluje o nepřetržitý provoz služby, nezaručuje ale její stoprocentní dostupnost. Služba může být krátkodobě nedostupná kvůli údržbě nebo výpadku poskytovatelů infrastruktury.</li>
+        <li>Celková odpovědnost poskytovatele za škodu je omezena výší ceny, kterou zákazník zaplatil za poslední 3 měsíce před vznikem škody. Omezení se nevztahuje na škodu způsobenou úmyslně nebo z hrubé nedbalosti.</li>
+        <li>Poskytovatel neodpovídá za ušlý zisk ani za škodu vzniklou tím, že návštěvník e-shopu jednal podle odpovědi chatu, aniž by si údaje ověřil na webu zákazníka.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="prava" aria-labelledby="hprava">
+    <div class="sec-title"><span class="num" aria-hidden="true">9</span><h2 id="hprava">Duševní vlastnictví</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>Software služby, chatovací okno a administrace patří poskytovateli. Zákazník získává po dobu trvání smlouvy nevýhradní oprávnění službu používat pro svůj e-shop.</li>
+        <li>Obsah katalogu a webu zůstává zákazníkovi. Poskytovatel ho používá jen k poskytování služby.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="gdpr" aria-labelledby="hgdpr">
+    <div class="sec-title"><span class="num" aria-hidden="true">10</span><h2 id="hgdpr">Zpracování osobních údajů (zpracovatelská doložka)</h2></div>
+    <div class="card">
+      <p>Tento článek je smlouvou o zpracování osobních údajů podle čl. 28 nařízení (EU) 2016/679 (GDPR). Údaje návštěvníků e-shopu, které chat zpracovává, spravuje <strong>zákazník jako správce</strong> a poskytovatel je pro něj zpracovává jako <strong>zpracovatel</strong>.</p>
+      <table class="tbl">
+        <tbody>
+          <tr><td>Předmět a účel</td><td>provoz chatu na webu zákazníka: odpovědi na dotazy návštěvníků, ochrana proti zneužití, statistiky a kontrola kvality</td></tr>
+          <tr><td>Kategorie subjektů</td><td>návštěvníci e-shopu zákazníka, kteří píšou do chatu</td></tr>
+          <tr><td>Typy údajů</td><td>text zpráv a odpovědí, náhodný identifikátor konverzace, adresa stránky, IP adresa jen jako hash, technické záznamy o využití</td></tr>
+          <tr><td>Doba zpracování</td><td>po dobu smlouvy; konverzace se mažou automaticky po 30 dnech, odpovědi označené v administraci po 90 dnech, hash IP po 2 dnech, technické záznamy bez obsahu zpráv po 13 měsících</td></tr>
+        </tbody>
+      </table>
+      <ol class="list num">
+        <li>Poskytovatel zpracovává údaje jen podle doložených pokynů zákazníka. Pokyny jsou dané těmito podmínkami a nastavením služby v administraci. Pokud by pokyn podle poskytovatele porušoval předpisy, upozorní na to zákazníka.</li>
+        <li>Poskytovatel zajistí, aby se osoby, které mají k údajům přístup, zavázaly k mlčenlivosti.</li>
+        <li>Poskytovatel přijal technická a organizační opatření podle čl. 32 GDPR, zejména šifrovaný přenos (HTTPS), přístup do administrace jen s heslem, oddělení dat jednotlivých zákazníků, ukládání IP adres jen jako jednosměrný hash a automatické mazání po uplynutí doby uložení.</li>
+        <li>Zákazník dává obecné povolení zapojit tyto další zpracovatele: Anthropic, PBC (jazykový model), Supabase, Inc. (databáze a serverové funkce), Vercel, Inc. (hosting) a OpenAI, L.L.C. (vyhledávání podle významu, jen pokud je funkce zapnutá). O zamýšlené změně poskytovatel zákazníka informuje e-mailem nejméně 14 dní předem a zákazník proti ní může vznést námitku, případně smlouvu vypovědět. Další zpracovatelé jsou vázáni stejnými povinnostmi ochrany údajů.</li>
+        <li>Někteří další zpracovatelé sídlí v USA. Předání se řídí standardními smluvními doložkami schválenými Evropskou komisí, případně rámcem EU-USA Data Privacy Framework.</li>
+        <li>Poskytovatel pomáhá zákazníkovi plnit povinnosti vůči subjektům údajů. Návštěvník může text své konverzace smazat sám tlačítkem „Smazat moje data“ v chatu; ostatní žádosti poskytovatel vyřídí na pokyn zákazníka bez zbytečného odkladu.</li>
+        <li>Porušení zabezpečení osobních údajů poskytovatel zákazníkovi ohlásí bez zbytečného odkladu, nejpozději do 48 hodin od zjištění, a poskytne mu informace potřebné k jeho ohlášení úřadu.</li>
+        <li>Poskytovatel zákazníkovi poskytne informace potřebné k doložení plnění tohoto článku a umožní přiměřenou kontrolu po předchozí dohodě.</li>
+        <li>Do 30 dní po skončení smlouvy poskytovatel osobní údaje zpracovávané pro zákazníka smaže, pokud zákazník před skončením nepožádá o jejich export.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="zaver" aria-labelledby="hzaver">
+    <div class="sec-title"><span class="num" aria-hidden="true">11</span><h2 id="hzaver">Závěrečná ustanovení</h2></div>
+    <div class="card">
+      <ol class="list num">
+        <li>Změnu těchto podmínek poskytovatel oznámí zákazníkovi e-mailem nejméně 30 dní předem. Pokud zákazník se změnou nesouhlasí, může smlouvu vypovědět ke dni účinnosti změny.</li>
+        <li>Smlouva se řídí právem České republiky. Spory řeší příslušné soudy České republiky.</li>
+        <li>Je-li některé ustanovení neplatné, ostatní ustanovení zůstávají v platnosti.</li>
+        <li>Komunikace probíhá v češtině, především e-mailem.</li>
+        <li>Jak zpracováváme údaje zákazníků a návštěvníků tohoto webu, popisuje stránka <a href="/chat-gdpr.html">Ochrana osobních údajů</a>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <nav aria-label="Další stránky"><a href="/">E-shop poradce</a><a href="/chat-gdpr.html">Ochrana osobních údajů</a><a href="/chat-pristupnost.html">Prohlášení o přístupnosti</a><a href="#obsah">Nahoru ↑</a></nav>
+    E-shop poradce · provozuje E-HOK s.r.o.
+  </footer>
+</main>
+</body>
+</html>

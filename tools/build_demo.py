@@ -54,13 +54,12 @@ def page(title, desc, body, extra_head=""):
 <html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}"><meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="/fonts/fonts.css" rel="stylesheet">
 <style>{STYLE}</style>{extra_head}</head><body>
 <div class="note">Tohle je <b>ukázkový e-shop</b> pro vyzkoušení chatbota. Nic se tu neprodává. <a href="/">Zpět na E-shop poradce</a></div>
 <header><div class="in"><a class="logo" href="/ukazkovy-eshop/">Ukázkový <span>e-shop</span></a><nav aria-label="Kategorie">{nav}</nav></div></header>
 <main>{body}</main>
-<footer>Ukázkový e-shop · produkty jsou vymyšlené · <a href="/chat-gdpr.html">Moje data a GDPR</a></footer>
+<footer>Ukázkový e-shop · produkty jsou vymyšlené · <a href="/chat-gdpr.html" target="_blank" rel="noopener">Ochrana osobních údajů</a></footer>
 <script src="/demo-chat.js" defer></script>
 </body></html>
 """

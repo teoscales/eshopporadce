@@ -194,6 +194,32 @@
   .faq details[open] summary::after { transform: rotate(45deg); }
   .faq details p { margin: 0 0 18px; color: var(--ink-2); }
 
+  /* Objednávka */
+  dialog.order { width: min(620px, calc(100% - 24px)); max-height: calc(100% - 24px); padding: 0; border: 0; border-radius: 26px; background: #fbfaf6; color: var(--ink);
+    box-shadow: 0 40px 100px rgba(20,49,58,.35); overflow: auto; }
+  dialog.order::backdrop { background: rgba(20,49,58,.45); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  dialog.order[open] { animation: dlgIn .35s cubic-bezier(.2,.7,.2,1); }
+  @keyframes dlgIn { from { opacity: 0; transform: translateY(18px) scale(.98); } }
+  .order form { position: relative; padding: 30px 30px 26px; }
+  .order .x { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: #fff; cursor: pointer; font-size: 16px; color: var(--ink-2); }
+  .order .kicker { font: 700 13px var(--head); letter-spacing: .1em; text-transform: uppercase; color: var(--teal-2); }
+  .order h2 { font-size: 30px; margin: 6px 0 8px; }
+  .order .lead2 { color: var(--ink-2); margin: 0 0 18px; }
+  .order label { display: block; font-weight: 700; font-size: 14px; margin: 12px 0 6px; }
+  .order label small { font-weight: 600; color: var(--ink-3); }
+  .order input, .order select, .order textarea { width: 100%; font: 16px var(--body); color: var(--ink); background: #fff; border: 1px solid #ddd5c4; border-radius: 12px; padding: 12px 14px; }
+  .order input:focus, .order select:focus, .order textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(19,163,155,.18); }
+  .order .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .order .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .order .privacy { font-size: 13px; color: var(--ink-3); margin: 14px 0 0; }
+  .order .oerr { color: #b3261e; font-weight: 700; font-size: 14px; margin: 10px 0 0; min-height: 1.2em; }
+  .order .oerr a { color: inherit; }
+  .order .send { width: 100%; margin-top: 8px; }
+  .order .send[disabled] { opacity: .7; cursor: wait; }
+  .order .step-done { text-align: center; padding: 18px 0 6px; }
+  .order .ok { width: 72px; height: 72px; margin: 0 auto 14px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: radial-gradient(circle at 30% 25%, #2fc1b5, #0d9089 70%); box-shadow: 0 14px 30px rgba(13,144,137,.3); }
+  .order .ok svg { width: 34px; height: 34px; }
+  @media (max-width: 560px) { .order form { padding: 26px 18px 20px; } .order .two { grid-template-columns: 1fr; } .order h2 { font-size: 26px; } }
   /* Ceník */
   .plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
   .plan { position: relative; display: flex; flex-direction: column; padding: 26px 22px 22px; border-radius: 22px; background: var(--card);
@@ -668,7 +694,7 @@
           <p class="pdesc">Na vyzkoušení a malé e-shopy.</p>
           <div class="price"><b>499</b> Kč<span>/ měsíc</span></div>
           <p class="conv">65 konverzací měsíčně</p>
-          <a class="btn ghost" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Start&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Start.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Start</a>
+          <a class="btn ghost" data-plan="start" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Start&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Start.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Start</a>
         </article>
         <article class="plan hl">
           <span class="badge">Doporučujeme</span>
@@ -676,7 +702,7 @@
           <p class="pdesc">Pro e-shop s pravidelnou návštěvností.</p>
           <div class="price"><b>799</b> Kč<span>/ měsíc</span></div>
           <p class="conv">300 konverzací měsíčně</p>
-          <a class="btn primary" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Standard&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Standard.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Standard</a>
+          <a class="btn primary" data-plan="standard" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Standard&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Standard.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Standard</a>
         </article>
         <article class="plan">
           
@@ -684,7 +710,7 @@
           <p class="pdesc">Pro větší sortiment a víc zákazníků.</p>
           <div class="price"><b>999</b> Kč<span>/ měsíc</span></div>
           <p class="conv">800 konverzací měsíčně</p>
-          <a class="btn ghost" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Profi&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Profi.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Profi</a>
+          <a class="btn ghost" data-plan="profi" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Profi&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Profi.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Profi</a>
         </article>
         <article class="plan">
           
@@ -692,7 +718,7 @@
           <p class="pdesc">Bez počítání, pro nejrušnější e-shopy.</p>
           <div class="price"><b>1 299</b> Kč<span>/ měsíc</span></div>
           <p class="conv">Neomezeně konverzací</p>
-          <a class="btn ghost" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Neomezen%C3%BD&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Neomezen%C3%BD.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Neomezený</a>
+          <a class="btn ghost" data-plan="neomezeny" href="mailto:nexonagencyeu@gmail.com?subject=E-shop%20poradce%3A%20tarif%20Neomezen%C3%BD&amp;body=Dobr%C3%BD%20den%2C%0Am%C3%A1m%20z%C3%A1jem%20o%20tarif%20Neomezen%C3%BD.%0AAdresa%20e-shopu%3A%20%0A">Vybrat Neomezený</a>
         </article>
       </div>
       <div class="incl">
@@ -710,6 +736,44 @@
   </section>
 </main>
 
+<dialog class="order" id="order" aria-labelledby="orderTitle">
+  <form id="orderForm" novalidate>
+    <button class="x" type="button" data-close aria-label="Zavřít">✕</button>
+    <div class="step-form">
+      <span class="kicker">Objednávka</span>
+      <h2 id="orderTitle">Chci E-shop poradce</h2>
+      <p class="lead2">Vyplňte pár údajů. Ozveme se do 24 hodin v pracovní dny a pošleme vám vše potřebné.</p>
+      <label for="oPlan">Tarif</label>
+      <select id="oPlan" name="plan" required>
+        <option value="start">Start · 499 Kč / měsíc · 65 konverzací</option>
+        <option value="standard">Standard · 799 Kč / měsíc · 300 konverzací</option>
+        <option value="profi">Profi · 999 Kč / měsíc · 800 konverzací</option>
+        <option value="neomezeny">Neomezený · 1 299 Kč / měsíc · neomezeně</option>
+      </select>
+      <div class="two">
+        <div><label for="oName">Jméno a příjmení</label><input id="oName" name="name" autocomplete="name" required maxlength="80"></div>
+        <div><label for="oEmail">E-mail</label><input id="oEmail" name="email" type="email" autocomplete="email" required maxlength="254"></div>
+      </div>
+      <div class="two">
+        <div><label for="oShop">Adresa e-shopu</label><input id="oShop" name="shop_url" placeholder="www.vas-eshop.cz" required maxlength="200" inputmode="url"></div>
+        <div><label for="oPhone">Telefon <small>(nepovinné)</small></label><input id="oPhone" name="phone" type="tel" autocomplete="tel" maxlength="30"></div>
+      </div>
+      <label for="oNote">Poznámka <small>(nepovinné)</small></label>
+      <textarea id="oNote" name="note" rows="3" maxlength="1000" placeholder="Např. kdy se vám hodí zavolat, nebo na co se chcete zeptat."></textarea>
+      <div class="hp" aria-hidden="true"><label>Web <input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <p class="privacy">Údaje použijeme jen k vyřízení objednávky a domluvě spolupráce.</p>
+      <p class="oerr" id="oErr" role="alert"></p>
+      <button class="btn primary send" type="submit">Odeslat objednávku</button>
+    </div>
+    <div class="step-done" hidden>
+      <div class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h2>Děkujeme!</h2>
+      <p class="lead2" id="oDoneText">Objednávku jsme přijali. Ozveme se do 24 hodin v pracovní dny.</p>
+      <button class="btn ghost" type="button" data-close>Zavřít</button>
+    </div>
+  </form>
+</dialog>
+
 <footer>
   <div class="wrap">
     <span>© <span id="y">2026</span> E-shop poradce · provozuje Theodoros Tselidis</span>
@@ -723,6 +787,41 @@
 <script src="/demo-chat.js" defer></script>
 <script>
   document.getElementById("y").textContent = new Date().getFullYear();
+  // Objednávka: okno s formulářem, odeslání na Supabase funkci /order (e-maily přes Resend).
+  (function () {
+    var dlg = document.getElementById("order"), form = document.getElementById("orderForm");
+    if (!dlg || typeof dlg.showModal !== "function") return; // starý prohlížeč: zůstane odkaz na e-mail
+    var err = document.getElementById("oErr"), btn = form.querySelector(".send");
+    function open(plan) {
+      form.querySelector(".step-form").hidden = false; form.querySelector(".step-done").hidden = true;
+      err.textContent = ""; if (plan) form.elements["plan"].value = plan;
+      dlg.showModal(); setTimeout(function () { form.elements["name"].focus(); }, 50);
+    }
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("[data-plan]");
+      if (a) { e.preventDefault(); open(a.getAttribute("data-plan")); return; }
+      if (e.target.closest && e.target.closest("#order [data-close]")) dlg.close();
+    });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault(); err.textContent = "";
+      var data = Object.fromEntries(new FormData(form).entries());
+      if (!data.name.trim() || !data.email.trim() || !data.shop_url.trim()) { err.textContent = "Vyplňte prosím jméno, e-mail a adresu e-shopu."; return; }
+      var ep = (window.DEMO_ENDPOINT || "").replace(/\/chat$/, "/order");
+      var mail = "mailto:nexonagencyeu@gmail.com?subject=" + encodeURIComponent("E-shop poradce: tarif " + form.elements["plan"].options[form.elements["plan"].selectedIndex].text.split(" · ")[0]);
+      btn.disabled = true; btn.textContent = "Odesílám…";
+      try {
+        if (!/^https:\/\/[a-z0-9]+\.supabase\.co\/functions\/v1\/order$/.test(ep)) throw new Error("offline");
+        var res = await fetch(ep, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+        var j = {}; try { j = await res.json(); } catch (_) {}
+        if (!res.ok || !j.ok) { err.textContent = j.message || "Objednávku se nepodařilo odeslat."; if (res.status >= 500 || res.status === 429) err.insertAdjacentHTML("beforeend", ' <a href="' + mail + '">Napsat e-mail</a>'); return; }
+        document.getElementById("oDoneText").textContent = "Objednávku jsme přijali" + (j.id ? " (číslo " + j.id + ")" : "") + "." + (j.emailed ? " Potvrzení jsme vám poslali na " + data.email.trim() + "." : "") + " Ozveme se do 24 hodin v pracovní dny.";
+        form.querySelector(".step-form").hidden = true; form.querySelector(".step-done").hidden = false; form.reset();
+      } catch (_) {
+        err.innerHTML = 'Spojení se nepodařilo. <a href="' + mail + '">Napište nám e-mail</a>.';
+      } finally { btn.disabled = false; btn.textContent = "Odeslat objednávku"; }
+    });
+  })();
   // Animace: odhalování sekcí při scrollu, lišta průběhu, menší hlavička po odscrollování.
   (function () {
     var root = document.documentElement;

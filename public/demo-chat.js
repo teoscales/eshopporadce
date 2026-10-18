@@ -1,6 +1,6 @@
 // Živá ukázka chatbota na eshop-poradce.eu (úvodní stránka i ukázkový e-shop).
 // Adresu mění jen tenhle řádek: chat funkce ukázkového Supabase projektu.
-var DEMO_ENDPOINT = "https://rnklanrhrmubzxxplfzc.supabase.co/functions/v1/chat";
+var DEMO_ENDPOINT = "https://qyrwygjgxyjyywzgvwzo.supabase.co/functions/v1/chat";
 
 (function () {
   var ready = /^https:\/\/[a-z0-9]{10,}\.supabase\.co\/functions\/v1\/chat$/.test(DEMO_ENDPOINT);

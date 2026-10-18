@@ -633,17 +633,14 @@
 
 <script>
 (() => {
-  // Každý chatbot má vlastní Supabase projekt. ?p=<ref> otevře administraci jiného projektu
-  // (např. ukázkového chatbota na eshop-poradce.eu); bez parametru hlavní projekt.
-  // Každá firma má vlastní Supabase projekt. Majitel se přihlásí jen e-mailem a heslem na téhle jedné
-  // adrese, stránka zkusí všechny projekty a pustí ho do toho, kde účet sedí. Novou firmu přidej sem.
+  // Všechny firmy běží v jednom Supabase projektu. Majitel e-shopu se přihlásí e-mailem a heslem
+  // svého účtu (funkce /account); výchozí firma projektu i heslem z .env (funkce /admin).
   const PROJECTS = [
-    "qyrwygjgxyjyywzgvwzo", // Řecko nás baví
-    "rnklanrhrmubzxxplfzc", // E-shop poradce (ukázka)
+    "qyrwygjgxyjyywzgvwzo",
   ];
   const apiFor = (ref) => "https://" + ref + ".supabase.co/functions/v1/admin";
-  // Účty firem z webu (registrace na eshop-poradce.eu) běží v projektu E-shop poradce.
-  const ACCOUNT_API = "https://rnklanrhrmubzxxplfzc.supabase.co/functions/v1/account";
+  // Účty firem z webu (registrace na eshop-poradce.eu a přihlášení majitelů e-shopů).
+  const ACCOUNT_API = "https://qyrwygjgxyjyywzgvwzo.supabase.co/functions/v1/account";
   const PRICING = "/#cenik";
   // ?p=<ref> přihlásí rovnou do konkrétního projektu (odkaz z panelu provozovatele).
   const FORCED = (() => { try { const r = new URLSearchParams(location.search).get("p") || ""; return /^[a-z0-9]{20}$/.test(r) ? r : ""; } catch { return ""; } })();

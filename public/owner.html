@@ -376,7 +376,7 @@
 
   <!-- Účty z webu -->
   <div id="vAccounts" class="hidden">
-    <div class="section-head"><div><h2 style="font-size:24px">Účty z webu</h2><div class="muted" style="font-size:13px">Registrace z eshop-poradce.eu. Účet bez tarifu vidí v administraci jen ukázku. Po zaplacení nastav tarif a admin endpoint nasazení firmy (vytvoříš ho přes npm run setup), tarif se do nasazení propíše sám.</div></div><button class="btn" type="button" id="accReload">Načíst znovu</button></div>
+    <div class="section-head"><div><h2 style="font-size:24px">Účty z webu</h2><div class="muted" style="font-size:13px">Registrace z eshop-poradce.eu. Účet bez firmy vidí v administraci jen ukázku. Po zaplacení klikněte na „Založit firmu z účtu“ (nebo účet přiřaďte k existující firmě) a nastavte tarif. Nic se nenasazuje, firma běží hned.</div></div><button class="btn" type="button" id="accReload">Načíst znovu</button></div>
     <div id="accounts"></div>
   </div>
   <!-- Limity zdarma -->
@@ -396,12 +396,22 @@
   <form id="coForm" autocomplete="off">
     <h2 id="mTitle">Firma</h2>
     <div><label for="cName">Název</label><input class="field" id="cName" maxlength="80" required></div>
-    <div><label for="cUrl">Web e-shopu</label><input class="field mono" id="cUrl" placeholder="https://…"></div>
-    <div>
-      <label for="cEp">Admin endpoint nasazení</label>
-      <input class="field mono" id="cEp" placeholder="https://xxxx.supabase.co/functions/v1/admin">
-      <div class="hint">Prázdné = chatbot běží na tomto serveru. U jiného nasazení musí mít stejný OWNER_TOKEN a v ADMIN_ORIGINS tento web.</div>
+    <div><label for="cUrl">Web e-shopu</label><input class="field mono" id="cUrl" placeholder="https://www.vas-eshop.cz">
+      <div class="hint">Z adresy se nastaví domény (s www i bez), ze kterých smí chat fungovat.</div></div>
+    <div><label for="cFeed">XML feed produktů (nepovinné)</label><input class="field mono" id="cFeed" placeholder="https://www.vas-eshop.cz/export/products.xml">
+      <div class="hint">Shoptet: Propojení → XML feedy. Bez feedu se katalog načte přímo z webu.</div></div>
+    <div class="row2">
+      <div><label for="cSrc">Zdroj katalogu</label><select class="field" id="cSrc"><option value="">automaticky</option><option value="hybrid">web + feed</option><option value="xml">jen feed</option><option value="web">jen web</option></select></div>
+      <div><label for="cPlan">Tarif</label><select class="field" id="cPlan"></select></div>
     </div>
+    <div class="row2">
+      <div><label for="cMail">Kontaktní e-mail obchodu</label><input class="field" id="cMail" type="email" placeholder="info@vas-eshop.cz"></div>
+      <div><label for="cBudget">Rozpočet AI (USD / měsíc)</label><input class="field mono" id="cBudget" inputmode="decimal" placeholder="výchozí z .env"></div>
+    </div>
+    <div><label for="cOrig">Další weby pro chat (nepovinné)</label><input class="field mono" id="cOrig" placeholder="https://testovaci-web.cz">
+      <div class="hint">Oddělte čárkou. Hodí se pro testovací doménu e-shopu.</div></div>
+    <div id="cDelBox" class="hidden"><label for="cConfirm">Smazání firmy smaže i její katalog, konverzace a statistiky</label>
+      <input class="field mono" id="cConfirm" placeholder="pro potvrzení napište zkratku firmy"></div>
     <div class="err" id="cErr" role="alert"></div>
     <div class="actions">
       <button class="btn danger" type="button" id="cDel">Odebrat firmu</button>
@@ -444,8 +454,8 @@
 <script>
 (() => {
   const API = "https://qyrwygjgxyjyywzgvwzo.supabase.co/functions/v1/owner";
-  // Účty z webu žijí v projektu E-shop poradce; stejný OWNER_TOKEN.
-  const ACCOUNT_API = "https://rnklanrhrmubzxxplfzc.supabase.co/functions/v1/account";
+  // Účty z webu (registrace na eshop-poradce.eu); stejný projekt i OWNER_TOKEN.
+  const ACCOUNT_API = "https://qyrwygjgxyjyywzgvwzo.supabase.co/functions/v1/account";
   const PLAN_OPTS = [["", "bez omezení (vlastní)"], ["start", "Start · 65 konverzací"], ["standard", "Standard · 300"], ["profi", "Profi · 800"], ["neomezeny", "Neomezený"], ["pozastaveno", "Pozastaveno (chat vypnutý)"]];
   const KEY = "owner:tok";
   const $ = (id) => document.getElementById(id);
@@ -512,25 +522,42 @@
     catch (err) { $("accounts").replaceChildren(el("div", { class: "errbox" }, "Účty se nepodařilo načíst: " + err.message)); }
   }
   $("accReload").addEventListener("click", loadAccounts);
-  function renderAccounts(items) {
-    const waiting = items.filter((a) => !a.plan).length;
+  async function renderAccounts(items) {
+    const waiting = items.filter((a) => !a.tenant_id).length;
     $("navAcc").textContent = String(waiting); $("navAcc").classList.toggle("hidden", !waiting);
     if (!items.length) { $("accounts").replaceChildren(el("div", { class: "empty" }, "Zatím se nikdo neregistroval.")); return; }
+    // seznam firem pro přiřazení účtu
+    let firms = (state.data && state.data.companies) ? state.data.companies.map((r) => r.company) : [];
+    if (!firms.length) { try { firms = (await api({ action: "overview", days: 1 })).companies.map((r) => r.company); } catch {} }
     $("accounts").replaceChildren(...items.map((a) => {
       const sel = planSelect(a.plan, true);
-      const ep = el("input", { class: "field mono", value: a.company_endpoint || "", placeholder: "https://xxxx.supabase.co/functions/v1/admin" });
+      const firm = el("select", { class: "field" }, el("option", { value: "" }, "žádná (jen ukázka)"),
+        ...firms.map((f) => el("option", { value: f.id }, `${f.name} (${f.slug})`)));
+      firm.value = a.tenant_id || "";
+      const feed = el("input", { class: "field mono", placeholder: "XML feed (nepovinné), např. https://www.e-shop.cz/export/products.xml" });
       const note = el("input", { class: "field", value: a.owner_note || "", maxlength: "2000", placeholder: "Poznámka (např. zaplaceno do…)" });
       const msg = el("div", { class: "muted", style: "font-size:13px;min-height:1.2em" });
-      const m = a.company_endpoint && /^https:\/\/([a-z0-9]{20})\.supabase\.co\//.exec(a.company_endpoint);
       const save = el("button", { class: "btn primary", type: "button", onclick: async () => {
         msg.textContent = "Ukládám…";
         try {
-          const r = await accApi({ action: "owner_update", id: a.id, plan: sel.value || null, company_endpoint: ep.value.trim(), owner_note: note.value });
-          msg.textContent = r.remote ? (r.remote.ok ? "Uloženo a tarif propsán do nasazení ✓" : "Uloženo, ale nasazení: " + r.remote.message) : "Uloženo ✓";
+          const r = await accApi({ action: "owner_update", id: a.id, plan: sel.value || null, tenant_id: firm.value || null, owner_note: note.value });
+          msg.textContent = r.account.tenant_id ? "Uloženo ✓ Tarif platí pro firmu " + r.account.tenant_name + "." : "Uloženo ✓";
           Object.assign(a, r.account);
           head.replaceWith(head = accHead(a));
         } catch (err) { msg.textContent = "Chyba: " + err.message; }
       } }, "Uložit");
+      const create = el("button", { class: "btn", type: "button", onclick: async () => {
+        msg.textContent = "Zakládám firmu…";
+        try {
+          const r = await accApi({ action: "owner_create_tenant", id: a.id, feed_url: feed.value.trim() });
+          msg.textContent = `Firma ${r.tenant.name} založena ✓ Teď v sekci Firmy načtěte katalog a pošlete zákazníkovi kód do Shoptetu.`;
+          Object.assign(a, r.account); state.data = null;
+          head.replaceWith(head = accHead(a)); createBox.classList.add("hidden");
+          firm.append(el("option", { value: r.tenant.id }, `${r.tenant.name} (${r.tenant.slug})`)); firm.value = r.tenant.id;
+        } catch (err) { msg.textContent = "Chyba: " + err.message; }
+      } }, "Založit firmu z účtu");
+      const createBox = el("div", { class: a.tenant_id ? "hidden" : "", style: "margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center" },
+        el("div", { style: "flex:1 1 320px" }, feed), create);
       const del = el("button", { class: "btn danger", type: "button", onclick: async () => {
         if (!confirmDel.checked) { msg.textContent = "Pro smazání nejdřív zaškrtni potvrzení."; return; }
         try { await accApi({ action: "owner_delete", id: a.id }); loadAccounts(); } catch (err) { msg.textContent = "Chyba: " + err.message; }
@@ -540,11 +567,11 @@
       return el("section", { class: "panel", style: "margin-bottom:14px" }, head,
         el("div", { class: "row2", style: "margin-top:12px" },
           el("div", {}, el("label", {}, "Tarif"), sel),
-          el("div", {}, el("label", {}, "Admin endpoint nasazení"), ep)),
+          el("div", {}, el("label", {}, "Firma (chatbot)"), firm)),
+        createBox,
         el("div", { style: "margin-top:10px" }, note),
         el("div", { class: "actions", style: "margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between" },
-          el("span", { style: "display:flex;gap:10px;align-items:center;flex-wrap:wrap" }, save,
-            m ? el("a", { class: "btn", href: "chat-admin.html?p=" + m[1], target: "_blank", rel: "noopener" }, "Administrace ↗") : null),
+          save,
           el("span", { style: "display:flex;gap:8px;align-items:center" }, el("label", { class: "check", style: "margin:0" }, confirmDel, " potvrdit"), del)),
         msg);
     }));
@@ -555,7 +582,7 @@
         el("a", { href: "mailto:" + a.email }, a.email), " · ", el("a", { href: a.shop_url, target: "_blank", rel: "noopener" }, a.shop_url),
         " · registrace " + fmtDT.format(new Date(a.created_at)) + " · přihlášení " + ago(a.last_login_at))),
       el("span", { class: "pill " + (a.active ? "ok" : a.plan ? "warn" : "") }, el("i", { class: "dot" }),
-        a.active ? (a.plan_name || "bez tarifu") + " · běží" : a.plan ? a.plan_name + " · čeká na nasazení" : "jen ukázka"));
+        a.active ? `${a.tenant_name} · ${a.plan_name || "bez omezení"}` : a.plan ? a.plan_name + " · čeká na založení firmy" : "jen ukázka"));
   }
 
   // --- přihlášení -----------------------------------------------------------
@@ -654,7 +681,7 @@
       const c = row.company, s = row.summary;
       const card = el("button", { type: "button", class: "card", onclick: () => openCompany(c.id) },
         el("div", { class: "hd" }, avatar(s ? (s.name || c.name) : c.name, s && s.avatar_url),
-          el("div", { style: "min-width:0;flex:1" }, el("div", { class: "name" }, c.name), el("div", { class: "url" }, c.shop_url || (c.endpoint ? "vzdálené nasazení" : "tento server"))),
+          el("div", { style: "min-width:0;flex:1" }, el("div", { class: "name" }, c.name), el("div", { class: "url" }, (c.shop_url || "bez webu") + " · " + c.slug)),
           status(row)),
       );
       if (!s) { card.append(el("div", { class: "errbox", style: "margin:0" }, row.error)); return card; }
@@ -709,10 +736,37 @@
   }
 
   // Odkaz do administrace firmy (vzdálené nasazení = jiný Supabase projekt → ?p=<ref>).
+  // Administrace výchozí firmy jde otevřít heslem z .env; ostatní firmy se přihlašují svým účtem.
   function adminLink(c) {
-    const m = c.endpoint && /^https:\/\/([a-z0-9]{20})\.supabase\.co\//.exec(c.endpoint);
-    const href = "chat-admin.html" + (m ? "?p=" + m[1] : "");
-    return el("a", { class: "btn", href, target: "_blank", rel: "noopener" }, "Administrace ↗");
+    return c.slug === "hlavni" ? el("a", { class: "btn", href: "chat-admin.html", target: "_blank", rel: "noopener" }, "Administrace ↗") : null;
+  }
+  function setupPanel(c) {
+    const code = el("textarea", { class: "field mono", rows: "2", readonly: "", style: "font-size:12px;width:100%" }); code.value = c.snippet || "";
+    const copyMsg = el("span", { class: "muted", style: "font-size:13px" });
+    const syncMsg = el("span", { class: "muted", style: "font-size:13px" });
+    const em = el("input", { class: "field", type: "email", placeholder: "e-mail majitele e-shopu", autocomplete: "off" });
+    const pw = el("input", { class: "field mono", type: "text", placeholder: "heslo (aspoň 12 znaků)", autocomplete: "off" });
+    const accMsg = el("div", { class: "muted", style: "font-size:13px;min-height:1.2em" });
+    return el("section", { class: "panel", style: "margin-bottom:16px" }, el("h2", {}, "Spuštění na e-shopu"),
+      el("div", { class: "muted", style: "font-size:13px;margin-bottom:8px" }, `Zkratka ${c.slug} · weby pro chat: ${(c.allowed_origins || []).join(", ") || "žádné (doplňte web e-shopu)"}`),
+      el("label", {}, "Kód do Shoptetu (Vzhled a obsah → Editor → HTML kód → Zápatí)"), code,
+      el("div", { style: "display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px" },
+        el("button", { class: "btn", type: "button", onclick: async () => { try { await navigator.clipboard.writeText(code.value); copyMsg.textContent = "Zkopírováno ✓"; } catch { code.select(); copyMsg.textContent = "Označeno, zkopírujte Ctrl+C"; } } }, "Kopírovat kód"), copyMsg,
+        el("button", { class: "btn primary", type: "button", onclick: async (e) => {
+          e.target.disabled = true; syncMsg.textContent = "Načítám katalog, může to trvat i pár minut…";
+          try { const r = await api({ action: "sync_now", company_id: c.id }); syncMsg.textContent = `Hotovo ✓ ${fmtInt.format(r.total || 0)} produktů, změněno ${fmtInt.format(r.changed || 0)}`; }
+          catch (err) { if (err.message !== "unauthorized") syncMsg.textContent = "Chyba: " + err.message; }
+          finally { e.target.disabled = false; }
+        } }, "Načíst katalog teď"), syncMsg),
+      el("h2", { style: "margin-top:18px" }, "Přístup do administrace pro firmu"),
+      el("div", { class: "row2" }, em, pw),
+      el("div", { style: "margin-top:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap" },
+        el("button", { class: "btn", type: "button", onclick: async () => {
+          accMsg.textContent = "";
+          try { await accApi({ action: "owner_create_account", email: em.value.trim(), password: pw.value, name: c.name, tenant_id: c.id }); accMsg.textContent = `Účet vytvořen ✓ Majitel se přihlásí na eshop-poradce.eu/chat-admin.html e-mailem ${em.value.trim()}.`; pw.value = ""; }
+          catch (err) { accMsg.textContent = "Chyba: " + err.message; }
+        } }, "Vytvořit přihlášení"), el("span", { class: "muted", style: "font-size:12px" }, "Nebo účet z registrace přiřaďte k firmě v sekci Účty.")),
+      accMsg);
   }
 
   function renderDetail(r) {
@@ -722,11 +776,11 @@
       el("div", { class: "who" }, avatar(s ? (s.name || c.name) : c.name, s && s.avatar_url),
         el("div", {}, el("h2", {}, c.name), el("div", { class: "muted mono", style: "font-size:12px" },
           c.shop_url ? el("a", { href: c.shop_url, target: "_blank", rel: "noopener" }, c.shop_url) : "bez webu",
-          " · ", c.endpoint ? "vzdálené nasazení" : "tento server"))),
+          " · ", c.slug))),
       el("div", { class: "tools" }, status(r.summary ? { summary: s } : { error: r.error }), adminLink(c), el("button", { class: "btn", type: "button", onclick: () => openForm(c) }, "Upravit")));
     const parts = [head];
     if (!s) {
-      parts.push(el("div", { class: "errbox" }, r.error), notesPanel(c));
+      parts.push(el("div", { class: "errbox" }, r.error), setupPanel(c), notesPanel(c));
       $("detail").replaceChildren(...parts);
       return;
     }
@@ -753,6 +807,7 @@
             catch (err) { if (err.message !== "unauthorized") msg.textContent = "Chyba: " + err.message; }
           } }, "Nastavit tarif"), msg)));
     }
+    parts.push(setupPanel(c));
     // Graf nákladů + klíče
     parts.push(el("div", { class: "grid" },
       el("section", { class: "panel" }, el("h2", {}, "Náklady za den (USD)"), costChart(s.daily, s.period_days)),
@@ -928,11 +983,18 @@
 
   // --- formulář firmy ------------------------------------------------------------
   let editing = null, delArmed = false;
-  function openForm(c) {
+  function openForm(c, summary) {
     editing = c; delArmed = false;
     $("mTitle").textContent = c ? "Upravit firmu" : "Nová firma";
-    $("cName").value = c ? c.name : ""; $("cUrl").value = c && c.shop_url ? c.shop_url : ""; $("cEp").value = c && c.endpoint ? c.endpoint : "";
-    $("cDel").classList.toggle("hidden", !c); $("cDel").textContent = "Odebrat firmu"; $("cErr").textContent = "";
+    $("cName").value = c ? c.name : ""; $("cUrl").value = c && c.shop_url ? c.shop_url : "";
+    $("cFeed").value = c && c.feed_url ? c.feed_url : ""; $("cSrc").value = c && c.catalog_source ? c.catalog_source : "";
+    $("cPlan").replaceChildren(...PLAN_OPTS.map(([v, l]) => el("option", { value: v }, l))); $("cPlan").value = c && c.plan ? c.plan : "";
+    $("cMail").value = ""; $("cBudget").value = c && c.monthly_budget_usd !== null && c.monthly_budget_usd !== undefined ? String(c.monthly_budget_usd) : "";
+    $("cMail").placeholder = c ? "beze změny" : "info@vas-eshop.cz";
+    const fromUrl = new Set(c && c.shop_url ? (() => { try { const h = new URL(c.shop_url).hostname.replace(/^www\./, ""); return ["https://" + h, "https://www." + h]; } catch { return []; } })() : []);
+    $("cOrig").value = c ? (c.allowed_origins || []).filter((o) => !fromUrl.has(o)).join(", ") : "";
+    $("cConfirm").value = ""; $("cDelBox").classList.toggle("hidden", !c || c.slug === "hlavni");
+    $("cDel").classList.toggle("hidden", !c || c.slug === "hlavni"); $("cDel").textContent = "Smazat firmu"; $("cErr").textContent = "";
     $("modal").classList.remove("hidden"); $("cName").focus();
   }
   function closeForm() { $("modal").classList.add("hidden"); }
@@ -942,16 +1004,21 @@
   $("coForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     try {
-      const r = await api({ action: "company_save", id: editing ? editing.id : undefined, name: $("cName").value, shop_url: $("cUrl").value, endpoint: $("cEp").value });
+      const body = { action: "company_save", id: editing ? editing.id : undefined, name: $("cName").value, shop_url: $("cUrl").value,
+        feed_url: $("cFeed").value, catalog_source: $("cSrc").value || null, plan: $("cPlan").value || null,
+        monthly_budget_usd: $("cBudget").value.trim() ? Number($("cBudget").value.replace(",", ".")) : null, extra_origins: $("cOrig").value,
+        mode: editing ? editing.mode : "shop" };
+      if ($("cMail").value.trim()) body.contact_email = $("cMail").value.trim();
+      const r = await api(body);
       closeForm();
       if (editing) openCompany(r.company.id); else loadList();
     } catch (err) { if (err.message !== "unauthorized") $("cErr").textContent = err.message; }
   });
   $("cDel").addEventListener("click", async () => {
     if (!editing) return;
-    if (!delArmed) { delArmed = true; $("cDel").textContent = "Opravdu? Klikni znovu"; return; }
+    if (!delArmed) { delArmed = true; $("cDel").textContent = "Opravdu? Klikni znovu"; $("cConfirm").focus(); return; }
     try {
-      await api({ action: "company_delete", id: editing.id });
+      await api({ action: "company_delete", id: editing.id, confirm: $("cConfirm").value.trim() });
       closeForm(); state.companyId = null; showView("list");
     } catch (err) { if (err.message !== "unauthorized") $("cErr").textContent = err.message; }
   });

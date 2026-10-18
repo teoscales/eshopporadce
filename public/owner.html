@@ -297,6 +297,7 @@
     <nav class="nav" aria-label="Sekce">
       <button type="button" data-view="home" aria-current="page">Domů</button>
       <button type="button" data-view="list">Firmy<span class="count hidden" id="navBad"></span></button>
+      <button type="button" data-view="accounts">Účty<span class="count hidden" id="navAcc"></span></button>
       <button type="button" data-view="cal">Kalendář</button>
       <button type="button" data-view="limits">Limity<span class="count hidden" id="navLim"></span></button>
     </nav>
@@ -373,6 +374,11 @@
     <div class="keycosts" id="keyCosts"></div>
   </div>
 
+  <!-- Účty z webu -->
+  <div id="vAccounts" class="hidden">
+    <div class="section-head"><div><h2 style="font-size:24px">Účty z webu</h2><div class="muted" style="font-size:13px">Registrace z eshop-poradce.eu. Účet bez tarifu vidí v administraci jen ukázku. Po zaplacení nastav tarif a admin endpoint nasazení firmy (vytvoříš ho přes npm run setup), tarif se do nasazení propíše sám.</div></div><button class="btn" type="button" id="accReload">Načíst znovu</button></div>
+    <div id="accounts"></div>
+  </div>
   <!-- Limity zdarma -->
   <div id="vLimits" class="hidden">
     <div class="section-head"><div><h2 style="font-size:24px">Limity zdarma</h2><div class="muted" id="limSub" style="font-size:13px"></div></div><button class="btn" type="button" id="limReload">Načíst znovu</button></div>
@@ -438,6 +444,9 @@
 <script>
 (() => {
   const API = "https://qyrwygjgxyjyywzgvwzo.supabase.co/functions/v1/owner";
+  // Účty z webu žijí v projektu E-shop poradce; stejný OWNER_TOKEN.
+  const ACCOUNT_API = "https://rnklanrhrmubzxxplfzc.supabase.co/functions/v1/account";
+  const PLAN_OPTS = [["", "bez omezení (vlastní)"], ["start", "Start · 65 konverzací"], ["standard", "Standard · 300"], ["profi", "Profi · 800"], ["neomezeny", "Neomezený"], ["pozastaveno", "Pozastaveno (chat vypnutý)"]];
   const KEY = "owner:tok";
   const $ = (id) => document.getElementById(id);
   const fmtInt = new Intl.NumberFormat("cs-CZ");
@@ -472,6 +481,81 @@
     if (res.status === 401) { logout("Špatný token."); throw new Error("unauthorized"); }
     if (!res.ok) throw new Error(data.message || data.error || ("HTTP " + res.status));
     return data;
+  }
+
+  async function accApi(body) {
+    const res = await fetch(ACCOUNT_API, { method: "POST", headers: { "Content-Type": "application/json", "X-Owner-Token": token }, body: JSON.stringify(body) });
+    let data = {};
+    try { data = await res.json(); } catch {}
+    if (!res.ok) throw new Error(data.message || data.error || ("HTTP " + res.status));
+    return data;
+  }
+  function planSelect(value, accountMode) {
+    const sel = el("select", { class: "field" });
+    for (const [v, label] of PLAN_OPTS) {
+      if (accountMode && v === "") { sel.append(el("option", { value: "" }, "žádný (jen ukázka)")); continue; }
+      const o = el("option", { value: v }, label); if ((value || "") === v) o.selected = true; sel.append(o);
+    }
+    if (!value) sel.value = "";
+    return sel;
+  }
+  function planText(p) {
+    if (!p || !p.plan) return "bez omezení";
+    if (p.reason === "paused") return "pozastaveno, chat vypnutý";
+    return `${p.name}: ${fmtInt.format(p.used)}${p.limit ? " z " + fmtInt.format(p.limit) : ""} konverzací tento měsíc` + (p.reason === "limit" ? " · VYČERPÁNO" : "");
+  }
+
+  // --- účty z webu ------------------------------------------------------------
+  async function loadAccounts() {
+    $("accounts").replaceChildren(el("div", { class: "empty" }, "Načítám…"));
+    try { renderAccounts((await accApi({ action: "owner_list" })).items); }
+    catch (err) { $("accounts").replaceChildren(el("div", { class: "errbox" }, "Účty se nepodařilo načíst: " + err.message)); }
+  }
+  $("accReload").addEventListener("click", loadAccounts);
+  function renderAccounts(items) {
+    const waiting = items.filter((a) => !a.plan).length;
+    $("navAcc").textContent = String(waiting); $("navAcc").classList.toggle("hidden", !waiting);
+    if (!items.length) { $("accounts").replaceChildren(el("div", { class: "empty" }, "Zatím se nikdo neregistroval.")); return; }
+    $("accounts").replaceChildren(...items.map((a) => {
+      const sel = planSelect(a.plan, true);
+      const ep = el("input", { class: "field mono", value: a.company_endpoint || "", placeholder: "https://xxxx.supabase.co/functions/v1/admin" });
+      const note = el("input", { class: "field", value: a.owner_note || "", maxlength: "2000", placeholder: "Poznámka (např. zaplaceno do…)" });
+      const msg = el("div", { class: "muted", style: "font-size:13px;min-height:1.2em" });
+      const m = a.company_endpoint && /^https:\/\/([a-z0-9]{20})\.supabase\.co\//.exec(a.company_endpoint);
+      const save = el("button", { class: "btn primary", type: "button", onclick: async () => {
+        msg.textContent = "Ukládám…";
+        try {
+          const r = await accApi({ action: "owner_update", id: a.id, plan: sel.value || null, company_endpoint: ep.value.trim(), owner_note: note.value });
+          msg.textContent = r.remote ? (r.remote.ok ? "Uloženo a tarif propsán do nasazení ✓" : "Uloženo, ale nasazení: " + r.remote.message) : "Uloženo ✓";
+          Object.assign(a, r.account);
+          head.replaceWith(head = accHead(a));
+        } catch (err) { msg.textContent = "Chyba: " + err.message; }
+      } }, "Uložit");
+      const del = el("button", { class: "btn danger", type: "button", onclick: async () => {
+        if (!confirmDel.checked) { msg.textContent = "Pro smazání nejdřív zaškrtni potvrzení."; return; }
+        try { await accApi({ action: "owner_delete", id: a.id }); loadAccounts(); } catch (err) { msg.textContent = "Chyba: " + err.message; }
+      } }, "Smazat účet");
+      const confirmDel = el("input", { type: "checkbox" });
+      let head = accHead(a);
+      return el("section", { class: "panel", style: "margin-bottom:14px" }, head,
+        el("div", { class: "row2", style: "margin-top:12px" },
+          el("div", {}, el("label", {}, "Tarif"), sel),
+          el("div", {}, el("label", {}, "Admin endpoint nasazení"), ep)),
+        el("div", { style: "margin-top:10px" }, note),
+        el("div", { class: "actions", style: "margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between" },
+          el("span", { style: "display:flex;gap:10px;align-items:center;flex-wrap:wrap" }, save,
+            m ? el("a", { class: "btn", href: "chat-admin.html?p=" + m[1], target: "_blank", rel: "noopener" }, "Administrace ↗") : null),
+          el("span", { style: "display:flex;gap:8px;align-items:center" }, el("label", { class: "check", style: "margin:0" }, confirmDel, " potvrdit"), del)),
+        msg);
+    }));
+  }
+  function accHead(a) {
+    return el("div", { class: "who", style: "display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap" },
+      el("div", {}, el("h2", { style: "margin:0" }, a.name), el("div", { class: "muted mono", style: "font-size:12px" },
+        el("a", { href: "mailto:" + a.email }, a.email), " · ", el("a", { href: a.shop_url, target: "_blank", rel: "noopener" }, a.shop_url),
+        " · registrace " + fmtDT.format(new Date(a.created_at)) + " · přihlášení " + ago(a.last_login_at))),
+      el("span", { class: "pill " + (a.active ? "ok" : a.plan ? "warn" : "") }, el("i", { class: "dot" }),
+        a.active ? (a.plan_name || "bez tarifu") + " · běží" : a.plan ? a.plan_name + " · čeká na nasazení" : "jen ukázka"));
   }
 
   // --- přihlášení -----------------------------------------------------------
@@ -657,6 +741,18 @@
       stat("Poslední volání", ago(t.last_call), s.model || "-"),
     ));
 
+    // Tarif firmy (limit konverzací; po vyčerpání se chat sám vypne a firma to vidí v administraci)
+    {
+      const sel = planSelect(s.plan ? s.plan.plan : null, false);
+      const msg = el("span", { class: "muted", style: "font-size:13px" }, planText(s.plan));
+      parts.push(el("section", { class: "panel", style: "margin-bottom:16px" }, el("h2", {}, "Tarif"),
+        el("div", { style: "display:flex;gap:10px;flex-wrap:wrap;align-items:center" }, el("div", { style: "min-width:240px" }, sel),
+          el("button", { class: "btn primary", type: "button", onclick: async () => {
+            msg.textContent = "Ukládám…";
+            try { const r = await api({ action: "plan_set", company_id: c.id, plan: sel.value || null }); msg.textContent = "Uloženo ✓ · " + planText(r.plan); }
+            catch (err) { if (err.message !== "unauthorized") msg.textContent = "Chyba: " + err.message; }
+          } }, "Nastavit tarif"), msg)));
+    }
     // Graf nákladů + klíče
     parts.push(el("div", { class: "grid" },
       el("section", { class: "panel" }, el("h2", {}, "Náklady za den (USD)"), costChart(s.daily, s.period_days)),
@@ -863,19 +959,19 @@
   // --- pohledy ------------------------------------------------------------------
   function setView(v) {
     state.view = v;
-    for (const [id, name] of [["vHome", "home"], ["vList", "list"], ["vDetail", "detail"], ["vCal", "cal"], ["vLimits", "limits"]]) $(id).classList.toggle("hidden", v !== name);
+    for (const [id, name] of [["vHome", "home"], ["vList", "list"], ["vDetail", "detail"], ["vCal", "cal"], ["vLimits", "limits"], ["vAccounts", "accounts"]]) $(id).classList.toggle("hidden", v !== name);
     document.querySelectorAll("[data-view]").forEach((b) => {
       const on = b.dataset.view === v || (v === "detail" && b.dataset.view === "list");
       if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
     $("periodSeg").classList.toggle("hidden", !(v === "list" || v === "detail"));
     document.body.classList.toggle("home-mode", v === "home");
-    if (v === "home" || v === "cal" || v === "limits") $("updated").textContent = v === "home" ? "// přehled dne" : v === "cal" ? "// kalendář" : "// limity zdarma";
+    if (v === "home" || v === "cal" || v === "limits" || v === "accounts") $("updated").textContent = v === "home" ? "// přehled dne" : v === "cal" ? "// kalendář" : v === "accounts" ? "// účty z webu" : "// limity zdarma";
   }
   function showView(v) {
     if (v !== "detail") state.companyId = null;
     setView(v);
-    if (v === "home") loadHome(); else if (v === "cal") loadCal(); else if (v === "list") loadList(); else if (v === "limits") loadLimits();
+    if (v === "home") loadHome(); else if (v === "cal") loadCal(); else if (v === "list") loadList(); else if (v === "limits") loadLimits(); else if (v === "accounts") loadAccounts();
   }
   document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => showView(b.dataset.view)));
 

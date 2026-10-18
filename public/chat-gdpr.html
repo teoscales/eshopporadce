@@ -160,7 +160,7 @@
     <div class="badge" aria-hidden="true"><div class="core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.4-7.5 9.5-4.3-1.1-7.5-4.9-7.5-9.5V6z"/><path d="M8.6 12.2l2.4 2.4 4.4-4.6"/></svg></div></div>
     <h1>Ochrana <span class="accent">osobních údajů</span></h1>
     <p class="sub">Web, objednávky a ukázkový chat E-shop poradce</p>
-    <p class="meta">Informace o zpracování osobních údajů na eshop-poradce.eu · účinné od 17. 10. 2026</p>
+    <p class="meta">Informace o zpracování osobních údajů na eshop-poradce.eu · účinné od 18. 10. 2026</p>
     <ul class="toc" aria-label="Obsah stránky">
       <li><a href="#prehled">Přehled</a></li>
       <li><a href="#spravce">Kdo jsme</a></li>
@@ -222,6 +222,12 @@
         <li><strong>Čas odeslání a potvrzení obchodních podmínek</strong>, abychom doložili, co a kdy jste objednali.</li>
         <li><strong>IP adresu jen jako hash</strong> (jednosměrně zašifrovanou) na ochranu proti hromadnému odesílání formuláře.</li>
       </ul>
+      <h3>Účet na webu</h3>
+      <ul class="list">
+        <li><strong>Jméno a příjmení, e-mail a adresu e-shopu</strong>, abychom vám mohli účet vést, ozvat se a později k němu přiřadit objednaný tarif.</li>
+        <li><strong>Heslo jen v zašifrované podobě</strong> (jednosměrný hash PBKDF2). Vaše heslo neznáme a nikdo ho z databáze nezjistí.</li>
+        <li><strong>Čas registrace a posledního přihlášení, potvrzenou verzi obchodních podmínek a tarif.</strong> Přihlášení drží náhodný token, který si prohlížeč pamatuje jen do zavření okna (sessionStorage) a na serveru vyprší po 7 dnech.</li>
+      </ul>
       <h3>Ukázkový chat</h3>
       <ul class="list">
         <li><strong>Text vašich zpráv a odpovědi asistenta</strong>, abychom mohli odpovědět a navázat na předchozí otázky.</li>
@@ -242,6 +248,7 @@
     <div class="sec-title"><span class="num" aria-hidden="true">3</span><h2 id="s3">Proč a na jakém základě</h2></div>
     <div class="card">
       <p><strong>Objednávka:</strong> údaje z formuláře potřebujeme k jednání o smlouvě a k jejímu plnění (čl. 6 odst. 1 písm. b) GDPR). Pošleme vám potvrzení e-mailem a ozveme se kvůli spuštění služby. Pokud smlouvu uzavřeme, údaje na fakturách uchováváme, protože nám to ukládají účetní a daňové předpisy (čl. 6 odst. 1 písm. c) GDPR). Bez vyplnění povinných polí objednávku vyřídit nemůžeme.</p>
+      <p><strong>Účet:</strong> údaje k účtu potřebujeme k jednání o smlouvě a k jejímu plnění (čl. 6 odst. 1 písm. b) GDPR). Registraci z jednoho místa omezujeme a hesla ukládáme jen jako hash, abychom účty ochránili před zneužitím.</p>
       <p><strong>Ukázkový chat:</strong> údaje zpracováváme, abychom vám mohli odpovědět, zajistili bezpečný provoz a zabránili zneužití. Právním základem je náš oprávněný zájem (čl. 6 odst. 1 písm. f) GDPR) poskytovat službu, o kterou sami požádáte napsáním zprávy, a chránit ji před zneužitím. Vůči tomuto zpracování můžete kdykoli vznést námitku. Konverzace může provozovatel číst v neveřejné, heslem chráněné administraci, aby kontroloval kvalitu odpovědí a zlepšoval asistenta.</p>
       <p><strong>Provoz webu:</strong> technické záznamy slouží k zabezpečení webu (oprávněný zájem, čl. 6 odst. 1 písm. f) GDPR).</p>
       <p>Údaje neprodáváme, bez vašeho souhlasu je nepoužíváme k reklamě (viz <a href="#cookies">Cookies a měření</a>) a neděláme na jejich základě automatizovaná rozhodnutí s právními nebo podobně závažnými účinky. Obchodní sdělení (newsletter) vám bez vašeho souhlasu neposíláme.</p>
@@ -255,6 +262,9 @@
         <thead><tr><th scope="col">Údaj</th><th scope="col">Doba uložení</th></tr></thead>
         <tbody>
           <tr><td>Objednávka z formuláře (pokud smlouvu neuzavřeme)</td><td><span class="pill">2 roky</span> od odeslání, poté se automaticky smaže</td></tr>
+          <tr><td>Účet bez tarifu</td><td><span class="pill">do smazání</span> smažete ho sami v administraci, jinak se smaže 12 měsíců po posledním přihlášení</td></tr>
+          <tr><td>Účet s tarifem</td><td><span class="pill">po dobu smlouvy</span> a poté podle řádku níže</td></tr>
+          <tr><td>Přihlášení do účtu (token)</td><td><span class="pill">7 dní</span> nebo do odhlášení</td></tr>
           <tr><td>Údaje zákazníků na smlouvě a fakturách</td><td><span class="pill">po dobu smlouvy</span> a poté po dobu, kterou ukládají účetní a daňové předpisy (zpravidla 10 let)</td></tr>
           <tr><td>Konverzace z ukázkového chatu (text zpráv)</td><td><span class="pill">30 dní</span> od poslední zprávy, poté se automaticky smaže</td></tr>
           <tr><td>Odpovědi označené v administraci jako chybné nebo dobré (kopie dotazu a odpovědi)</td><td><span class="pill">90 dní</span> slouží ke zlepšování asistenta</td></tr>

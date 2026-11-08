@@ -5,7 +5,7 @@ import json, html, os
 from xml.sax.saxutils import escape
 from products import PRODUCTS
 
-BASE = "https://eshop-poradce.eu/ukazkovy-eshop"
+BASE = "https://www.eshop-poradce.eu/ukazkovy-eshop"
 ROOT = os.path.join(os.path.dirname(__file__), "..", "public", "ukazkovy-eshop")
 CATS = []
 for p in PRODUCTS:
@@ -52,7 +52,7 @@ def page(title, desc, body, extra_head=""):
     nav = "".join(f'<a href="/ukazkovy-eshop/#{c.lower().replace(" ", "-")}">{html.escape(c)}</a>' for c in CATS)
     return f"""<!doctype html>
 <html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}"><meta name="robots" content="noindex">
+<title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}"><meta name="robots" content="noindex, follow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link href="/fonts/fonts.css" rel="stylesheet">
 <style>{STYLE}</style>{extra_head}</head><body>

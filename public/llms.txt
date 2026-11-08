@@ -1,0 +1,29 @@
+# E-shop poradce
+
+> E-shop poradce je AI nákupní asistent (chatbot) pro e-shopy, připravený hlavně pro Shoptet. Na webu obchodu odpovídá zákazníkům na dotazy k sortimentu, doporučuje produkty z katalogu e-shopu a u každého ukazuje cenu, dostupnost a odkaz na produkt. Službu provozuje E-HOK s. r. o. (Slovensko).
+
+## Co asistent dělá
+- Odpovídá zákazníkům vlastními slovy na dotazy k nabídce e-shopu, na webu i v mobilu.
+- Doporučuje produkty z katalogu e-shopu (XML feed nebo přímo web) s cenou, dostupností a odkazem.
+- Dostupnost umí ověřit přímo na stránce produktu.
+- Neprovádí objednávky ani platby a nežádá od zákazníků osobní údaje.
+- Majitel e-shopu vidí v administraci konverzace, statistiky a nejčastěji doporučované produkty a může označit špatné odpovědi.
+- Do Shoptetu se vkládá jedním řádkem kódu do zápatí webu.
+
+## Ceník (cena za jeden e-shop měsíčně, bez DPH)
+- Start: 499 Kč, 65 konverzací měsíčně
+- Standard: 799 Kč, 300 konverzací měsíčně
+- Profi: 999 Kč, 800 konverzací měsíčně
+- Neomezený: 1 299 Kč, bez limitu konverzací (běžné užívání jednoho e-shopu)
+Služba je určena podnikatelům.
+
+## Odkazy
+- [Hlavní stránka a živá ukázka chatu](https://www.eshop-poradce.eu/)
+- [Ceník](https://www.eshop-poradce.eu/#cenik)
+- [Časté otázky](https://www.eshop-poradce.eu/#otazky)
+- [Ukázkový e-shop s chatbotem](https://www.eshop-poradce.eu/ukazkovy-eshop/) (smyšlený obchod, nic se neprodává)
+- [Obchodní podmínky](https://www.eshop-poradce.eu/obchodni-podminky.html)
+- [Ochrana osobních údajů](https://www.eshop-poradce.eu/chat-gdpr.html)
+
+## Kontakt
+E-HOK s. r. o., IČO 57 655 197, Matičné námestie 1427/11A, 022 01 Čadca, Slovenská republika · nexonagencyeu@gmail.com · +420 725 332 542

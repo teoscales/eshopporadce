@@ -18,7 +18,7 @@
       ]
     },
     {
-      "source": "/(chat-admin|owner|chat-test).html",
+      "source": "/(chat-admin|owner|chat-test)(.html)?",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -56,6 +56,51 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    },
+    {
+      "source": "/ukazkovy-eshop/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/(llms.txt|sitemap.xml|robots.txt)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(png|svg|jpg)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "eshop-poradce.eu"
+        }
+      ],
+      "destination": "https://www.eshop-poradce.eu/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }

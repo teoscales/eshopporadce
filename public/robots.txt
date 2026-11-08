@@ -1,6 +1,7 @@
+# E-shop poradce · https://www.eshop-poradce.eu
+# Neveřejné stránky (administrace, panel provozovatele, test) mají noindex v hlavičce i v HTML.
+# Proto je robotům neblokujeme: kdyby je robots.txt zakázal, vyhledávač by noindex neviděl.
 User-agent: *
-Disallow: /chat-admin.html
-Disallow: /owner.html
-Disallow: /chat-test.html
+Allow: /
 
-Sitemap: https://eshop-poradce.eu/sitemap.xml
+Sitemap: https://www.eshop-poradce.eu/sitemap.xml
